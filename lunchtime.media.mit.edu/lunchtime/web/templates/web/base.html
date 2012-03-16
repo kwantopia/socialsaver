@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+{% load facebook_tags %}
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="icon" type="image/png" href="/media/default/mticon.png">
+<title>{% block page_title %}{% endblock %} - MealTime from the MIT Media Lab</title>
+<link href="/styles/default/base.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="/styles/default/purple.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="/styles/blueprint/screen.css" rel="stylesheet" type="text/css" media="screen,projection" />
+<link href="/styles/blueprint/print.css" rel="stylesheet" type="text/css" media="print" />
+<!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
+{% block redirect %}
+{% endblock %}
+
+{% facebook_js %}
+</head>
+
+<body>
+
+<div class="container">
+  <div class="prepend-2 span-20 last">
+  
+	<div id="header">
+
+      <div class="span-20 last">
+        <div class="span-14">
+          <div id="logo">
+              <h1><a href="/"><img src="/media/default/MealTime50.png" style="border:none" /><span class="img_replace">MealTime</span></a></h1>
+              <p id="frommedialab"> from the <a href="http://www.media.mit.edu/">MIT Media Lab</a></p>
+          </div>
+        </div><!-- .span-14 -->
+
+        <div class="span-6 last">
+          <div id="user">
+          {% if user.is_authenticated %}
+            <table border='0'>
+              <tr>
+                  <td>
+                      Welcome <a href="{% url web.views.profile %}">{% show_facebook_full_name fbuser %}</a>  {% show_logout %} <br />
+                      {% show_facebook_photo fbuser %}
+                  </td>
+              </tr>
+            </table>
+          {% else %}
+            <table border='0'>
+              <tr>
+              <td> 
+                  <!--<a href="{% url web.views.faq %}">How is Facebook used?</a>-->
+                  <b>Login by clicking:</b>
+              </td>
+              <td nowrap valign='middle' align='center'>
+                {% show_connect_button %}
+              </td>
+              </tr>
+            </table>
+          {% endif %}
+          </div><!-- end #user --> 
+        </div><!-- .span-6 -->
+      </div><!-- .span-20 -->
+      
+      <div class="span-20 last">
+        <div id="menu">
+          <ul>
+            {% block tabnav %}
+              <li><a href="{% url web.views.index %}">Home</a></li><!--should be seperate page -->
+              <li><a href="{% url web.views.faq %}">FAQ</a></li>
+            {% endblock tabnav %}
+          </ul><!-- end nav -->
+        </div>
+        <div id="header_bar"></div>
+      </div>
+
+	</div><!-- end #header -->
+
+    <div class="span-20 last">
+      <div id="wrapper">
+          <div id="page">
+              <div id="content">
+                  <div class="post" id="warnings">
+                      {% block warnings %}
+                      {% endblock warnings %}	
+                  </div>
+                  <div class="post">
+
+                      {% block content %}
+                      Base homepage
+                      {% endblock content %}
+
+
+                  </div>
+              </div>
+              <div style="clear: both;">&nbsp;</div>
+          </div>
+          <!-- end #page -->
+      </div>
+    </div>
+
+    <div class="span-20 last">
+      {% block footer %}
+      <div id="footer">
+        <p>Copyright (c) 2010 mealtime.mit.edu. All rights reserved.</p> 
+        <center>
+          <a href="{% url web.views.techcash_consent %}">TechCash Terms of Service</a>
+          <a href="{% url web.views.otn_consent %}">Digital Receipt Terms of Service</a>
+        </center>
+      </div>
+      {% endblock footer %}
+    </div>
+
+  </div><!-- .prepend-2 -->
+</div><!-- .container -->
+
+<!-- Put all the java scripts at the end of the file for efficient loading -->
+<script src="http://www.google.com/jsapi?key={{ GOOGLE_API_KEY }}" type="text/javascript"></script>
+<script type="text/javascript">
+    google.load("jquery", "1.4.2");
+    google.load("jqueryui", "1.8.2");
+</script>
+
+<script type="text/javascript" src="/scripts/default/jquery.corner.js"></script>
+{% initialize_facebook_connect %}
+{% block scripts %}
+{% endblock scripts %}
+
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-15309665-2");
+        pageTracker._setDomainName("none");
+        pageTracker._setAllowLinker(true);
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body>
+</html>

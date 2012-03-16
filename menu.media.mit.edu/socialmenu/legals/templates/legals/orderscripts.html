@@ -1,0 +1,158 @@
+    <link href="/styles/default/transactions.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.js"></script>
+    <script type="text/javascript" src="/scripts/default/jquery.jeditable.min.js"></script>
+
+    <style type="text/css">
+    .wrapper {
+        width: 133px;
+        margin: 0 auto;
+    }
+    div.button {
+        height: 29px;   
+        width: 133px;
+        background: url(/media/images/pinkbutton2.png) 0 0;
+        
+        font-size: 14px;
+        font-weight: bold;
+        /*color: #C7D92C;*/
+        color: #FFFFFF;
+        text-align: center;
+        padding-top: 10px;
+        -moz-border-radius:5px; -webkit-border-radius:5px;
+    }
+    /* 
+    We can't use ":hover" preudo-class because we have
+    invisible file input above, so we have to simulate
+    hover effect with javascript. 
+     */
+    div.button.hover {
+        background: url(/media/images/pinkbutton2.png) -17px 40px;
+        /* color: #95A226; */
+        color: #AAAAAA;
+    }
+    #button2.hover, #button4.hover {
+        text-decoration:underline;
+    }
+    </style>
+
+
+    <script type="text/javascript">
+
+	$(document).ready(function(){
+
+        $("#wesabe").corner();
+        $(".transaction").corner();
+
+        $("a.receipt_img").fancybox({
+                'transitionIn': 'elastic',
+                'transitionOut': 'elastic',
+                'speedIn': 600,
+                'speedOut': 200,
+                'overlaySho': false
+            });
+
+        // when user selects reason for choosing the dish
+		{% for order in orders %}
+            {% for d in order.get_json.dishes %}
+
+                $("#order_reason_{{ d.review_id }}").change( function () {
+                    $.post("/legals/update/reason/", 
+                        {review_id: {{d.review_id}}, 
+                            reason: $(this).val()});
+                });
+
+            {% endfor %}
+        {% endfor %}
+
+        //  bind an event listener that will be called when
+        //  user saves changed content
+        $(".order_detail").editable("/legals/update/comment/", {
+            id: 'review_id',
+            name: 'comment',
+            onblur: 'submit',
+            indicator: 'Saving...',
+            tooltip: 'Click to edit...',
+            width: 300
+        });
+
+        var interval;
+
+		{% for order in orders %}
+
+            var button{{order.get_json.id}} = $('#uploadbutton{{order.get_json.id}}');
+
+            new AjaxUpload( button{{order.get_json.id}}, {
+                action: '/legals/receipt/upload/', 
+                name: 'receipt',
+                data: { 'order_id': '{{ order.get_json.id }}' },
+                responseType: "json",
+                autoSubmit: true,
+                onSubmit : function(file, ext){
+                    // If you want to allow uploading only 1 file at time,
+                    // you can disable upload button
+                    this.disable();
+ 
+                    // change button text, when user selects file           
+                    button{{order.get_json.id}}.text('Uploading');
+                    
+                    if (ext && /^(jpg|png|jpeg|gif)$/i.test(ext)) {
+                        /* Setting data */
+                        $('#example{{order.get_json.id}} .text').text('Uploading ' + file); 
+                    } else {
+                        // extension is not allowed
+                        $('#example{{order.get_json.id}} .text').text('Error: only images are allowed');
+                        // cancel upload
+                        button{{order.get_json.id}}.text('Upload Receipt');
+                        this.enable();
+                        return false;               
+                    }
+                    //console.log(file);
+                    // Uploding -> Uploading. -> Uploading...
+                    interval = window.setInterval(function(){
+                        var text = button{{order.get_json.id}}.text();
+                        if (text.length < 13){
+                            button{{order.get_json.id}}.text(text + '.');                    
+                        } else {
+                            button{{order.get_json.id}}.text('Uploading');               
+                        }
+                    }, 200);
+                    //console.log("Submitted");
+                },
+                onComplete: function(file, response){
+                    //console.log("Complete called");
+                    button{{order.get_json.id}}.text('Upload Receipt');
+                                
+                    window.clearInterval(interval);
+                                
+                    // enable upload button
+                    this.enable();
+                    
+                    //console.log(response.result);
+                    $('#example{{order.get_json.id}} .text').text("");
+                    $('#example{{order.get_json.id}} .image').html("<a class='receipt_img' href='"+response.result.url+"'><img src='"+response.result.thumb_url+"'></a>");  
+                    // add file to the list
+                    //$('<li></li>').appendTo('#example{{ order.get_json.id }} .files').text(file);                     
+                }
+            });
+                     
+            {% for d in order.get_json.dishes %}
+
+            $("#order_rating_{{ d.review_id }}").stars({
+                captionEl: $("#stars_cap_{{ d.review_id }}"),
+                callback: function(ui, type, value) {
+                    $.post("/legals/update/rating/", {review_id: {{ d.review_id }}, rating: value}, function(json)
+                    {
+                        $("#stars_cap_{{ d.review_id }}").value = json.result;
+                    }, "json");
+                }
+            });
+			{% endfor %}
+        {% endfor %}
+
+    }); // end document.ready
+
+
+    </script>
+
+

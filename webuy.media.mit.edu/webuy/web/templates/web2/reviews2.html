@@ -1,0 +1,191 @@
+{% extends "web2/base.html" %}
+{% load facebook_tags %}
+
+{% block page_title %}
+Shoppley - Reviews
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+
+#reviews{
+width:520px;
+float:right;
+padding-right:2em;
+text-align:left;
+}
+
+.errors{
+font-family:Helvetica, Verdana, sans-serif;
+font-size:0.8em;
+color:#990000;
+}
+
+.label{
+font-family:Helvetica, Verdana, sans-serif;
+font-weight:bold;
+font-size:0.9em;
+}
+</style>
+{% endblock %}
+    
+{% block menu %}
+<div class="sort">
+<h1>- REVIEWS -</h1>  
+    
+    <p><br />
+        <b>
+        <a href="{% url web.views.reviews %}">Review Products</a><br /><br />
+        <a href="{% url web.views.requests %}">Reviews You Requested</a><br /><br />
+        <a href="{% url web.views.history %}">Your Past Reviews</a><br />
+   		</b>
+    </p>
+    
+    
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="reviews">
+	<h1>- REVIEW PRODUCTS -</h1>
+    <form action="" method="post">{% csrf_token %}
+    
+        {% if form.product.errors %}
+        	<div class="errors">
+			{{ form.product.errors }}
+        	</div>
+		{% endif %} 
+        <div class="label">
+        	Select a {{ form.product.label_tag }}: 
+        </div>
+		{{ form.product }}
+        
+        <br />
+        
+        {% if form.content.errors %}
+        	<div class="errors">
+			{{ form.content.errors }}
+            </div>
+		{% endif %} 
+        <div class="label">
+        	{{ form.content.label_tag }}: 
+        </div>
+		{{ form.content }}
+        
+        <br /><br />
+        
+        {% if form.rating.errors %}
+        	<div class="errors">
+			{{ form.rating.errors }}
+            </div>
+		{% endif %} 
+        <div class="label">
+        	{{ form.rating.label_tag }}: 
+        </div>
+		{{ form.rating }}
+        
+        <br /><br /><br />
+        
+        <input type="submit" value="Submit Review">
+    </form>
+
+
+</div>
+        
+{% endblock %}
+
+{% block extra_scripts %}
+	<link href="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.js"></script>
+    <script type="text/javascript" src="/scripts/default/jquery.jeditable.min.js"></script>
+    <script type="text/javascript" src="/scripts/default/jquery.corner.js"></script>
+
+    <script type="text/javascript">
+
+    function update_sharing( tid, value ) {
+        $.post("/update/sharing/", 
+            {transaction_id: tid, sharing: value}, 
+            function(){
+                //console.log(json.result);
+            }, "json");
+    }
+
+
+	$(document).ready(function(){
+
+        $("#wesabe").corner();
+        $(".transaction").corner();
+
+        //  bind an event listener that will be called when
+        //  user saves changed content
+        $(".trans_detail").editable("/update/description/", {
+            id: 'transaction_id',
+            name: 'description',
+            onblur: 'submit',
+            indicator: 'Saving...',
+            tooltip: 'Click to edit...',
+            width: 400
+        });
+
+        {% for transaction in transactions %}
+            $("#trans_rating_{{ transaction.id }}").stars({
+                captionEl: $("#stars_cap_{{ transaction.id }}"),
+                callback: function(ui, type, value) {
+                    $.post("/update/rating/", {transaction_id: {{ transaction.id }}, rating: value}, function(json)
+                    {
+                        $("#stars_cap_{{ transaction.id }}").value = json.result;
+                    }, "json");
+                }
+            });
+        {% endfor %}
+    });
+    </script>
+{% endblock %}
+
+
+
+{% for transaction in transactions %}
+	<div class="trans">
+        <div class="trans_img"><img src="{{ transaction.location.icon }}" /> </div>
+		
+        <div class="transaction">
+			<div class="transaction_header">
+				<h4>
+					{{ transaction.location.name }} - <span class="trans_amount">${{ transaction.get_json.amount }}</span>
+            	</h4>
+            </div>
+        
+            <div class="transaction_row">
+            	<div class="trans_time">{{ transaction.get_json.date }}</div>
+            </div>
+
+            <div class="transaction_row">
+                <form> 
+                {% csrf_token %}
+                <div class="rating_box" id="trans_rating_{{ transaction.id }}">
+                    <input type="radio" name="rating" {% ifequal transaction.receipt.rating 1 %}checked="checked"{% endifequal %} value="1" title="Poor" />
+                    <input type="radio" name="rating" {% ifequal transaction.receipt.rating 2 %}checked="checked"{% endifequal %} value="2" title="Fair" />
+                    <input type="radio" name="rating" {% ifequal transaction.receipt.rating 3 %}checked="checked"{% endifequal %} value="3" title="Average" />
+                    <input type="radio" name="rating" {% ifequal transaction.receipt.rating 4 %}checked="checked"{% endifequal %} value="4" title="Good" />
+                    <input type="radio" name="rating" {% ifequal transaction.receipt.rating 5 %}checked="checked"{% endifequal %} value="5" title="Excellent" />
+                </div>
+                <div class="rating_caption">
+                    <b>Rating:</b> <span id="stars_cap_{{ transaction.id }}"></span>
+                </div>
+                </form>
+            </div>
+            
+            <div class="transaction_row">
+                {% if transaction.receipt.detail %}
+                    <div class="trans_detail" id="detail_{{ transaction.id }}" name="{{ transaction.id }}">{{ transaction.receipt.detail }}</div>
+                {% else %}
+                    <div class="trans_detail" id="detail_{{ transaction.id }}" name="{{ transaction.id }}">Please click to leave a comment.</div>
+                {% endif %}
+            </div>
+            
+        </div>
+    </div>
+	{% endfor %}
+    
+    
+    

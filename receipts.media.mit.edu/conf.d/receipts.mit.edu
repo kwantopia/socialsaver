@@ -1,0 +1,41 @@
+#
+#  otn.mit.edu 
+# (/etc/apache2/sites-available/otn.mit.edu)
+#
+
+#NameVirtualHost *:8088
+
+<VirtualHost *:8080>
+        ServerAdmin kwan@media.mit.edu
+        ServerName  otn.mit.edu
+        ServerAlias otn.mit.edu 
+
+        RPAFenable On
+        RPAFsethostname On
+        RPAFproxy_ips 127.0.0.1
+
+        # Indexes + Directory Root.
+        #DirectoryIndex index.html
+        #DocumentRoot /home/www/otn.media.mit.edu/htdocs/
+
+        <Directory /home/www/otn.media.mit.edu/fcn/apache/>
+            Order deny,allow
+            Allow from all
+        </Directory>
+
+        # CGI Directory
+        ScriptAlias /cgi-bin/ /home/www/otn.media.mit.edu/cgi-bin/
+        <Location /cgi-bin>
+                Options +ExecCGI
+        </Location>
+
+        # Logfiles
+        LogLevel warn
+        ErrorLog  /home/www/otn.media.mit.edu/logs/error.log
+        CustomLog /home/www/otn.media.mit.edu/logs/access.log combined
+
+        WSGIDaemonProcess otn.media.mit.edu user=www-data group=www-data threads=25
+        WSGIProcessGroup otn.media.mit.edu
+        WSGIScriptAlias / /home/www/otn.media.mit.edu/fcn/apache/otn.wsgi
+</VirtualHost>
+

@@ -1,0 +1,123 @@
+{% extends "web2/base.html" %}
+{% load facebook_tags %}
+
+{% block page_title %}
+Shoppley - Purchases
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+#holder{
+width:540px;
+float:right;
+margin-top:0px;
+padding-right:0.3em;
+text-align:center;
+}
+
+#purchases{
+width:540px;
+float:right;
+padding-right:2em;
+text-align:center;
+}
+
+#pgcount{
+width:540px;
+font-size:0.85em;
+margin-top:2em;
+float:right;
+text-align:center;
+}
+
+.timestamp{
+font-family:Helvetica, Verdana, sans-serif;
+font-weight:bolder;
+text-align:left;
+font-size:1.1em;
+width:540px;
+float:left;
+display:inline;
+padding:25px 5px 0px 10px;
+}
+/*CSS Hack: IE above declarations, all others below*/
+html>body .timestamp {
+width:510px;
+}
+
+.description{
+width:510px;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:1.0em;
+text-align:left;
+float:left;
+display:inline;
+padding:10px 0px 10px 15px;
+border-bottom:thin solid #336699;
+}
+
+.list{
+margin-bottom:0.4em;
+}
+</style>
+{% endblock %}
+
+{% block menu %}
+<div class="sort">
+<h1>- PURCHASES -</h1>  
+
+<br />
+    
+    <form action="/searchpurch/" method="get">
+        <input type="text" name="q">
+        <input type="submit" value="Search">
+    </form>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="holder">
+<div id="purchases"> 
+    {% for txn in transactions.object_list %}
+    <ul>
+		<li class="timestamp">
+                {{ txn.timestamp|date:"D M j, Y" }} 
+        </li>
+        <li class="description">
+            {% for line in txn.transactionlineitem_set.all %}
+            	<div class="list">
+              		{% if line.line_type == "SL" %}
+                  		<a href="/product/{{ line.product.id }}/">
+                    		{% autoescape off %}
+                      		{{ line.product.name }}
+                    		{% endautoescape %}  
+                  		</a>
+                         - <span style="color:#888888">${{ line.sale_price|stringformat:".2f" }}</span>
+                        
+              		{% endif %}
+                </div>
+          {% endfor %}
+        </li>
+	</ul>
+    {% endfor %}
+
+    <div id="pgcount">
+      {% if transactions.has_previous %}
+      	<a href="/purchases/1/">first</a>
+         ::
+        <a href="/purchases/{{ transactions.previous_page_number }}/">previous</a>
+      {% endif %}
+
+      <span id="current">
+        :: page {{ transactions.number }} of {{ transactions.paginator.num_pages }} ::
+      </span>
+
+      {% if transactions.has_next %}
+        <a href="/purchases/{{ transactions.next_page_number }}/">next</a>
+         :: 
+        <a href="/purchases/{{ transactions.paginator.num_pages }}/">last</a>
+      {% endif %}
+    </div>
+</div>
+
+{% endblock %}

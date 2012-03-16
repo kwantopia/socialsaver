@@ -1,0 +1,113 @@
+{% extends 'legals/base.html' %}
+
+{% load facebook_tags %}
+<!-- This page is shown only when user logs in -->
+
+{% block page_title %}
+{% show_facebook_full_name fbuser %} - Legal's DigitalMenu Homepage
+{% endblock %}
+
+{% block tabnav %}
+  <li><a href="{% url legals.views.orders 0 %}">Orders</a></li>
+  <li><a href="{% url survey.views.surveys %}">Surveys</a></li> 
+  <li><a href="{% url legals.views.winners %}">Winners</a></li>
+  <li><a href="{% url legals.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+{% block warnings %}
+    {% if not survey_completed %}
+        <div class="warning">Please click <a href="{% url legals.views.legals_presurvey %}">here</a> to complete a 5 min <a href="{% url legals.views.legals_presurvey %}">Pick A Dish survey</a> before visiting Legals.</div>
+    <!-- <div class="warning">Add Wesabe and receive $10</div>-->
+    <!--<div class="warning">Take the survey!</div>-->
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        {% if voucher %}
+        <div class="warning">
+            Click <a href="{% url legals.views.gift %}">here</a> to get your Amazon gift certificates.
+        </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="dashboard">
+	<div class="dashitem">
+        <br>
+        {% if num_friends == 0 %}
+            <div class="dashfocus">Come with 3</div>
+            <div class="dashtext">friends - $50 Legal's gift card</div>
+        {% else %}
+            <div class="dashfocus">{{ num_friends }}</div>
+            <div class="dashtext">Friends have participated</div>
+        {% endif %}
+        <br>
+        <!--
+        <div class="dashtext">Favorites</div>
+        <ul>
+            <li>Cioppino</li>
+            <li>Lobster Bake</li>
+            <li>Seaweed Salad</li>
+        </ul>
+        -->
+	</div>
+	<div class="dashitem">
+        <br>
+        
+        {% if visits == 0 %}
+            <div class="dashfocus">Entered in</div>
+            <div class="dashtext">$100 Amazon gift lottery</div>
+        {% else %}
+            <div class="dashfocus">$20 Amzn gift</div>
+            <div class="dashtext">review & complete surveys</div>
+        {% endif %}
+        <!--
+            <div class="dashfocus">{{ visits }}</div>
+            <div class="dashtext">Visits to enter lottery</div>
+        -->
+        <br>
+	</div>
+	<div class="dashitem">
+        <br>
+        {% if voucher %}
+            {% if wesabe_txns == 0 %}
+                <div class="dashfocus">$20 Amzn gift</div>
+                <div class="dashtext">for linking Buxfer (see FAQ)</div>
+            {% else %}
+                <div class="dashfocus">{{ wesabe_txns }} txns</div>
+                <div class="dashtext">loaded from Buxfer</div>
+            {% endif %}
+        {% else %}
+            <div class="dashfocus">$10 off</div>
+		    <div class="dashtext">a DINNER entree per visit</div>
+        {% endif %}
+        <br>
+	</div>
+</div>
+<div style="clear:both"></div>
+<div id="home-body">
+{% if visits == 3 %}
+<h2>You are ready to make your first visit to the restaurant. Please fill out the <a href="{% url legals.views.legals_presurvey %}">PRE-SURVEY</a> before visiting and please remember the PIN you just created.</h2>
+{% else %}
+<h2>Latest Orders</h2>
+{% endif %}
+
+<!--    Show User's Orders -->
+
+{% for order in orders %}
+    {% include "legals/listorders.html" %}
+{% endfor %}
+
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+    {% include "legals/orderscripts.html" %}
+{% endblock scripts %}
+
+
+

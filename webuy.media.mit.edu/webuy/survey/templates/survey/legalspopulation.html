@@ -1,0 +1,149 @@
+<style type="text/css">
+    .title {font-weight:bold;font-variant:small-caps}
+    tr {margin-top:5px}
+    td.description {margin-right:5px}
+    .friends{display:none}
+
+    .fieldWrapper {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+</style>
+
+<form action="/survey/legals/population/" method="POST">
+    <input type="hidden" name="facebook_id" value="{{ facebook_id }}" />
+    <input type="hidden" name="email" value="{{ facebook_email }}" />
+    {{ errors }}
+    <table>
+    <div class="fieldWrapper">
+        <tr>
+        <td align="right">
+        <label for="id_sex">{{ form.sex.label_tag }}</label>
+        </td>
+        <td align="left">
+        {{ form.sex }}
+        </td>
+        <td align="left">
+        {{ form.sex.errors }}
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper">
+        <tr>
+        <td align="right">
+        <label for="id_zipcode">{{ form.zipcode.label_tag }}</label>
+        </td>
+        <td align="left">
+        {{ form.zipcode }}
+        </td>
+        <td align="left">
+        {{ form.zipcode.errors }}
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper">
+        <tr>
+        <td align="right">        
+        <label for="id_like_seafood">{{ form.like_seafood.label_tag }}</label>
+        </td>
+        <td align="left">
+        {{ form.like_seafood }}
+        </td>
+        <td align="left">
+        From 1-10 where 10 is you like a lot
+        {{ form.like_seafood.errors }}
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper">
+        <tr>
+        <td align="right">        
+        <label for="id_seafood_experience">{{ form.seafood_experience.label_tag }}</label>
+        </td>
+        <td align="left">
+        {{ form.seafood_experience }}
+        </td>
+        <td align="left">
+        {{ form.seafood_experience.errors }}
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper">
+        <tr>
+        <td align="right">        
+        <label for="id_visited">{{ form.visited.label_tag }}</label>
+        </td>
+        <td align="left">
+        <input type="radio" name="visited" value="1" />Yes
+        <input type="radio" name="visited" value="0" />No        
+        </td>
+        <td align="left">
+        {{ form.visited.errors }}
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper">
+        <tr>
+        <td align="right">        
+        <label for="id_frequency">{{ form.frequency.label_tag }}</label>
+        </td>
+        <td align="left">
+        {{ form.frequency }}
+        </td>
+        <td align="left">
+        {{ form.frequency.errors }}
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper">
+        <tr>
+        <td align="right">        
+        <label for="id_vegetarian">{{ form.vegetarian.label_tag }}</label>
+        </td>
+        <td align="left">
+        <input type="radio" name="vegetarian" value="1" />Yes
+        <input type="radio" name="vegetarian" value="0" />No
+        </td>
+        <td align="left">
+        {{ form.vegetarian.errors }}
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper">
+        <tr>
+        <td align="right">        
+        <label for="id_phone_type">{{ form.phone_type.label_tag }}</label>
+        </td>
+        <td align="left">
+        {{ form.phone_type }}
+        </td>
+        <td align="left">
+        {{ form.phone_type.errors }}
+        </td>
+        </tr>
+    </div>
+    </table>
+    <hr>
+    <div class="fieldWrapper">
+        {{ form.favorite_dishes.errors }}
+        <p>
+        <label for="id_favorite_dishes">{{ form.favorite_dishes.label_tag }}:</label>
+        </p>
+        {% for cat, dishes in menu.items %}
+        <h1>{{ cat }}</h1>
+        <table>
+        {% for dish in dishes %}
+        <tr class="item"> 
+            <td><input type="checkbox" name="favorite_dishes" value="{{ dish.id }}"/></td>
+            <td class="description">
+                <div class="title">{{ dish.name }}</div>
+                <span class="price">{{ dish.price }}</span>
+                <div class="description">{{ dish.description }}</div>
+            </td>
+        </tr>
+        {% endfor %}
+        </table>
+        {% endfor %}
+    </div>
+<input type="submit" value="Submit" />
+</form>

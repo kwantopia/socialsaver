@@ -1,0 +1,83 @@
+<form class="cmxform" id="setup" action="" method="post" accept-charset="utf-8" class="nice-form">
+    {% csrf_token %}
+    <p>
+    </p>
+    <fieldset>
+        <legend>The following information is required to participate in the experiment.</legend>
+
+        <input type="hidden" name="facebook_only" value="false" id="facebook_only">
+        <input type="hidden" name="next" value="{{ next }}" id="next">
+        <input type="hidden" name="readconsent" value="1">
+        
+        <p>
+        The information entered will only be used for the research trial and will not be used for any other purposes.
+        </p>
+        
+        <div class="wrap">
+        	<div class="field">
+            	<p> <label for="mit_id">MIT ID (Enter 9 nines if not MIT affiliated)</label> </p>
+            </div>
+            
+            <div class="input">
+                <p> <input type="text" id="mit_id" name="mit_id"/> </p>
+            </div>
+    	</div>
+        
+        <div class="wrap">
+        	<div class="field">
+            	<p>	<label for="phone">Phone number</label> </p>
+            </div>
+            
+            <div class="input">
+                <p> <input type="text" id="phone" name="phone" value="617-999-9999"/> </p>
+            </div>
+    	</div>
+
+    </fieldset>
+    
+    <fieldset>
+        <legend>E-mail (i.e. that you use for Facebook) and PIN are required for <i>mobile access</i></legend>
+            
+        <div class="wrap">
+        	<div class="field">
+            	<p>	<label for="email">Email (that you use for Facebook)</label> </p>
+            </div>
+            
+            <div class="input">
+                <p> <input type="text" id="email" name="email"/> </p>
+            </div>
+    	</div>
+            
+        <div class="wrap">
+        	<div class="field">
+            	<p>	<label for="pin">PIN (4-6 digits)</label> </p>
+            </div>
+            
+            <div class="input">
+                <p> <input type="password" id="pin" name="pin"/> </p>
+            </div>
+    	</div>
+    </fieldset>
+    
+    <fieldset id="consentforms">
+        <p>
+        <label for="techcashconsent">
+        <input type="checkbox" name="techcashconsent" id="techcashconsent" value="1"/>
+            I consent to allow viewing of TechCash transactions for research purposes (<a href="/web/consent/techcash/" target="_blank">Terms</a>)
+        </label>
+        
+        <br />
+        
+        <label for="otnconsent">
+        <input type="checkbox" name="otnconsent" id="otnconsent" value="1"/>
+        I consent to the terms of LunchTime research experiment (<a href="/web/consent/otn/" target="_blank">Terms</a>)
+        </label>
+        </p>
+        
+        <p>
+        <input name="continue" id="continue" type="submit" value="Continue">
+        </p>
+    </fieldset>
+</form>
+        
+

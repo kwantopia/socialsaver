@@ -1,0 +1,50 @@
+
+
+* html #side_bar {
+	height: 800;
+}
+
+* html #main_content {
+	height: 800;
+}
+
+* html #logo_bar {
+	height:180;
+}
+
+* html #welcome_user {
+	font-weight: bold;
+}
+
+* html #footer {
+	height: 160;
+}
+
+* html .picture {
+	width: 70;
+}
+
+* html .login_status {
+	width: 400;
+} 
+
+
+* html .ie_span {
+	width: 540;
+}
+
+* html .infopic { 
+	width: 70;
+}
+
+* html .pic {
+	width: 0;
+}
+	
+* html .span-5 {
+	width: 193;
+}
+
+* html .span-7 {
+	width: 273;
+}

@@ -1,0 +1,63 @@
+{% extends "web/base.html" %}
+{% load facebook_tags %}
+
+{% block page_title %}
+OTN - User Page
+{% endblock %}
+
+{% block main %}FRIENDS {% endblock %}
+{% block sub %}the profile page of {{ p.name }}{% endblock %}
+
+{% block sidebar %}
+	<h2>Friends</h2>
+    <table class="table-pad">
+        {% for friend in friends_list %}
+          <tr>
+          <td style="text-align:center"><img src="{{ friend.get_image }}" border=0></img></td>
+          <td><a href="/friend/{{ friend.id }}"> {{ friend.name }} </a></td>
+          </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block window %}
+	
+    <div class="span-6 last" style="background-color:#ccc;text-align:center">
+    	{% if fbuser %}
+        	 {% show_facebook_large_photo fbuser %}
+        {% endif %}
+    </div>
+    
+    <hr class="space" />
+    
+	<div class="pagetext span-15 last">
+    <h2>Recent OTN Activity</h2>
+    {% for t in txns %}
+    	{{ t.memo.txt }} <br />
+        
+        <div class="prepend-1 span-4 rating_box">
+            <input type="radio" name="rating" {% ifequal t.receipt.rating 1 %}checked="checked"{% endifequal %} value="1" title="Poor" />
+            <input type="radio" name="rating" {% ifequal t.receipt.rating 2 %}checked="checked"{% endifequal %} value="2" title="Fair" />
+            <input type="radio" name="rating" {% ifequal t.receipt.rating 3 %}checked="checked"{% endifequal %} value="3" title="Average" />
+            <input type="radio" name="rating" {% ifequal t.receipt.rating 4 %}checked="checked"{% endifequal %} value="4" title="Good" />
+            <input type="radio" name="rating" {% ifequal t.receipt.rating 5 %}checked="checked"{% endifequal %} value="5" title="Excellent" />
+        </div>
+        <div class="span-10 last" style="color:#5ECF4F"><i>{{ t.receipt.detail}}</i></div>
+        <hr class="space" />
+    {% endfor %}
+    </div>
+    
+    
+    
+{% endblock %}
+
+{% block extra_scripts %}
+	<link href="/scripts/default/otn.stars/jquery.ui.stars.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="/scripts/default/otn.stars/jquery.ui.stars.min.js"></script>
+    
+    <script type="text/javascript">
+     $(".rating_box").stars({
+			disabled:true,
+		});
+	</script>
+{% endblock %}

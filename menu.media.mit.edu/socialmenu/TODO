@@ -1,0 +1,47 @@
+Need to add search feature/filter - and sorting capability (name/price/type)
+Need to raffle survey completions
+Need to raffle iPad
+Need to ask people to rate/review
+complete surveys
+
+Need to hide the price so that user clicks through the menu and then sees the price
+
+Goals:
+- Eat healthy
+- Most shareable
+- Save money
+- Most popular
+- Recommendations based on my tastes
+- Best taste
+
+Add question to survey:
+- did you know you could reconsider your order?
+
+Need to put in the profile whether the presurvey was completed or not
+
+Taste Adjectives
+http://www.cyberspaces.net/6traits/sense5.html
+
+#### Initialization
+fixtures/init_setup.json
+fixtures/init_menu.json
+fixtures/optionprice.json
+setup/updatemenu*
+setup/initialize.py
+-Table codes: need to randomly generate 10 per day
+-Tastes
+
+
+Ask people if the statistics consistent with what people experienced
+
+E-mail participants to ask 10 people, ask people who haven't been to legal sea foods.
+Test mobile views with presurvey choices.
+
+
+Need to see if the logs tell what I have done through the menu
+
+
+# Analysis
+
+- find diversity index in each conditions
+- find how much diverse are all the menu choices from random

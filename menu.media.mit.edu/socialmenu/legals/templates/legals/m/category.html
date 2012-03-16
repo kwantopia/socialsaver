@@ -1,0 +1,53 @@
+{% extends "legals/m/base.html" %}
+
+{% block topbar %}
+
+    {% if order_id > 0 %}
+    <div id="rightbutton">
+        <a href="/legals/m/myorders/{{order_id}}/">My Orders</a>
+    </div>
+    {% endif %}
+
+    <div id="leftnav">
+        <a href="/legals/m/categories/{{order_id}}/"><img src="/media/iwebkit/images/home.png"></a>
+    </div>
+{% endblock %}
+
+{% block body_spec %}
+<body>
+{% endblock %}
+
+{% block content %}
+
+    <ul class="pageitem">
+        {% if category.description %}
+            <div class="cat_description">{{ category.description }}</div>
+        {% else %}
+            <div class="cat_description">{{ category.name }}</div>
+        {% endif %}
+
+        {% for i in menu_data %}
+            <li class="menu">
+            <span class="name">
+            <a href="/legals/m/item/{{ i.item.id }}/{{ order_id }}/" >{{ i.item.name }}
+            </span>
+                <span class="comment">
+                    {{ i.item.price }}
+                </span>
+            <!--
+            <span class="comment">
+                <div class="description">{{ i.item.description }}</div>
+            </span>
+            -->
+                {% if i.liked %}
+                    <div class="friends">{{ i.liked }}</div>
+                {% endif %}
+            <span class="arrow"></span></a>
+            </a>
+            </li>
+        {% endfor %}
+
+    </ul>
+{% endblock %}
+
+

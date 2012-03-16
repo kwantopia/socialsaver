@@ -1,0 +1,46 @@
+{% extends 'legals/base.html' %}
+
+{% load facebook_tags %}
+<!-- This page is shown only when user logs in -->
+
+{% block page_title %}
+{% show_facebook_full_name fbuser %} - Legal's DigitalMenu Homepage
+{% endblock %}
+
+{% block tabnav %}
+  <li><a href="{% url legals.views.index %}">Home</a></li>
+  <li><a href="{% url survey.views.surveys %}">Surveys</a></li> 
+  <li><a href="{% url legals.views.winners %}">Winners</a></li>
+  <li><a href="{% url legals.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+
+{% block content %}
+
+<!--    Show User's Orders -->
+
+{% for order in orders %}
+    {% include "legals/listorders.html" %}
+{% endfor %}
+
+        {% if pages.has_previous %}
+            <a href="/legals/orders/{{ pages.previous_page_number }}/">previous</a>
+        {% endif %}
+		
+		 <span class="current">
+            Page {{ pages.number }} of {{ pages.paginator.num_pages }}.
+        </span>
+
+		{% if pages.has_next %}
+            <a href="/legals/orders/{{ pages.next_page_number }}/">next</a>
+        {% endif %}
+
+
+
+{% endblock content %}
+
+{% block scripts %}
+    {% include "legals/orderscripts.html" %}
+{% endblock scripts %}
+
+

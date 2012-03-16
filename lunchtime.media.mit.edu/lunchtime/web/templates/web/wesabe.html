@@ -1,0 +1,129 @@
+{% extends 'web/index.html' %}
+
+{% block page_title %}
+Transactions through Wesabe
+{% endblock %}
+
+{% block tabnav %}
+    <!--should be separate page -->
+    <li><a href="{% url web.views.index %}">Home</a></li>
+    <li><a href="{% url survey.views.surveys %}">Surveys</a></li>
+    <li><a href="{% url web.views.winners %}">Winners</a></li>
+    <li><a href="{% url web.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+
+{% block content %}
+    <div class="container showgrid">
+
+        <div class="span-24 last">
+        </div>
+        <div class="span-18" id="maincol">
+            <!-- where transactions go -->
+            <h2>Latest Transactions</h2>
+            <div id = "latest_transactions">
+
+            {% for transaction in transactions %}
+
+                <div class = "transaction">
+                    <div class="transaction_header">
+                        <h3 class="trans_name">
+                            <img src="{{ transaction.location.icon }}" /> {{ transaction.location.name }} - <span class="trans_amount">${{ transaction.get_json.amount }}</span>
+                        </h3>
+                    </div>
+                    <div class="transaction_row">
+                        <span class="trans_time">{{ transaction.get_json.date }}</span>
+                        <!-- can we get a nicer timestamp -> Monday, June 15 at 5:06PM -->
+                    </div>
+                    <div class="transaction_row">
+                        <form> 
+                            {% csrf_token %}
+                            <div class="rating_box" id="trans_rating_{{ transaction.id }}">
+                                <input type="radio" name="rating" {% ifequal transaction.receipt.rating 1 %}checked="checked"{% endifequal %} value="1" title="Poor" />
+                                <input type="radio" name="rating" {% ifequal transaction.receipt.rating 2 %}checked="checked"{% endifequal %} value="2" title="Fair" />
+                                <input type="radio" name="rating" {% ifequal transaction.receipt.rating 3 %}checked="checked"{% endifequal %} value="3" title="Average" />
+                                <input type="radio" name="rating" {% ifequal transaction.receipt.rating 4 %}checked="checked"{% endifequal %} value="4" title="Good" />
+                                <input type="radio" name="rating" {% ifequal transaction.receipt.rating 5 %}checked="checked"{% endifequal %} value="5" title="Excellent" />
+                            </div>
+                            <div class="rating_caption">
+                                <b>Rating:</b> <span id="stars_cap_{{ transaction.id }}"></span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="transaction_row">
+                            {% if transaction.receipt.detail %}
+                                <div class="trans_detail" id="detail_{{ transaction.id }}" name="{{ transaction.id }}">{{ transaction.receipt.detail }}</div>
+                            {% else %}
+                                <div class="trans_detail" id="detail_{{ transaction.id }}" name="{{ transaction.id }}">Please add a comment...</div>
+                            {% endif %}
+                    </div>
+                    <div class="transaction_row">
+                        <form>
+                        {% csrf_token %}
+                        <div class="trans_public">
+                            <input type="radio" {% ifequal transaction.receipt.sharing 0 %}checked="checked"{% endifequal %} name="sharing" value="{{ transaction.receipt.PRIVATE }}" onclick="update_sharing( {{ transaction.id }}, {{ transaction.receipt.PRIVATE }} )" />Private
+                            <input type="radio" {% ifequal transaction.receipt.sharing 1 %}checked="checked"{% endifequal %} name="sharing" value="{{ transaction.receipt.FRIENDS }}" onclick="update_sharing( {{ transaction.id }}, {{ transaction.receipt.FRIENDS }} )" />Friends
+                            <input type="radio" {% ifequal transaction.receipt.sharing 2 %}checked="checked"{% endifequal %} name="sharing" value="{{ transaction.receipt.COMMUNITY }}" onclick="update_sharing( {{ transaction.id }}, {{ transaction.receipt.COMMUNITY }} )" />Community
+                            <input type="radio" {% ifequal transaction.receipt.sharing 3 %}checked="checked"{% endifequal %} name="sharing" value="{{ transaction.receipt.PUBLIC }}" onclick="update_sharing( {{ transaction.id }}, {{ transaction.receipt.PUBLIC }} )" />Public
+                        </div>
+                        </form>
+                    </div>	
+                    <div class="transaction_row friendswholiked">
+                        {% for f in transaction.friends %}
+                        <div style="display: inline;" id="app2379574490_{{ f.facebook_id }}" class="friend" fbcontext="6498fc0d2e27"><a href="http://hs.facebook.com/profile.php?id={{ f.facebook_id }}" ><img src={{ f.image }} alt={{ f.name }} title={{ f.name }}/></a></div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+            {% endfor %}
+
+            </div>
+        </div><!-- maincol -->
+        <div class="span-6 last" id="sidecol">
+            <!-- where user login goes with refresh button -->
+            <div id="wesabe_box">
+                {% if linked.wesabe %}
+                <h3>Update Wesabe Account</h3>
+                {% else %}
+                <h3>Link Wesabe Account</h3>
+                {% endif %}
+                <form action="/wesabe/load/" method="POST">
+                    {% csrf_token %}
+                    <table>
+                    <tr>
+                    <td align="right"><label for="email">Email:</label></td>
+                    <td><input id="email" name="email" type="text"></td>
+                    </tr>
+                    <tr>
+                    <td align="right"><label for="password">Password:</label></td>
+                    <td><input id="password" name="password" type="password"></td>
+                    </tr>
+                    <tr><td><a href="http://www.wesabe.com">Create account</a></td>
+                    {% if linked.wesabe %}
+                        <td align="right"><input type="submit" value="Refresh"/></td>
+                    {% else %}
+                        <td align="right"><input type="submit" value="Download"/></td>
+                    {% endif %}
+                    </tr>
+                    </table>
+                </form>
+            </div>
+
+            <!-- user statistics also -->
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block midboxes %}
+{% endblock midboxes %}
+
+{% block scripts %}
+
+    <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection">
+    <link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print"> 
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+    <![endif]-->
+
+{% endblock scripts %}

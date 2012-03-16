@@ -1,0 +1,92 @@
+{% extends 'web/base.html' %}
+
+{% load facebook_tags %}
+
+{% block tabnav %}
+    <!--should be separate page -->
+    <li><a href="{% url web.views.index %}">Home</a></li>
+    <li><a href="{% url survey.views.surveys %}">Surveys</a></li>
+    <li><a href="{% url web.views.winners %}">Winners</a></li>
+    <li><a href="{% url web.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+{% block content %}
+
+<!-- -->
+
+<div class="span-20 last">
+
+<div class="span-3">
+    <!-- empty left column -->
+    Update your PIN and the default sociability of your transactions.
+</div>
+
+<div class="box span-12">
+  <form action="{% url web.views.profile %}" method="POST">
+    {% csrf_token %}
+    <div class="span-3">
+        {% show_facebook_photo fbuser %}
+    </div>
+    <div class="span-9 last">
+        <strong>Name:</strong> {% show_facebook_full_name fbuser %} 
+        <br>
+        <strong>E-mail:</strong> {{ user.otnuser.my_email }}
+        <p>
+    </div>
+    <!--
+    <div class="span-12 last">
+        If you specify user name, you can use it instead of e-mail when logging in from mobile.
+    </div>
+    <div class="span-6">
+        Username:
+    </div>
+    <div class="span-6 last">
+        {{ form.username }}
+    </div>
+    -->
+    {% if prompt %}
+    <div class="error span-11 last">
+        {{ prompt }}
+    </div>
+    {% endif %}
+    <div class="profile-label span-4">
+        PIN:
+    </div>
+    <div class="profile-input span-8 last">
+        <input type="password" name="first">
+    </div>
+    <div class="profile-label span-4">
+        Re-enter PIN:
+    </div>
+    <div class="profile-input span-8 last">
+        <input type="password" name="second">
+    </div>
+
+    <div class="profile-label span-4">
+        Default Transaction Sociability:
+    </div>
+    <div class="span-8 last">
+        <input type="radio" name="sharing" value="0" {% if sharing == 0 %}checked{% endif %}>Private<br> 
+        <input type="radio" name="sharing" value="1" {% if sharing == 1 %}checked{% endif %}>Friends<br> 
+        <input type="radio" name="sharing" value="2" {% if sharing == 2 %}checked{% endif %}>Community<br> 
+        <input type="radio" name="sharing" value="3" {% if sharing == 3 %}checked{% endif %}>Public<br> 
+    </div>
+    <div class="span-12 last">
+        <blockquote>
+        Community is composed of those people that transact at the same place.  So Dunkin Donuts transactions shared will be visible to others who transact at Dunkin Donuts.
+        </blockquote>
+        <div class="prepend-10 span-2 last">
+            <input class="button" type="submit" name="Submit" value="Update">
+        </div>
+    </div>
+
+  </form>
+</div>
+
+<div class="span-5 last">
+    <!-- empty right column -->
+</div>
+
+</div><!-- end of span-24 -->
+
+{% endblock %}

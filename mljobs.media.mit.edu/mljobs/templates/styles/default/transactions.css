@@ -1,0 +1,182 @@
+/* Wesabe box */
+#wesabe_box {
+    background-color: #7ABAF2;
+    width: 260px;
+    padding: 10px;
+	margin-top: 5px;
+}
+
+#wesabe_box h3 {
+    text-align: center;
+}
+
+/* TechCash load box */
+#techcash_box {
+	background-color: #7ABAF2;
+	width: 260px;
+	padding: 10px;
+	margin-bottom: 5px;
+}
+
+#techcash_box h3 {
+	text-align: center;
+}
+
+
+/* transaction box */
+.transaction {
+   margin-bottom:20px;
+}
+
+.transaction_row {
+    margin-left:10px;
+	clear:both;
+	margin-top:6px;
+}
+
+.trans_name {
+	color:#c100ab;
+}
+
+.rating_box {
+    margin-top: -5px;
+}
+
+.rating_caption {
+    padding-top: 5px;
+    margin-left: 120px;
+}
+
+.trans_detail {
+	display:inline;
+	margin-left:0;
+	float:left;
+}
+
+.trans_detail {
+	background:url(/media/rating/Comment.png) no-repeat 0 2px;
+	padding-left:20px;
+	margin-left:5px;
+    width: 300px;
+	float:left;
+}
+
+.trans_amount {
+	color:#D48600;
+}
+
+.trans_time {
+	/*color:#D48600;*/
+    color:#AAAAAA;
+}
+
+.trans_public {
+	padding-top:5px; /* for stars */
+	margin-left:-3px;
+}
+
+/* orders page */
+#orders {
+	list-style-type:none;
+}
+
+ul #orders div {
+	margin-top:0px;
+}
+
+.order-container {
+    margin-bottom: 20px;
+}
+
+.order h3 {
+    margin-bottom: 0px;
+}
+
+.order_header {
+	list-style-type:none;
+	margin-left:-20px;
+}
+
+
+/*
+.order_title {
+	color:#0049AA;
+	margin-left:-15px;
+}
+*/
+
+.ordered-friends {
+    width:40px;
+}
+
+
+.order_title {
+	color:#0049AA;
+}
+
+.order_amount{
+	color:#cb6185;
+}
+
+.dish {
+	margin-bottom: 15px;
+}
+	
+.dish_name {
+	color:#16b113;
+	font-size:medium;
+	float:left; /* needed to keep stars in line for some reason */
+	margin-right:10px;
+    /*margin-top:5px;*/
+}
+
+.order_detail {
+	padding-left:20px;
+	background:url(/media/rating/Comment.png) no-repeat 0 2px;
+	margin-left:5px;
+	float:left;
+    width: 430px;
+}
+
+.order_rating{
+	/*display:inline;*/
+	margin-left: 250px;
+    margin-top: 10px;
+}
+
+.order_rating_caption {
+    margin-left: 110px;
+}
+
+.order_reason {
+    margin-left: 5px;
+}
+
+
+#ratingSaved{ /* start not displaying; turned on by js */
+	display:none;
+	color:red;
+	font-weight:bold;
+	margin-left: 5px;
+}
+
+.friendswholiked div {
+	margin-right: -4px; /*needed for some reason */
+}
+
+.friendswholiked img {
+	width:30px;
+	height:30px;
+	border:none;
+	margin:0;
+	padding:0;
+}
+
+.friendswholiked a {
+	width:30px;
+	height:30px;
+	border:none;
+	margin:0;
+	padding:0;
+}
+

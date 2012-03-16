@@ -1,0 +1,61 @@
+{% extends "legals/i/base.html" %}
+
+{% block toolbar %}
+    <h1 id="pageTitle"></h1>
+{% endblock toolbar %}
+
+{% block content %}
+<form selected="true" title="Login" class="panel" method="POST" action="/legals/m/login/" target="_self">
+    {% csrf_token %}
+    <input type="hidden" name="lat" value="{{ lat }}" />
+    <input type="hidden" name="lon" value="{{ lon }}" />
+    <input type="hidden" name="udid" value="{{ udid }}" />
+    <div class="error">
+        {{ error }}
+    </div>
+
+    <fieldset>
+        <div class="row">
+            <label>E-mail</label>
+            {% if email %}
+                <input type="text" placeholder="E-mail" name="email" value="{{email}}"/>
+            {% else %}
+                <input type="text" placeholder="E-mail" name="email" value=""/>
+            {% endif %}
+
+        </div>
+        <div class="row">
+            <label>PIN</label>
+            {% if pin %}
+            <input type="password" placeholder="PIN" name="pin" value="{{pin}}"/>
+            {% else %}  
+            <input type="password" placeholder="PIN" name="pin" value=""/>
+            {% endif %}
+        </div>
+        <div class="row">
+            <label>Table</label>
+            {% if tablecode %}
+            <input type="text" placeholder="Table Code" name="table" value="{{ tablecode }}"/>
+            {% else %}  
+            <input type="text" placeholder="Table Code" name="table" value=""/>
+            {% endif %}
+        </div>
+    </fieldset>
+    <div id="login-action">
+    <a class="whiteButton" type="submit" name="Submit" value="Submit" href="#">Login</a>
+    <div>
+</form>
+
+{% endblock content %}
+
+{% block scripts %}
+<script type="application/x-javascript" src="{{ STATIC_URL }}scripts/default/jquery.min.js"></script>
+<script type="text/javascript">
+    $('document').ready(function() {
+        $(".whiteButton").click(function() {
+            $('#login-action').hide();
+        });
+    });
+</script>
+
+{% endblock scripts %}

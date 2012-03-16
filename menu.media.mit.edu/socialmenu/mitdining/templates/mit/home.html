@@ -1,0 +1,148 @@
+{% extends 'mit/base.html' %}
+
+{% load facebook_tags %}
+
+{% block page_title %}
+{% show_facebook_full_name user %} - MIT Campus Dining
+{% endblock %}
+
+{% block tabnav %}
+        	<li><a href="/mit/orders/0/">Orders</a></li>
+        	<li><a href="/mit/profile/">Profile</a></li>
+        	<li><a href="/mit/download/">Download</a></li>
+        	<li><a href="/mit/faq/">FAQ</a></li>
+{% endblock tabnav %}
+
+
+{% block content %}
+
+<div class="dashboard">
+	<div class="dashitem">
+        <div class="dashtext">Favorites</div>
+        <ul>
+            <li>Baker</li>
+            <li>Trucks</li>
+            <li>Sepal</li>
+        </ul>
+	</div>
+	<div class="dashitem">
+        <div class="dashfocus">2</div>
+        <div class="dashtext">Visits to enter lottery</div>
+	</div>
+	<div class="dashitem">
+        <div class="dashfocus">$10</div>
+		<div class="dashtext">Needs to be claimed</div>
+	</div>
+</div>
+<div style="clear:both"></div>
+
+<h2>Latest Orders</h2>
+<!--    Show User's Orders -->
+<ul id="orders">
+{% for order in orders %}
+	<li class = "order">
+		<h3 class="order_title">Your order on {{ order.get_json.date }}</h3>
+		<div class="order_amount">{{ order.get_json.total }}</div>
+		<ul class="order_header">
+            {% for d in order.get_json.dishes %}
+            <li class="dish">
+            	<span class="dish_name">{{ d.name }}</span>
+				<div class="order_rating">
+		            <form> 
+				        <div id="order_rating_{{ d.review_id }}">
+		            	    <input type="radio" name="rating" {% ifequal d.rating 1 %}checked="checked"{% endifequal %} value="1" title="Poor" />
+		            	    <input type="radio" name="rating" {% ifequal d.rating 2 %}checked="checked"{% endifequal %} value="2" title="Fair" />
+		            	    <input type="radio" name="rating" {% ifequal d.rating 3 %}checked="checked"{% endifequal %} value="3" title="Average" />
+		            	    <input type="radio" name="rating" {% ifequal d.rating 4 %}checked="checked"{% endifequal %} value="4" title="Good" />
+		            	    <input type="radio" name="rating" {% ifequal d.rating 5 %}checked="checked"{% endifequal %} value="5" title="Excellent" />
+		                </div>
+		                <div class="order_rating_caption">
+		                    <b>Rating:</b> <span id="stars_cap_{{ d.review_id }}"></span>
+		                </div>
+		            </form>
+				</div>
+
+	
+					{% if d.comment %}
+		                <span class="order_detail" id="detail_{{ d.review_id }}" name="{{ d.review_id }}">{{ d.comment }}</span>
+		            {% else %}
+		                <span class="order_detail" id="detail_{{ d.review_id }}" name="{{ d.review_id }}">Please add a comment...</span>
+		            {% endif %}
+			</li><br />
+            {% endfor %}
+		</ul>
+
+	</li>
+		
+{% endfor %}
+
+</ul>
+
+
+{% endblock content %}
+
+{% block sidebar %}
+{% if USER_LOGGED_IN %}
+    <div id="wesabe">
+        <h2>Link Wesabe Account</h2>
+        <br>
+        <form action="/wesabe/register" method="POST">
+            <table>
+            <tr>
+            <td align="right"><label for="email">Email:</label></td>
+            <td><input id="email" name="email" type="text"></td>
+           </tr>
+           <tr>
+           <td align="right"><label for="password">Password:</label></td>
+           <td><input id="password" name="password" type="password"></td>
+           </tr>
+           <tr><td></td><td align="right"><input type="submit" value="Download"/></td></tr>
+           </table>
+        </form>
+    </div>
+{% endif %}
+{% endblock sidebar %}
+
+{% block scripts %}
+    <link href="/styles/default/transactions.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="/scripts/default/ui-stars/ui.stars.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="/scripts/default/ui-stars/ui.stars.min.js"></script>
+    <script type="text/javascript" src="/scripts/default/jquery.jeditable.min.js"></script>
+
+    <script type="text/javascript">
+
+	$(document).ready(function(){
+
+        $("#wesabe").corner();
+        $(".transaction").corner();
+
+        //  bind an event listener that will be called when
+        //  user saves changed content
+        $(".order_detail").editable("/mit/update/comment/", {
+            id: 'review_id',
+            name: 'comment',
+            indicator: 'Saving...',
+            tooltip: 'Click to edit...',
+            width: 400,
+        });
+
+		{% for order in orders %}
+            {% for d in order.get_json.dishes %}
+
+            $("#order_rating_{{ d.review_id }}").stars({
+                captionEl: $("#stars_cap_{{ d.review_id }}"),
+                callback: function(ui, type, value) {
+                    $.post("/mit/update/rating/", {review_id: {{ d.review_id }}, rating: value}, function(json)
+                    {
+                        $("#stars_cap_{{ d.review_id }}").value = json.result;
+                    }, "json");
+                }
+            });
+			{% endfor %}
+        {% endfor %}
+    });
+    </script>
+
+{% endblock scripts %}
+
+

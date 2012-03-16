@@ -1,0 +1,9 @@
+{% extends 'web2/base.html' %}
+{% load facebook_tags %}
+
+{% block content %}
+
+  <form method="POST" action="/">
+    {% show_connect_button %}
+  </form>
+{% endblock content %}

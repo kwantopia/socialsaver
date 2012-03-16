@@ -1,0 +1,23 @@
+<form selected="true" title="Login" class="panel" method="POST" action="/legals/m/login/" target="_self">
+    <input type="hidden" name="lat" value="{{ lat }}" />
+    <input type="hidden" name="lon" value="{{ lon }}" />
+    <input type="hidden" name="udid" value="{{ udid }}" />
+    <div class="error">
+        {{ error }}
+    </div>
+    <fieldset>
+        <div class="row">
+            <label>E-mail</label>
+            <input type="text" name="email" value=""/>
+        </div>
+        <div class="row">
+            <label>PIN</label>
+            <input type="password" name="pin" value=""/>
+        </div>
+        <div class="row">
+            <label>Table Code</label>
+            <input type="text" name="table" value=""/>
+        </div>
+    </fieldset>
+    <a class="whiteButton" type="submit" href="#">Login</a>
+</form>

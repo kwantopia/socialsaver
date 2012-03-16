@@ -1,0 +1,75 @@
+<div id="item{{ i.item.id }}" class="panel item" title="{{ i.item.name }}" class="menuitem">
+    <p class="title">{{ i.item.name }}</p>
+    <span class="price">{{ i.item.price }}</span>
+    <p class="description">{{ i.item.description }}</p>
+
+    {% if exp_id == 2 or exp_id == 5 %}
+        {% if i.friends %}
+            <div class="friend">
+                {% for f in i.friends %} {% if forloop.last %}{{ f }}{% else %}{{ f }}, {% endif %} {% endfor %} ordered this
+            </div>
+        {% endif %}
+
+        {% if i.fliked %}
+            <div class="friend">
+                {% for f in i.fliked %} {% if forloop.last %}{{ f }}{% else %}{{ f }}, {% endif %} {% endfor %} liked this
+            </div>
+        {% endif %}
+
+        {% if i.fwanted %}
+            <div class="friend">
+                {% for f in i.fwanted %} {% if forloop.last %}{{ f }}{% else %}{{ f }}, {% endif %} {% endfor %} want this
+            </div>
+        {% endif %}
+
+    {% endif %}
+
+    {% if exp_id == 3 %}
+        {% if i.anonymous %}
+            <div class="friend">{{ i.anonymous }}</div>
+        {% endif %}
+        {% if i.aliked %}
+            <div class="friend">{{ i.aliked }}</div>
+        {% endif %}
+        {% if i.awanted %}
+            <div class="friend">{{ i.awanted }}</div>
+        {% endif %}
+    {% endif %}
+
+    {% if exp_id == 4 %}
+        {% if i.friends %}
+            <div class="friend">{{ i.friends }}</div>
+        {% endif %}
+        {% if i.fliked %}
+            <div class="friend">{{ i.fliked }}</div>
+        {% endif %}
+        {% if i.fwanted %}
+            <div class="friend">{{ i.fwanted }}</div>
+        {% endif %}
+    {% endif %}
+
+    {% if exp_id == 5 %}
+        {# add savings opp #}
+        {% for a in i.alternative %}
+            <div class="savingsopp">{{ a.influencer }} {{ a.action }} <a href="/legals/m/item/{{a.alt_id}}/{{ order_id }}/">{{ a.alt_name }}</a> ({{ a.alt_health}})</div>
+        {% endfor %}
+    {% endif %}
+    <p>
+
+    {% if order_id > 0 %}
+
+        {% if ordered %}
+        <form id="cancelform" method="POST" action="/legals/m/unmark/{{i.item.id}}/{{ order_id }}/" target="_self">
+            {% csrf_token %}
+            <a class="whiteButton" type="submit" name="Order" value="Cancel" href="#">Remove from Cart</a>
+        </form>
+        {% else %}
+        <form id="orderform" method="POST" action="/legals/m/mark/{{i.item.id}}/{{ order_id }}/" target="_self">
+            <a class="whiteButton" type="submit" name="Order" value="Order" href="#">Add to Cart</a>
+        </form>
+        {% endif %}
+
+    {% endif %}
+</div>
+
+

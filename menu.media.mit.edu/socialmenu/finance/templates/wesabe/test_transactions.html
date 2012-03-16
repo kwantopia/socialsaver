@@ -1,0 +1,15 @@
+<html>
+	<head>
+		<title>Wesabe Test</title>
+	</head>
+	
+<body>
+<h1>Transactions:</h1>
+	<table>
+		<tr><td>Memo</td><td>Name</td><td>Amount</td><td>Tags</td></tr>
+{% for t in txns %}		
+		<tr><td>{{t.memo}}</td><td>{{t.name}}</td><td>{{t.amount}}</td><td>{{t.tags}}</td></tr>
+{% endfor %}
+	</table>
+</body>
+</html>

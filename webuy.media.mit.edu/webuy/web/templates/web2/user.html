@@ -1,0 +1,143 @@
+{% extends "web2/base.html" %}
+{% load facebook_tags %}
+{% facebook_js %}
+
+{% block page_title %}
+{{ p.name }}'s Profile Page
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+#feeds{
+width:520px;
+float:right;
+padding-right:4em;
+text-align:left;
+}
+
+ul{
+display:inline-block;
+}
+
+li{
+width:520px;
+display:inline-block;
+padding:1em 0.1em;
+border-bottom:thin solid #336699;
+}
+
+.rating_box {
+display:inline;
+float:left;
+margin-left:25px;
+margin-top:10px;
+}
+
+#pgcount{
+width:520px;
+display:inline;
+font-size:0.85em;
+padding-right:3em;
+float:right;
+text-align:center;
+}
+</style>
+{% endblock %}
+
+    
+{% block menu %}
+<div class="friends">
+    <h1>FRIENDS</h1>
+    <table class="table-pad">
+        {% for friend in friends_list %}
+          <tr>
+          <td><img src="{{ friend.image }}" border=0></img></td>
+          <td><a href="/friend/{{ friend.id }}/"> {{ friend.name }} </a></td>
+          </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<div id="feeds">
+<h1>- Show {{ p.first_name }}'s: <a href="{% url web.views.user p.id "purchases" 1 %}">Purchases</a> | 
+    <a href="{% url web.views.user p.id "wishlist" 1 %}">Wishlist</a> | 
+    <a href="{% url web.views.user p.id "reviews" 1 %}">Reviews</a> -</h1>
+    
+	<ul>
+    {% if not display.object_list %}
+    <br />
+    <br />
+    <div style="text-align:center">
+    Nothing Here!
+    </div>
+    {% endif %}
+
+    {% for d in display.object_list %}
+    	<li>
+        
+        {% if sort == "purchases" %}
+        
+            <a href="/product/{{ d.product.id }}/">
+            {% autoescape off %}
+            <b>{{ d.product.name }}</b>
+            {% endautoescape %}</a> - <span style="color:#888888">${{ d.sale_price|stringformat:".2f" }}</span>
+            <br />
+            <div style="margin-left:20px; margin-top:10px; font-size:0.9em; color:#888888"><i>Purchased on {{ d.transaction.timestamp|date:"M j, Y" }}</i></div>
+        
+        {% else %}
+        	{% if sort == "wishlist" %}
+            	<a href="/product/{{ d.product.id }}/">
+                {% autoescape off %}
+                <b>{{ d.product.name }}</b>
+                {% endautoescape %}</a> - <span style="color:#888888">Max ${{ d.max_price|stringformat:".2f" }}</span>
+                <br />
+                <div style="margin-left:20px; margin-top:10px; font-size:0.9em; color:#888888"><i>Added to Wishlist on {{ d.added|date:"M j, Y" }}</i></div>
+        
+        	{% else %}
+            	<a href="/product/{{ d.product.id }}/">
+                {% autoescape off %}
+                <b>{{ d.product.name }}</b>
+                {% endautoescape %}</a> - <span style="color:#888888"><i>{{ d.posted|date:"M j, Y" }}</i></span>
+                <br />
+                <div class="rating_box">
+                    <input type="radio" name="rating" {% ifequal d.rating 1 %}checked="checked"{% endifequal %} value="1" title="Not Worth Buying" />
+                    <input type="radio" name="rating" {% ifequal d.rating 2 %}checked="checked"{% endifequal %} value="2" title="It's Bad" />
+                    <input type="radio" name="rating" {% ifequal d.rating 3 %}checked="checked"{% endifequal %} value="3" title="It's OK" />
+                    <input type="radio" name="rating" {% ifequal d.rating 4 %}checked="checked"{% endifequal %} value="4" title="It's Good" />
+                    <input type="radio" name="rating" {% ifequal d.rating 5 %}checked="checked"{% endifequal %} value="5" title="Best Buy" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ d.content}}</div>
+            {% endif %}
+        {% endif %}
+        </li>
+    {% endfor %}
+	</ul>
+</div>
+
+<div id="pgcount">
+      {% if display.has_previous %}
+        <a href="/user/{{ p.id }}/{{ sort }}/{{ display.previous_page_number }}/">previous </a>
+      {% endif %}
+
+      <span class="current">
+        :: page {{ display.number }} of {{ display.paginator.num_pages }} ::
+      </span>
+
+      {% if display.has_next %}
+        <a href="/user/{{ p.id }}/{{ sort }}/{{ display.next_page_number }}/"> next</a>
+      {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+	<link href="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.js"></script>
+    
+    <script type="text/javascript">
+     $(".rating_box").stars({
+			disabled:true,
+		});
+	</script>
+{% endblock %}

@@ -1,0 +1,49 @@
+#
+#  mljobs.media.mit.edu 
+# (/etc/apache2/sites-available/mljobs.media.mit.edu)
+#
+<VirtualHost *:80>
+        ServerName  mljobs.media.mit.edu
+        ServerAlias mljobs.media.mit.edu 
+        ServerAdmin kwan@media.mit.edu
+
+        Alias /xd_receiver.htm /home/www/mljobs.media.mit.edu/mljobs/static/xd_receiver.htm
+        Alias /crossdomain.xml /home/www/mljobs.media.mit.edu/mljobs/static/crossdomain.xml
+        Alias /robots.txt /home/www/mljobs.media.mit.edu/mljobs/static/robots.txt
+        Alias /favicon.ico /home/www/mljobs.media.mit.edu/mljobs/static/favicon.ico
+
+        #AliasMatch /([^/]*\.css) /home/www/mljobs.media.mit.edu/mljobs/static/styles/$1
+
+        Alias /media/ /home/www/mljobs.media.mit.edu/mljobs/static/media/
+        Alias /scripts/ /home/www/mljobs.media.mit.edu/mljobs/static/scripts/
+        Alias /styles/ /home/www/mljobs.media.mit.edu/mljobs/static/styles/
+        Alias /php/ /home/www/mljobs.media.mit.edu/mljobs/static/php/
+        Alias /api /home/www/mljobs.media.mit.edu/mljobs/static/api/build/html/
+
+        <Directory /home/www/mljobs.media.mit.edu/mljobs/static>
+            Order deny,allow
+            Allow from all
+        </Directory>
+
+        WSGIDaemonProcess mljobs.media.mit.edu processes=2 threads=15 display-name=${GROUP}
+        WSGIProcessGroup mljobs.media.mit.edu
+
+        # Django root for mljobs site
+        WSGIScriptAlias / /home/www/mljobs.media.mit.edu/mljobs/apache/mljobs.wsgi
+
+        <Directory /home/www/mljobs.media.mit.edu/mljobs/apache>
+            Order allow,deny
+            Allow from all
+        </Directory>
+
+        # CGI Directory
+        ScriptAlias /cgi-bin/ /home/www/mljobs.media.mit.edu/cgi-bin/
+        <Location /cgi-bin>
+                Options +ExecCGI
+        </Location>
+
+        # Logfiles
+        ErrorLog  /home/www/mljobs.media.mit.edu/logs/error.log
+        CustomLog /home/www/mljobs.media.mit.edu/logs/access.log combined
+</VirtualHost>
+

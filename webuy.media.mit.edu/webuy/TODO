@@ -1,0 +1,50 @@
+When any review request is created, it needs to alert the user that there needs to be a review.  One can check the reviewrequests for products I have and then check if I have a a review for those products and first_reviewed=False and show them.
+
+When a review is done, you set the first_reviewed to True 
+
+
+Link RewardZone id in Profile
+
+
+
+Add event logging functionality
+
+
+In search and in many places, it allows you to add a review even though you have not bought it.
+
+/m/item
+
+
+To Yod:
+
+After adding an item to wish list, it asks for comment, so I comment and save, but then it returns to the item and it still has the "Add to wishlist".
+
+After I go back to wish list, I see the item, but I can't see the comments.
+
+<a href="tt://person/5">Ben</a> likes <a href="tt://group/7">Viral Communications</a>
+*Done
+
+
+to see more details of the review - review_id
+/review/review_id/  (see one review)
+*Done: /m/review/read/
+
+/wishlist/item/update/
+
+comment
+max_price
+*Done: already done
+
+/bought by
+/m/item/view/bought/
+get list of reviews of the person bought by
+returns duplicate users
+just name, image and people's comment about this item
+*Done: /m/bought/people/
+
+reviewer is returning username = kool instead of Kwan
+*Done: alias returns and first_name, last_name
+
+Get survey working
+
+Authenticate page needs to be handled

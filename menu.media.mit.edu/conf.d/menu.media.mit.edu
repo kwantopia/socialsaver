@@ -1,0 +1,47 @@
+#
+#  menu.media.mit.edu 
+# (/etc/apache2/sites-available/menu.media.mit.edu)
+#
+<VirtualHost *>
+        ServerName  menu.media.mit.edu
+        ServerAlias menu.media.mit.edu 
+        ServerAdmin kwan@media.mit.edu
+
+        Alias /xd_receiver.htm /home/www/menu.media.mit.edu/socialmenu/static/xd_receiver.htm
+        Alias /crossdomain.xml /home/www/menu.media.mit.edu/socialmenu/static/crossdomain.xml
+         Alias /robots.txt /home/www/menu.media.mit.edu/socialmenu/static/robots.txt
+        Alias /favicon.ico /home/www/menu.media.mit.edu/socialmenu/static/favicon.ico
+
+       # AliasMatch /([^/]*\.css) /home/www/menu.media.mit.edu/menu/static/styles/$1
+
+        Alias /php/ /home/www/menu.media.mit.edu/socialmenu/static/php/
+        Alias /media/ /home/www/menu.media.mit.edu/socialmenu/static/media/
+        Alias /styles/ /home/www/menu.media.mit.edu/socialmenu/static/styles/
+        Alias /scripts/ /home/www/menu.media.mit.edu/socialmenu/static/scripts/
+	    Alias /mobile/ /home/www/menu.media.mit.edu/socialmenu/static/php/mobile/
+	    Alias /fb/ /home/www/menu.media.mit.edu/socialmenu/static/php/fb/
+
+        <Directory /home/www/menu.media.mit.edu/socialmenu/static>
+            Order deny,allow
+            Allow from all
+        </Directory>
+
+        # Django root for menu site
+        WSGIScriptAlias / /home/www/menu.media.mit.edu/socialmenu/apache/socialmenu.wsgi
+
+        <Directory /home/www/menu.media.mit.edu/socialmenu/apache>
+            Order allow,deny
+            Allow from all
+        </Directory>
+
+        # CGI Directory
+        ScriptAlias /cgi-bin/ /home/www/menu.media.mit.edu/cgi-bin/
+        <Location /cgi-bin>
+                Options +ExecCGI
+        </Location>
+
+        # Logfiles
+        ErrorLog  /home/www/menu.media.mit.edu/logs/error.log
+        CustomLog /home/www/menu.media.mit.edu/logs/access.log combined
+</VirtualHost>
+

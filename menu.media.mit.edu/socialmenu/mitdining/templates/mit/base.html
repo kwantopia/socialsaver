@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+{% load facebook_tags %}
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>{% block page_title %}{% endblock %} - DigitalMenu from the MIT Media Lab</title>
+<link href="/styles/default/base.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="/styles/default/green.css" rel="stylesheet" type="text/css" media="screen" />
+{% facebook_js %}
+</head>
+
+<body>
+	<div id="header">
+		<div id="logo">
+			<h1><a href="#"><img src="/media/default/MIT_DigitalMenu.png" style="border:none" /><span class="img_replace">MIT Campus Dining Digital menu</span></a></h1>
+			<p id="frommedialab"> from the <a href="http://www.media.mit.edu/">MIT Media Lab</a></p>
+		</div>
+		<div id="header_bar"></div>
+		<div id="user">
+		{% if USER_LOGGED_IN %}
+		    <table border='0'>
+		    <tr>
+		        <td>
+		            Welcome {% show_facebook_first_name user %}  {% show_logout %} <br />
+		            {% show_facebook_photo user %}
+		        </td>
+		    </tr>
+		    </table>
+		{% else %}
+		<table border='0'>
+		    <tr>
+		    <td nowrap valign='middle' align='center'>
+		        <a href="/web/faq/">How is Facebook used?</a>
+		    </td>
+            <td nowrap valign='middle' align='center'>
+		      {% show_connect_button %}
+		    </td>
+		    </tr>
+		</table>
+		{% endif %}
+		</div>
+		<!-- end #user --> 
+		<div id="menu">
+		<ul>
+{% block tabnav %}
+{% endblock tabnav %}
+		</ul><!-- end nav -->
+	</div>
+	</div>
+<div id="wrapper">
+	<div id="page">
+		<div id="content">
+            <div class="post">
+                {% block warnings %}
+                {% endblock warnings %}
+            </div>
+
+			<div class="post">
+				{% block content %}
+				Base homepage
+				{% endblock content %}
+			</div>
+		</div>
+		<!-- end #content -->
+		<div id="sidebar">
+			{% block sidebar %}
+			{% endblock sidebar %}
+		</div>
+		<!-- end #sidebar -->
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+	<!-- end #page -->
+</div>
+
+{% block footer %}
+<div id="footer">
+	<p>Copyright (c) 2009 menu.mit.edu. All rights reserved.</p> 
+    <p>
+    <a href="/web/consent/techcash/">TechCash Terms of Service</a>&nbsp;
+    <a href="/web/consent/otn/">Digital Menu Terms of Service</a>
+    </p>
+</div>
+{% endblock footer %}
+
+	
+<script type="text/javascript" src="/scripts/default/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="/scripts/default/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="/scripts/default/jquery.corner.js"></script>
+{% initialize_facebook_connect %}
+
+{% block scripts %}
+{% endblock scripts %}
+</body>
+</html>

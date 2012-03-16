@@ -1,0 +1,57 @@
+{% extends "web/base.html" %}
+
+{% block page_title %}
+{{ survey.survey.title }}
+{% endblock %}
+
+{% block content %}
+<div id="home-body">
+  <div class="span-20 last">
+    <style type="text/css"> 
+        .error {display:none;}
+    </style>
+    <h2>{{ survey.survey.title }}</h2>
+    <p>{{ survey.survey.description }}</p>
+    <p>
+    <div class="prepend-1 span-19 last">
+      <form action="{% url survey.views.survey survey_id %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="uuid_token" value="{{ uuid_token }}" />
+        {% for field in form %}
+            <div class="survey {% if forloop.counter0|divisibleby:"2" %}survey-bg{% endif %} span-18 last">
+              <div class="span-18 last">
+                <div class="error">
+                  {{ field.errors }}
+                </div>
+              </div>
+              <div class="survey-questions {% if forloop.counter0|divisibleby:"2" %}survey-bg{% endif %} span-17 last">
+                {% if field.html_name in form.radio_fields %}
+                  <div class="span-18 last">
+                    <div class="survey-question span-18 last">
+                    {{ forloop.counter }}. {{ field.label_tag }}
+                    </div>
+                    <div class="append-1 span-17 last">
+                      {{ field }}
+                    </div>
+                  </div>
+                {% else %}
+                    <div class="span-18 last">
+                      <div class="survey-question span-12">
+                        {{ forloop.counter }}. {{ field.label_tag }}
+                      </div>
+                      <div class="span-6 last">
+                        {{ field }}
+                      </div>
+                    </div>
+                {% endif %}
+              </div>
+            </div>
+        {% endfor %}
+        <div class="survey prepend-14 span-4 last">
+        <p><input type="submit" value="Submit" /></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

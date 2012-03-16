@@ -1,0 +1,29 @@
+{% extends "web/base.html" %}
+
+{% block redirect %}
+<meta http-equiv="refresh" content="2;url={% url survey.views.surveys %}">
+{% endblock %}
+
+
+{% load facebook_tags %}
+<!-- This page is shown only when user logs in -->
+
+{% block page_title %}
+{% show_facebook_full_name fbuser %} - Surveys 
+{% endblock %}
+
+{% block tabnav %}
+  <li><a href="{% url web.views.index %}">Home</a></li>
+  <li><a href="{% url survey.views.surveys %}">Surveys</a></li> 
+  <li><a href="{% url web.views.winners %}">Winners</a></li>
+  <li><a href="{% url web.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+
+{% block content %}
+<div id="home-body">
+
+<h1>Thank you for completing the survey.  You will be re-directed to the surveys page in a second.</h1>
+
+</div>
+{% endblock %}

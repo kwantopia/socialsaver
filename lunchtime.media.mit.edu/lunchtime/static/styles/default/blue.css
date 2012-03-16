@@ -1,0 +1,52 @@
+/*
+By Michael Plasmeier (ThePlaz) for the MIT Media Lab
+
+This file is for colors that change
+*/
+
+a {
+	border-bottom: 1px dotted #3377FF;
+	color: #3377FF;
+}
+
+#logo h1 a {
+	color: #3377FF;
+}
+
+#header_bar, #footer {
+	background: #0049AA;
+}
+
+#menu li a {
+	color:white;
+}
+
+#menu li.current { 
+	background:#033B85; 
+}
+
+#menu li {
+	background:#90ABD9;
+}
+
+#menu li:hover {
+	background:#9DBBE5;
+}
+
+
+
+.post .meta {
+	background: #E0E0E0;
+	border-left: 4px double #3377FF;
+	border-right: 4px double #3377FF;
+}
+
+
+.post .title {
+	/*border-left: 4px solid #3377FF;*/
+}
+
+
+#reciepts_list table {
+	border-bottom:1px solid #3377FF;
+}

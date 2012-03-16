@@ -1,0 +1,63 @@
+{% extends "web/base.html" %}
+
+{% block page_title %}
+WeBuy - Product Page 
+{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url web.views.wishlist %}">Wish List</a></li>
+    <li><a href="{% url web.views.purchases %}">Purchases</a></li>
+    <li><a href="{% url web.views.surveys %}">Surveys</a></li>
+{% endblock %}
+
+{% block content %}
+
+<div class="product-section span-14 last">
+  <div class="span-4">
+    {% if p.medium_image %}
+      <img src="{{ p.medium_image }}">
+    {% else %}
+      <img src="/media/webuy/dummy_product.gif">
+    {% endif %}
+  </div>
+  <div class="span-10 last">
+    <div class="span-10 last">
+      {{ p.name }}
+    </div>
+    <div class="span-10 last">
+      <b>SKU</b>: {{ p.sku }}
+    </div>
+    <div class="span-10 last">
+      <b>Price</b>: {{ p.sale_price }}
+    </div>
+  </div>
+</div>
+
+<div id="request-section" class="span-14 last">
+  {% for req in requests %}
+    <div class="user span-3">
+      <a href="/user/{{req.requester.id}}/">{{ show_facebook_photo req.requester }}</a>
+    </div>
+    <div class="request span-11 last">
+      <a href="/user/{{req.requester.id}}/">{{ req.requester }}</a> requests review on this item
+    </div>
+  {% endfor %}
+</div>
+
+<div id="review-section" class="span-14 last">
+  {% for rev in reviews %}
+    <div class="user span-3">
+      <a href="/user/{{rev.reviewer.id}}/">{{ show_facebook_photo rev.reviewer }}</a>
+    </div>
+    <div class="review span-11 last">
+      <div class="span-11 last">
+        {{ rev.content }}
+      </div>
+      <div class="reviewer prepend-5 span-6 last">
+        {{ rev.reviewer.name }} - {{ rev.posted }}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

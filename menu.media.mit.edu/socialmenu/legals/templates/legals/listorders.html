@@ -1,0 +1,82 @@
+<div class="span-20 order-container last">
+  <div class="span-1">
+    <div class="ordered-friends">
+    </div>
+  </div>
+  <div class="span-14 order">
+      <div class="span-14 last">
+            <h3 class="order_title">Your order on {{ order.get_json.date }}</h3>
+      </div>
+
+      <div class="span-14 last">
+            <div class="order_amount">Estimated Total: {{ order.get_json.total }}</div>
+      </div>
+
+      {% for d in order.get_json.dishes %}
+      <div class="span-14 last dish">
+        <div class="prepend-1 span-7">
+            <span class="dish_name">{{ d.name }}</span>
+        </div>
+        <div class="span-6 last">
+            <form> 
+                    {% csrf_token %}
+            <div id="order_rating_{{ d.review_id }}">
+                  <input type="radio" name="rating" {% ifequal d.rating 1 %}checked="checked"{% endifequal %} value="1" title="Poor" />
+                  <input type="radio" name="rating" {% ifequal d.rating 2 %}checked="checked"{% endifequal %} value="2" title="Fair" />
+                  <input type="radio" name="rating" {% ifequal d.rating 3 %}checked="checked"{% endifequal %} value="3" title="Average" />
+                  <input type="radio" name="rating" {% ifequal d.rating 4 %}checked="checked"{% endifequal %} value="4" title="Good" />
+                  <input type="radio" name="rating" {% ifequal d.rating 5 %}checked="checked"{% endifequal %} value="5" title="Excellent" />
+                </div>
+                <div class="order_rating_caption">
+                    <b>Rating:</b> <span id="stars_cap_{{ d.review_id }}"></span>
+                </div>
+
+            </form>
+        </div>
+        <div class="prepend-1 span-13 last">
+          <form>
+          {% csrf_token %}
+          <div class="order_reason">
+              Why did you choose this dish?
+              <select id="order_reason_{{ d.review_id }}">
+              <option value="0" {% ifequal d.reason 0 %}selected{% endifequal %}>-----------------</option>
+              <option value="1" {% ifequal d.reason 1 %}selected{% endifequal %}>Been planning to visit Legal's to eat this</option>
+              <option value="2" {% ifequal d.reason 2 %}selected{% endifequal %}>I do not remember</option>
+              <option value="3" {% ifequal d.reason 3 %}selected{% endifequal %}>I wanted to try something new</option>
+              <option value="4" {% ifequal d.reason 4 %}selected{% endifequal %}>I wanted something healthy</option>
+              <option value="5" {% ifequal d.reason 5 %}selected{% endifequal %}>It was reasonably priced</option>
+              <option value="6" {% ifequal d.reason 6 %}selected{% endifequal %}>My friend(s) suggested I try</option>
+              <option value="7" {% ifequal d.reason 7 %}selected{% endifequal %}>People seem to like it</option>
+              <option value="8" {% ifequal d.reason 8 %}selected{% endifequal %}>I particularly like the dish</option>
+              <option value="9" {% ifequal d.reason 9 %}selected{% endifequal %}>Waiting staff suggested</option>
+              <option value="10" {% ifequal d.reason 10 %}selected{% endifequal %}>Other (please comment below)</option>
+              </select>
+          </div>
+          </form>
+        </div>
+        <div class="prepend-1 span-13 last">
+          {% if d.comment %}
+              <span class="comments order_detail" id="detail_{{ d.review_id }}" name="{{ d.review_id }}">{{ d.comment }}</span>
+          {% else %}
+              <span class="comments order_detail" id="detail_{{ d.review_id }}" name="{{ d.review_id }}">Please add a comment...</span>
+          {% endif %}
+        </div>
+        <!--<div style="clear:both"></div>-->
+        </div><!-- class=dish -->
+      {% endfor %}
+  </div><!-- span-14 -->
+  <div class="span-4 last">
+    <!-- TODO: Add file input field to upload the receipt --> 
+    <div id="example{{ order.get_json.id }}">
+        <div id="uploadbutton{{ order.get_json.id }}" class="button">Upload Receipt</div> 
+        <p class="text"></p>
+        {% if order.get_json.receipt %}
+            <span class="image"><a class="receipt_img" href="{{order.get_json.receipt}}"><img src="{{ order.get_json.thumbnail }}"></a></span>
+        {% else %}
+            <span class="image"></span>
+        {% endif %}
+    </div>
+  </div>
+
+</div><!-- span-20 -->
+

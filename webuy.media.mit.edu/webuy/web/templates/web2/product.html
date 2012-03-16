@@ -1,0 +1,229 @@
+{% extends "web2/base.html" %}
+{% load facebook_tags %}
+
+{% block page_styles %}
+<style type="text/css">
+#product{
+margin:auto;
+min-height:280px;
+}
+
+#request{
+margin:auto;
+}
+
+li{
+display:inline;
+margin-left:200px;
+}
+
+
+
+/*Reviews */
+h4{
+color:#004f09;
+font-size:12pt;
+}
+
+.rev{
+display:inline;
+}
+
+.review{
+padding-left:270px;
+margin-top:30px;
+margin-bottom:30px;
+
+}
+
+.review_header{
+margin-bottom:0px;
+}
+
+.review_row {
+width:500px;
+margin-left:40px;
+clear:both;
+margin-bottom:5px;
+display:block;
+}
+
+.rating_box {
+padding-top: 5px;
+}
+
+.rating_caption {
+font-size:0.9em;
+margin-top: -1px;
+margin-left: 110px;
+}
+
+.review_detail {
+display:inline;
+margin-top:10px;
+background:url(/media/rating/Comment.png) no-repeat 0 2px;
+padding-left:20px;
+width: 400px;
+height:90px;
+font-size:0.9em;
+float:left;
+}
+
+.review_time {
+color:#AAAAAA;
+font-size:10pt;
+margin-top:-20px;
+}
+
+.review_public {
+padding-top:5px; /* for stars */
+margin-left:-3px;
+}
+
+.info{
+width:160px;
+text-align:center;
+float:left;
+font-size:14px;
+}
+</style>
+{% endblock %}
+
+{% block small %}
+{% endblock %}
+
+{% block content %}
+<div id="bigwindow">
+<div id="product">
+    <h1>
+		{% autoescape off %}
+        {{ p.name }}
+        {% endautoescape %}
+        <br />
+    </h1>
+
+	<ul>
+    	<li>
+         {% if p.medium_image %}
+            <img src="{{ p.medium_image }}" border=0>
+        {% else %}
+            <img src="/media/webuy/dummy_product.gif">
+        {% endif %}
+        
+        <!--Submenu depends on user: Option to review if in purchases, option to request or remove if in wishlist, option to add if neither-->
+        {% if purchased %}
+            <span style="margin-left:20px"><b>Please review your purchase:</b></span>
+            <div class="review">
+                <div class="review_row">
+                    <div class="review_time">{{ review.posted|date:"M j, Y - P" }}</div>
+                </div>
+    
+                <div class="review_row">
+                    <form> 
+                    {% csrf_token %}
+                    <div class="rating_box" id="review_rating_{{ review.id }}">
+                        <input type="radio" name="rating" {% ifequal review.rating 1 %}checked="checked"{% endifequal %} value="1" title="Poor" />
+                        <input type="radio" name="rating" {% ifequal review.rating 2 %}checked="checked"{% endifequal %} value="2" title="Fair" />
+                        <input type="radio" name="rating" {% ifequal review.rating 3 %}checked="checked"{% endifequal %} value="3" title="Average" />
+                        <input type="radio" name="rating" {% ifequal review.rating 4 %}checked="checked"{% endifequal %} value="4" title="Good" />
+                        <input type="radio" name="rating" {% ifequal review.rating 5 %}checked="checked"{% endifequal %} value="5" title="Excellent" />
+                    </div>
+                    <div class="rating_caption">
+                        <b>Rating:</b> <span id="stars_cap_{{ review.id }}"></span>
+                    </div>
+                    </form>
+                </div>
+                
+                <div class="review_row">
+                    {% if review.content %}
+                        <div class="review_detail" id="detail_{{ review.id }}" name="{{ review.id }}">{{ review.content }}</div>
+                    {% else %}
+                        <div class="review_detail" id="detail_{{ review.id }}" name="{{ review.id }}">Please click to leave a comment.</div>
+                    {% endif %}
+                </div>
+            </div>
+    
+        {% else %}
+            {% if wished %}
+            	<span style="margin-left:20px"><b>Added to Wishlist on {{ wished.added|date:"D M j, Y" }}</b></span>
+                <br />
+                <br />
+                <br />
+                
+                <div style="margin-left:270px">
+                <div class="info">
+                    {% if wished.review == wished.NOT_REQUESTED %}
+                        <a href="/request/review/{{wished.product.id}}/"><img src="/media/shoppley/request.png" border=0 height=35/><br />Request Review</a>
+                    {% endif %}
+                    {% if wished.review == wished.REVIEW_REQUESTED %}
+                        <img src="/media/shoppley/rev_requested.png" border=0 height=35/><br />Review Requested
+                    {% endif %}
+                    {% if wished.review == wished.REVIEW_RESPONDED %}
+                        <a href="/requests/"><img src="/media/shoppley/reviewed.png" border=0 height=35/><br />Click to See Reviews</a>
+                        <!-- <div id="reviews_list{{w.product.id}}">Hello</div>-->
+                    {% endif %}
+                </div>
+                <div class="info">
+                    <a href="/remove/{{wished.product.id}}"><img src="/media/shoppley/wishlist.png" border=0 height=35/><br />Remove from Wishlist</a>
+            	</div>
+                
+                </div>
+            {% else %}
+                <span style="margin-left:20px"><b>Use the mobile app to add to wishlist!</b></span>
+            
+            {% endif %}
+        
+        {% endif %}
+        
+        <br /><br /><br /><br /><br />
+        <div style="text-align:center">
+        <a href="{{ p.url }}"><b>Click here to view more product details.</b></a>
+        <br />
+        <a href="{{ p.cart_url }}"><b>Click here to add this item to your cart!</b></a>
+        </div>
+        </li>
+    </ul>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+	<link href="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.js"></script>
+    <script type="text/javascript" src="/scripts/default/jquery.jeditable.min.js"></script>
+    <script type="text/javascript" src="/scripts/default/jquery.corner.js"></script>
+
+    <script type="text/javascript">
+
+
+	$(document).ready(function(){
+
+        $("#wesabe").corner();
+        $(".review").corner();
+
+        //  bind an event listener that will be called when
+        //  user saves changed content
+        $(".review_detail").editable("/update/description/", {
+            id: 'review_id',
+            name: 'description',
+            onblur: 'submit',
+            indicator: 'Saving...',
+            tooltip: 'Click to edit...',
+            type:'textarea',
+			rows:4,
+			col:60
+        });
+
+        $("#review_rating_{{ review.id }}").stars({
+            captionEl: $("#stars_cap_{{ review.id }}"),
+            callback: function(ui, type, value) {
+                $.post("/update/rating/", {review_id: {{ review.id }}, rating: value}, function(json)
+                {
+                    $("#stars_cap_{{ review.id }}").value = json.result;
+                }, "json");
+            }
+        });
+    
+    });
+    </script>
+{% endblock %}

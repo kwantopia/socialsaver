@@ -1,0 +1,33 @@
+Need to put image on the receipt view (receipt())
+Balance API over time and return balance    
+
+fiend_trace returns whether there are any reviews or number of reviews.
+
+Need to population location types, location images, Unknown location
+
+./manage.py shell
+
+run techcash/inittc.py
+run setup/location_init.py
+
+
+1. Need to send daily alerts
+    - cron job that runs every 15 mins and sends out alerts to those who have lunch time in next 15 mins on average.
+2. Find average lunch time, store it for monday~sun and every 15 minutes you send a lunch alert for those people that have lunch time in the next 15 minutes on average.
+    - Sync lunchtime model
+    - need to have logic to update average lunchtime
+3. Need to automate type identification of location (for now done through cron, when uploading initial data)
+
+
+Done: 5/9/10
+4. Need to add a feature item, test it by calling analysis/test and then add to cron job, open up iphone app to see if it works without crashing.
+
+
+1. Put feeds on MealTime
+2. Put menu linked with the places
+3. Allow to ping friends
+4. Allow to search places or sort items
+5. Need to be able to see spending using google chart output on the mobile
+6. Need to keep track of the balance every day.
+
+Check the alert time and the transaction time difference and see if its correlated to places it was shown during alert.

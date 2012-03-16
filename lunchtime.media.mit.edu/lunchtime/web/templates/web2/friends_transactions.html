@@ -1,0 +1,124 @@
+{% extends "web2/base.html" %}
+
+{% block page_title %}
+{{ f.name }}'s Latest Transactions
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+#txns{
+width:540px;
+float:right;
+padding-right:2em;
+text-align:left;
+}
+
+h4{
+color:#004f09;
+font-size:13pt;
+}
+
+.trans_img{
+float:left;
+margin-right:20px;
+display:inline;
+}
+
+.transaction {
+padding-left:70px;
+margin-top:30px;
+margin-bottom:30px;
+}
+
+.transaction_header{
+margin-bottom:0px;
+vertical-align:middle;
+}
+
+.transaction_row {
+margin-left:70px;
+clear:both;
+margin-bottom:5px;
+}
+
+.trans_amount {
+color:#e8a31f;
+}
+
+.rating_box {
+display:inline;
+float:left;
+margin-left:5px;
+}
+
+</style>
+{% endblock %}
+
+{% block menu %}
+<div class="friends">
+    <h1>- Friends -</h1>
+    <table class="table-pad">
+        {% for friend in friends_list %}
+          <tr>
+          <td><img src="{{ friend.get_image }}" border=0></img></td>
+          <td><a href="/friends/transactions/{{ friend.id }}"> {{ friend.name }} </a></td>
+          </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="txns">
+<h1>{{ f.name }}'s Latest Transactions</h1>
+{% if not visits %}
+<br />
+<br />
+<div style="text-align:center">
+No Transactions to Display!
+</div>
+{% endif %}
+
+  	{% for v in visits %}
+	    <div class="transaction">
+        	<div class="trans_img"><img src="{{ v.location.image }}" /> </div>
+			<div class="transaction_header">
+				<h4>
+					{{ v.location.name }} - <span class="trans_amount">${{ v.amount }}</span>
+            	</h4>
+          	</div>
+            
+        	<div class="transaction_row">
+            	<b>Last visited:</b> {{ v.latest|date:"M j, Y - P" }}
+            </div>
+            <div class="transaction_row">
+            	<div style="float:left">
+            	<b>Average Rating: </b>
+                </div>
+                
+                <div class="rating_box">
+                    <input type="radio" name="rating" {% ifequal v.rating 1 %}checked="checked"{% endifequal %} value="1" title="Poor" />
+                    <input type="radio" name="rating" {% ifequal v.rating 2 %}checked="checked"{% endifequal %} value="2" title="Fair" />
+                    <input type="radio" name="rating" {% ifequal v.rating 3 %}checked="checked"{% endifequal %} value="3" title="Average" />
+                    <input type="radio" name="rating" {% ifequal v.rating 4 %}checked="checked"{% endifequal %} value="4" title="Good" />
+                    <input type="radio" name="rating" {% ifequal v.rating 5 %}checked="checked"{% endifequal %} value="5" title="Excellent" />
+                </div>
+            </div>
+        </div>
+        <br /><br />
+
+  {% endfor %}
+</div>
+{% endblock %}
+
+
+{% block extra_scripts %}
+	<link href="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.js"></script>
+    
+    <script type="text/javascript">
+     $(".rating_box").stars({
+			disabled:true,
+		});
+	</script>
+{% endblock %}

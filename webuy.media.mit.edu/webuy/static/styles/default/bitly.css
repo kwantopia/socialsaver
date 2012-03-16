@@ -1,0 +1,559 @@
+body {
+    margin: 0px;
+    padding: 0px 20px;
+    font-family: arial, helvetica, sans-serif;
+    font-size: 12px;
+    color: rgb(85,85,85);
+}
+
+a {
+    text-decoration: none;
+    color: rgb(102,153,255);
+}
+
+a img {
+    border:none;
+}
+
+#left_col {
+    vertical-align: top;
+    min-width: 650px;
+/*    border:2px solid green;*/
+}
+
+#right_col {
+    vertical-align: top;
+    width:270px;
+    min-width: 270px;
+    padding-left:30px;
+/*    border:2px solid red;*/
+}
+
+h2.nom {
+    margin:0;
+}
+
+h2.top_h {padding:0; margin:0;}
+.byline {padding:0; margin:0 0 15px 0; font-size:10pt;}
+
+#container {
+    height: 100%;
+    width: 100%;
+}
+
+#footer {
+    height: 36px;
+    background: rgb(234,234,234);
+    border-top: 1px solid rgb(186,186,186);
+    border-bottom: 1px solid rgb(186,186,186);
+    font-size: 12px;
+    padding-left: 50px;
+    /* temporary fix */
+    padding-bottom: 100px;
+    margin: 0 auto;
+}
+
+#sub_tabs {
+    margin-bottom: 30px;
+}
+
+#tabs {
+    margin-bottom: 30px;
+}
+
+.short_input, .input_field {
+    font-size: 14px;
+    padding:5px;
+    border: 1px solid rgb(85,85,85);
+}
+
+/* what is this for? might be old, and breaking new bento box css stuff - SJL 
+#url {
+    border: 2px solid #555555;
+    width: 100%;
+}
+*/
+
+#url_input_container {
+    padding-right:14px;
+}
+
+#custom_table {
+    width:100%;
+    padding:-5px;
+}
+
+form.labeled_form input {
+    display:block;
+}
+
+form.labeled_form label {
+    display:block;
+    padding:5px 0;
+}
+
+#not_logged_in_links {
+    padding-top:2px;
+}
+
+#dial_holder {
+    width:235px;
+    height:95px;
+    background-color:#F2E5CC;
+    padding:5px 10px;
+}
+
+#twitter_form_holder {
+    text-align:left;
+    padding-left:20px;
+}
+
+#twitter_form {
+    text-align:right;
+    margin-top:10px;
+}
+
+#dial {
+    font-size:12px;
+}
+
+#dial label {
+    display:block;
+    font-weight:bold;
+    padding:5px 0 3px 0;
+}
+
+#dial > div {
+    padding:5px 2px;
+}
+
+#reg_creds, #twitter_creds {
+    float:left;
+    width:225px;
+    padding:10px !important;
+}
+
+#reg_creds {
+    background: transparent url(/media/bitly/signup_revised_bg.png) repeat-x scroll top left;
+    border:1px solid #e3e3e3;
+    padding-bottom:0 !important;
+}
+
+#reg_creds label, #twitter_creds label {
+    padding:0;
+    font-size:13px;
+}
+
+#reg_creds input, #twitter_creds input {
+    margin:5px 0 10px 0;
+}
+
+#twitter_creds_above, #twitter_creds_below {
+    float:left;
+    padding:0 !important;
+}
+
+#twitter_creds label > span {
+    font-weight:normal;
+}
+
+#twitter_creds_subhead {
+    padding-bottom:15px;
+}
+
+#optional_reg_label {
+    font-size:11px;
+    line-height:0;
+}
+
+#also_reg_checkbox {
+    vertical-align:middle;
+}
+
+#choose_accounts > div {
+    padding-bottom:10px;
+}
+
+#top_form #dial_errors {
+    padding:0 !important;
+}
+
+#custom_name, #custom_name_input {
+    height: 34px;
+    line-height: 34px;
+    width: 180px;
+    background: rgb(227,227,227);
+    font-size: 14px;
+    text-align: center;
+}
+
+#custom_name a {
+    color:#555;
+}
+
+#custom_name_td {
+    margin-bottom:5px;
+}
+
+#bookmarklet {
+    height: 20px;
+    line-height: 20px;
+    background: rgb(85,85,85);
+    font-size: 12px;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    width: 42px;
+    border: none;
+}
+
+#shorten, #share_button, .big_button {
+    height: 32px;
+    line-height: 10px;
+    background-image: url("/media/bitly/button.png"); 
+    background-repeat: none;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    width: 105px;
+    border: none;
+}
+
+#share_button {
+    margin-top:5px;
+}
+
+.box {
+    background: rgb(227,227,227);
+    padding: 12px;
+    padding-top: 8px;
+    border: 1px solid rgb(215,215,215);
+}
+
+.box_header {
+    font-size: 12px;
+    font-weight: bold;
+    padding-bottom: 6px;
+    text-align: left;
+}
+
+.box_text {
+    background: #fff;
+    padding: 12px;
+    font-size: 12px;
+    font-weight: normal;
+    text-align: left;
+}
+
+.tab {
+    width: 90px;
+    background: rgb(242,229,204);
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    color: rgb(204,153,51);
+    border-bottom: 1px solid rgb(204,153,51);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.sub_tab {
+    background: #fff;
+    text-align: center;
+    padding-left: 12px;
+    padding-right: 12px;
+    height: 22px;
+    line-height: 22px;
+    color: rgb(85,85,85);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.sub_tab_selected {
+    background: rgb(242,229,204);
+}
+
+.tab_selected {
+    background: #fff;
+    color: rgb(85,85,85);
+    border-bottom: 1px solid #fff;
+    border-left: 1px solid rgb(204,153,51);
+    border-right: 1px solid rgb(204,153,51);
+    border-top: 1px solid rgb(204,153,51);
+}
+
+.tab_container {
+    text-align: right;
+    width: 90px;
+}
+
+.tab_spacer {
+    width: 2px;
+    border-bottom: 1px solid rgb(204,153,51);
+}
+
+.sub_tab_spacer {
+    width: 2px;
+}
+
+.login {
+    position: relative;
+    top: -5px;
+    left: 10px;
+    font-size: 12px;
+}
+
+.header {
+    font-size: 14px;
+    font-weight: bold;
+    padding-bottom: 2px;
+}
+
+.history_url {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.link_button {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.link_button a {
+    color: #fff;
+}
+
+.link_button_grey {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.link_button_grey a {
+    color: rgb(85,85,85);
+}
+
+.link_button_grey object {
+    vertical-align: text-bottom;
+    position: relative;
+    top:-1px;
+    left:3px;
+}
+
+#index_copy_button {
+    margin-left:5px;
+}
+
+#index_copy_button object, #info_copy_button object  {
+    vertical-align: text-bottom;
+    position:relative;
+    top:0;
+}
+
+#shorten_helper_links {
+    font-size:16px;
+}
+
+#shorten_helper_links a {
+    margin-left:10px;
+}
+
+#tweet_body_container {
+    padding-right:13px;
+}
+
+.hidden {
+    display:none;
+}
+
+#errors {
+    font-size:12px;
+    color:#CC3333;
+    background-color:#E3E3E3;
+    padding:3px;
+    margin-bottom:5px;
+}
+
+#errors p {
+    padding:3px;
+    margin:0;
+}
+
+
+#shortened_header {
+    font-weight:bold;
+}
+
+#share_action_left {
+    text-align:left;
+    background-color: #E3E3E3;
+    height:50px;
+    padding:10px;
+}
+
+#source_div {
+    font-size:12px;
+    padding-top: 10px;
+}
+
+.fleft {
+    float:left;
+}
+
+.fright {
+    float:right;
+}
+
+.clearleft {
+    clear:left;
+}
+
+.clear {
+    clear:both;
+}
+
+#accounts_list input {
+    vertical-align:bottom;
+}
+
+#toggle_account_link table {
+    display:inline; 
+    vertical-align:middle;
+}
+
+.resp_message {
+    font-size:12px;
+}
+
+.direct_exp {
+    font-size:9px;
+    vertical-align:top;
+}
+
+/***************************************************************
+Sharing
+*/
+.share_div ._b_bold { display:none; } /* ._b_action_link_twitter, ._b_bullet_twitter, */
+
+.share_div div {
+    background:#aaa;
+    color:#fff;
+    font-size:11px;
+    margin-left:13px;
+    padding:2px 5px;
+    text-align:center;
+    width:168px;
+}
+
+#info_share_div .share_div div {
+    margin-left:32px;
+}
+#info_share_div .link_button_grey > a {
+    font-size:13px !important;
+    color:#666;
+}
+.share_div a {
+    padding:3px;
+    color:#fff;
+}
+
+
+.embedded_iframe {
+    width:100%;
+}
+
+/***************************************************************
+Info Page
+*/
+/*#bitly_bookmarklet_divs {
+    font-size:9pt;
+    width:450px;
+}
+
+#_b_tconversations {
+    padding-bottom:5px;
+    font-weight:bold;
+    font-size:18px;
+}
+
+._b_label {
+    padding:5px 0;
+    font-weight:bold;
+}
+
+#bitly_bookmarklet_divs div._b_bottompad {
+    padding-bottom:5px;
+}
+*/
+#bitly_bookmarklet_divs div._b_bottompad span {
+    padding:0 5px;
+}
+
+#bitly_bookmarklet_divs div._b_bottompad span._b_backtype_author {
+    padding-left:0;
+}
+
+/*
+#_b_summize, #_b_friendfeed, #_b_backtype {
+    padding-left:15px;
+}
+
+#_b_backtype div._b_authors span, #_b_backtype div._b_authors a {
+    padding:0 1px;
+}
+*/
+#info_mp3player object {
+    vertical-align:middle;
+    margin-left:20px;
+}
+
+#upsell { border:1px solid #e3e3e3; background: #fff url(/media/bitly/upsell_bg.png) repeat-x scroll top left; height:75px; padding:0; margin:10px 0; cursor:pointer; }
+#upsell_green img { margin-top:9px; }
+#upsell h2, #upsell h4, #upsell h5 { padding:0; margin:0; }
+#upsell_history, #upsell_prefs { width:170px; }
+#upsell_tracking { width:190px; }
+#upsell > div.fleft { float:left; font-size:12px; color:#777777; margin:10px 5px; padding:0; }
+#upsell #upsell_big h2 { font-size:20px; color:#cc9933; padding-right:20px; margin-top:6px; }
+#upsell #upsell_big h4 { font-size:14px; font-weight:normal; color:#6699ff; }
+#upsell > div h5 { font-size:14px; }
+#upsell > div.clearleft { width:800px; min-width:800px; }
+
+#upsell_right { background: #fff url(/media/bitly/home_fatbottom.png) no-repeat scroll 107px 0px; border:1px solid #e3e3e3; margin-bottom:15px; cursor:pointer; }
+#upsell_right .fleft > img { padding-top:14px; padding-left:10px; }
+#upsell_right_text { width:200px; color:#666; text-align:left; padding-left:15px; }
+#upsell_right_text h2 { color:#D8A940; }
+#upsell_right_text h5 { padding:0; margin:0; margin-top:10px; font-size:9pt; }
+#upsell_right_text_bottom { padding-top:10px; padding-bottom:15px; font-size:13px; }
+
+/*
+####################################################################################################
+# uservoice
+####################################################################################################
+*/
+#uservoice-dialog { z-index: 100003; display: block; text-align: left; margin: -2em auto 0 auto; position: absolute;}
+#uservoice-overlay { position: absolute; z-index:100002; width: 100%; height: 100%; left: 0; top: 0; background-color: #000; opacity: .7;}
+#uservoice-dialog[id], #uservoice-overlay[id] { position:fixed; }
+#uservoice-overlay p {padding: 5px; color: #ddd; font: bold 14px arial, sans-serif; margin: 0; letter-spacing: -1px; }
+#uservoice-dialog #uservoice-dialog-close { position: absolute; height: 48px; width: 48px; top: -11px; right: -12px; color: #06c; cursor: pointer; background: url(https://uservoice.com/images/icons/close.png) 0 0 no-repeat; }  
+* html.dialog-open body { height: 100%; } 
+* html.dialog-open, * html.dialog-open body {overflow: hidden; }
+
+  a#uservoice-feedback-tab { 
+    background:#555555 url(http://bitly.uservoice.com/images/feedback_tab.png) no-repeat scroll -2px 50%;
+    border-color:#555555 #fff #555555 #555555;
+    border-style:outset none outset outset;
+    border-width:1px medium 1px 1px;
+    display:block;
+    height:90px;
+/*    margin-top:-45px;*/
+    position:fixed;
+    right:0;
+    text-indent:4000px;
+    top:40%;
+    width:25px;
+    z-index:100001;
+  }
+  a#uservoice-feedback-tab:hover { background-color: #06c; cursor: pointer;}  
+  #uservoice-dialog { padding-top:20px; }
+  #uservoice-dialog-close { margin-top:20px; }

@@ -1,0 +1,55 @@
+<fb:header>
+  {% comment %}
+    We can use {{ fbuser }} to get at the current user.
+    {{ fbuser.id }} will be the user's UID, and {{ fbuser.language }}
+    is his/her favorite language (Python :-).
+  {% endcomment %}
+  {% if fbuser %}
+  Welcome, <fb:name uid="{{ fbuser.id }}" firstnameonly="true" useyou="false" />!
+  {% else %}
+  You are not logged in. <a href="/{{appname}}/legals/">Log In Here</a>
+  {% endif %}
+</fb:header>
+
+{% include "presurvey/intro.html" %}
+
+{% if fbuser %}
+
+    <div class="clearfix" style="float: left; border: 1px #d8dfea solid; padding: 10px 10px 10px 10px; margin-left: 30px; margin-bottom: 30px; width: 540px;">
+        <label>Friends who have completed the survey:</label>
+        <p>
+        {% for f in friends %}
+            <img src="{{ f.pic_square }}"/>
+        {% endfor %}
+    </div>
+
+
+    {% if fbuser.completed %}
+    {% else %}
+
+    <div class="clearfix" style="float: left; border: 1px #d8dfea solid; padding: 10px 10px 10px 10px; margin-left: 30px; margin-bottom: 30px; width: 540px;">
+        <a href="/{{appname}}/">Start Survey</a>
+    </div>
+
+    {% endif %}
+{% else %}
+<div class="clearfix" style="float: left; border: 1px #d8dfea solid; padding: 10px 10px 10px 10px; margin-left: 30px; margin-bottom: 30px; width: 540px;">
+    <a href="/{{appname}}/legals/">Log In to Start Survey</a>
+    <p>
+    The application will ask you to allow access.  The application will only be accessing friends API of Facebook to check the number of friends that completed the survey.  You need at least 10 other friends that completed the survey to participate in the digital menu study. We won't be accessing your profile, your photos, nor any contact information.  The only contact we'll have is your e-mail address you enter in the survey.  Survey results will be anonymized and only used for research purposes and will not be shared with any other parties.
+</div>
+{% endif %}
+
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-4915049-4");
+        pageTracker._setDomainName("none");
+        pageTracker._setAllowLinker(true);
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+

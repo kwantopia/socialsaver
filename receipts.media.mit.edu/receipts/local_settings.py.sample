@@ -1,0 +1,28 @@
+"""
+    HOST_NAME is the root host django site runs including the port number
+    PRFIX is where the django site root resides in physical directory
+"""
+
+HOST_NAME = "localhost:8000"
+
+#PREFIX = "/Users/kwan/workspace/OTNWeb/"
+PREFIX = "/home/kwan/workspace/OTNWeb/"
+
+logging.config.fileConfig(PREFIX+"receipts/logging.conf")
+# create logger
+LOGGER = logging.getLogger("receipts")
+
+MEDIA_ROOT = '/home/kwan/Documents/OTNWeb/receipts/static/media/'
+STYLES_ROOT = '/home/kwan/Documents/OTNWeb/receipts/static/styles/'
+SCRIPTS_ROOT = '/home/kwan/Documents/OTNWeb/receipts/static/scripts/'
+MEDIA_URL = '/media/'
+STYLES_URL = '/styles/'
+SCRIPTS_URL = '/scripts/'
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    '/home/kwan/Documents/OTNWeb/receipts',
+)
+
+

@@ -1,0 +1,89 @@
+{% extends "web2/base.html" %}
+{% load facebook_tags %}
+{% facebook_js %}
+
+{% block page_title %}
+{{ fb_profile.full_name }}'s Home
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+#feeds{
+width:520px;
+float:right;
+padding-right:4em;
+text-align:left;
+}
+
+ul{
+display:inline-block;
+}
+
+li{
+width:520px;
+display:inline-block;
+padding:1.2em 0.1em;
+border-bottom:thin solid #336699;
+}
+
+#pgcount{
+width:520px;
+display:inline;
+font-size:0.85em;
+padding-right:3em;
+float:right;
+text-align:center;
+}
+
+</style>
+{% endblock %}
+
+    
+{% block menu %}
+<div class="friends">
+    <h1>FRIENDS</h1>
+    <table class="table-pad">
+        {% for friend in friends_list %}
+          <tr>
+          <td><img src="{{ friend.image }}" border=0></img></td>
+          <td><a href="/friend/{{ friend.id }}/"> {{ friend.name }} </a></td>
+          </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="feeds">
+<h1>- FEEDS: <a href="{% url web.views.home 0 1 %}">Latest</a> | 
+    <a href="{% url web.views.home 1 1 %}">Personal</a> | 
+    <a href="{% url web.views.home 2 1 %}">Public</a> -</h1>
+	<ul>
+    {% for f in feeds.object_list %}
+    	<li>
+    	{% autoescape off %}
+        {{ f.markup }}
+        {% endautoescape %}
+        </li>
+    {% endfor %}
+	</ul>
+</div>
+
+<div id="pgcount">
+      {% if feeds.has_previous %}
+        <a href="/home/1/">first</a>
+         ::
+         <a href="/home/{{ feeds.previous_page_number }}/">previous </a>
+      {% endif %}
+
+      <span class="current">
+        :: page {{ feeds.number }} of {{ feeds.paginator.num_pages }} ::
+      </span>
+
+      {% if feeds.has_next %}
+        <a href="/home/{{ feeds.next_page_number }}/"> next</a>
+         :: 
+        <a href="/home/{{ feeds.paginator.num_pages }}/">last</a>
+      {% endif %}
+</div>
+{% endblock %}

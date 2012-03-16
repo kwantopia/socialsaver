@@ -1,0 +1,44 @@
+
+
+* html #contentbox {
+	position: absolute;
+	margin-top: -20;
+	width: 1200; 
+}
+
+* html #inner_content {
+	margin-top: 40;
+}
+
+* html #main_body {
+	height: 500;
+	width: 680;
+}
+
+* html .picture {
+	width: 70;
+}
+
+* html .login_status {
+	width: 400;
+} 
+
+* html .ie_span {
+	width: 540;
+}
+
+* html .infopic { 
+	width: 70;
+}
+
+* html .pic {
+	width: 0;
+}
+	
+* html .span-5 {
+	width: 193;
+}
+
+* html .span-7 {
+	width: 273;
+}

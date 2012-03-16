@@ -1,0 +1,323 @@
+@charset "utf-8";
+/* CSS Document */
+/* Margins/Padding: top right bottom left
+					top/bottom  right/left
+					top  left/right  bottom*/
+
+body{
+background-color:#f9e361;
+}
+
+a{
+text-decoration:none;
+color:#a60008;
+}
+
+a:hover{
+text-decoration:none;
+color:#a60008;
+}
+
+
+#container{
+margin:auto;
+width:950px;
+}
+
+h1{
+font-family:Helvetica, Verdana, sans-serif;
+font-weight:boldest;
+font-size:1.25em;
+font-variant:small-caps;
+text-align:center;
+color:#004f09;
+margin-bottom:10px;
+}
+
+h1 a:hover{
+color:#a60008;
+}
+
+h3{
+font-family:Helvetica, Verdana, sans-serif;
+font-size:1em;
+font-weight:normal;
+font-style:italic;
+text-align:center;
+margin-top:-5px;
+margin-bottom:30px;
+}
+
+/*Header Stuff*/
+#header{
+width:950px;
+position:absolute;
+margin-top:0em;
+float:left;
+}
+
+#logo{
+width:400px;
+height:104px;
+text-align:left;
+margin-left:0px;
+float:left;
+}
+
+#fblogin{
+width:200px;
+float:right;
+margin-top:20px;
+margin-bottom:20px;
+margin-right:10px;
+}
+
+#login{
+width:250px;
+float:right;
+margin-top:20px;
+margin-bottom:20px;
+margin-right:10px;
+}
+
+#user{
+float:right;
+height:10px;
+font-family:Verdana, sans-serif;
+font-size:9pt;
+margin:7px 10px 3px 0px;
+}
+
+#user a{
+color:#a60008;
+font-weight:bold;
+}
+
+#how{
+font-family:Helvetica, Verdana, sans-serif;
+font-size:0.8em;
+margin-top:5px;
+}
+
+#pic{
+width:50px;
+padding-right:10px;
+float:right;
+}
+
+#footer{
+width:942px;
+height:2em;
+padding-top:1em;
+margin-right:1.7em;
+background-color:#f9e361;
+font-family:Verdana,sans-serif;
+font-weight:bolder;
+font-size:0.7em;
+float:left;
+text-align:right;
+color:#004f09;
+}
+
+
+#nav{
+width:950px;
+background-color:#fff3db;
+margin-top:5.5em;
+}
+
+#main{
+width:950px;
+background-color:#fff3db;
+}
+
+
+.nav_li{
+margin-left:8px;
+margin-right:8px;
+display:inline;
+font-family:Verdana, sans-serif;
+font-size:14px;
+font-weight:bolder;
+line-height:30px;
+vertical-align:top;
+}
+
+.nav_li a{
+color:#E8A31F;
+text-decoration:none;
+}
+
+.nav_li a:hover{
+color:#a60008;
+text-decoration:none;
+}
+
+.nav_li a:active{
+color:#a60008;
+text-decoration:none;
+}
+
+.nav_d{
+margin-left:3px;
+margin-right:3px;
+vertical-align:middle;
+display:inline;
+}
+
+#sidebar{
+width:250px;
+margin:auto;
+background-color:#fff3db;
+display:inline;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:12pt;
+color:#a60008;
+}
+
+.sort{
+width:220px;
+margin: 0em 1em;
+float:left;
+background-color:#fff3db;
+}
+
+#main_div{
+width:40px;
+height:500px;
+display:inline;
+}
+
+#window{
+width:620px;
+float:right;
+margin-right:10px;
+padding-right:10px;
+background-color:#fff3db;
+display:inline;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:12pt;
+color:#a60008;
+}
+
+#bigwindow{
+width:900px;
+margin:auto;
+background-color:#fff3db;
+display:inline;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:12pt;
+color:#a60008;
+}
+
+
+.friends{
+width:220px;
+margin-left:15px;
+margin-right:15px;
+float:left;
+padding-bottom:50px;
+background-color:#fff3db;
+}
+
+#home_pics{
+width:220px;
+margin-left:15px;
+margin-right:15px;
+float:right;
+padding-bottom:50px;
+background-color:#fff3db;
+}
+
+table.table-pad td{
+padding-bottom:10px;
+}
+
+
+/* \*/
+* html .tlc, * html .trc {height: 1%;}
+/* */
+
+.tlc, .trc { zoom: 1 }
+ 	
+#navcontent
+	{
+	padding:0.7em 1.0em;
+	}
+
+#maincontent
+	{
+	padding:1em;
+	}
+	
+
+
+		
+/* ---=== border code follows ===--- */
+/*
+	tlc = top left corner
+	trc = top right corner
+	blc = bottom left corner
+	brc = bottom right corner
+	lb = left border
+	rb = right border
+	tb = top border
+	bb = bottom border 
+*/
+
+.tlc, .trc, .blc, .brc
+	{
+	background-repeat: no-repeat;
+	}
+
+.tlc
+	{
+	background-image:url(/static/media/mealtime/tlc.gif);
+	background-position: 0% 0%;
+	}
+
+.trc
+	{
+	background-image:url(/static/media/mealtime/trc.gif);
+	background-position: 100% 0%;
+	}
+	
+.blc
+	{
+	background-image:url(/static/media/mealtime/blc.gif);
+	background-position: 0% 100%;
+	}
+
+.brc
+	{
+	background-image:url(/static/media/mealtime/brc.gif);
+	background-position: 100% 100%;
+	}
+			
+.tb
+	{
+	background-image:url(/static/media/mealtime/tb.gif);
+	background-position: 0% 0%;
+	background-repeat: repeat-x;
+	}
+
+.bb
+	{
+	background-image:url(/static/media/mealtime/bb.gif);
+	background-position: 100% 100%;
+	background-repeat: repeat-x;
+	}
+	
+.rb
+	{
+	background-image:url(/static/media/mealtime/r.gif);
+	background-position: 100% 0%;
+	background-repeat: repeat-y;
+	}
+
+.lb
+	{
+	background-image:url(/static/media/mealtime/l.gif);
+	background-position: 0% 100%;
+	background-repeat: repeat-y;
+	}

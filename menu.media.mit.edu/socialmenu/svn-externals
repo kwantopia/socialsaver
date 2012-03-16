@@ -1,0 +1,6 @@
+common https://svn.media.mit.edu/r/socialsaver/trunk/externs/common
+facebookconnect https://svn.media.mit.edu/r/socialsaver/trunk/externs/facebookconnect
+iphonepush https://svn.media.mit.edu/r/socialsaver/trunk/externs/iphonepush
+packages/django-tagging http://django-tagging.googlecode.com/svn/trunk/
+packages/django-facebookconnect http://django-facebookconnect.googlecode.com/svn/trunk/django-facebookconnect
+

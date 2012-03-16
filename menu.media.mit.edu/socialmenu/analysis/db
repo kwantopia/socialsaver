@@ -1,0 +1,23 @@
+sudo pg_dump SocialMenu -U otnpostgres > /tmp/socialmenu.dump
+
+sudo psql SocialMenu -U otnpostgres < socialmenu.dump
+
+vacuumdb -a -z to VACUUM ANALYZE all databases;
+pg_dump -h yaba.mit.edu SocialMenu | psql -h enchalla.mit.edu SocialMenu 
+
+
+http://www.postgresql.org/docs/8.1/static/backup.html
+
+== Mac Postgresql Setup ==
+
+http://www.gregbenedict.com/2009/08/31/installing-postgresql-on-snow-leopard-10-6/
+
+ /opt/local/lib/postgresql84/bin/postgres -D /opt/local/var/db/postgresql84/otndb
+ or
+     /opt/local/lib/postgresql84/bin/pg_ctl -D /opt/local/var/db/postgresql84/otndb -l logfile start
+
+# create user and change password
+http://programmingzen.com/2007/12/26/installing-django-with-postgresql-on-ubuntu/
+http://www.cyberciti.biz/faq/howto-add-postgresql-user-account/
+
+createdb SocialMenu -O otnpostgres -E unicode -T template0

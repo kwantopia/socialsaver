@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+{% load facebook_tags %}
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>{% block page_title %}{% endblock %} - MealTime from the MIT Media Lab</title>
+	<link href="/styles/mealtime/main.css" rel="stylesheet" type="text/css" />
+
+{% facebook_js %}
+
+</head>
+
+<body>
+	<div id="container" class="shadow">
+    	<div id="logo">
+        </div>
+        
+        {% if user.is_authenticated %}
+        <div class="log">
+            <div id="pic">
+                {% show_facebook_photo user %}
+            </div>
+            
+            <div id="user">
+                <a href="{% url web.views.profile %}">{% show_facebook_full_name user %}</a>
+            <br />
+                {% show_logout %}
+            </div>
+            
+        </div>
+    
+        {% else %}
+        <div class="log">
+            <div id="fbconnect">
+                {% show_connect_button %}
+            </div>
+            <div id="how">
+                <a href="{% url web.views.faq %}">How is Facebook used?</a>
+            </div>
+        </div>
+        {% endif %}
+        
+        <div class="divider"><img src="/media/mealtime/divider.jpg" /></div>
+        
+        <div id="menu">
+        <div class="mealmenu">
+
+            <h3 class="headerbar"><img src="../../../../../../Android/Final Icons/ic_menu_feed.png" border=0/> Feeds</h3>
+            <ul class="submenu">
+                <li><a href="" >Latest</a></li>
+                <li><a href="">Personal</a></li>
+                <li><a href="">Friends</a></li>
+            </ul>
+            
+            <h3 class="headerbar"><img src="../../../../../../Android/Final Icons/ic_menu_receipts.png" border=0/> Receipts</h3>
+            <ul class="submenu">
+                <li><a href="" ><img src="../../../../../../Android/Final Icons/ic_tab_new_selected.png" border=0/> Recent Receipts</a></li>
+                <li><a href=""><img src="../../../../../../Android/Final Icons/ic_tab_stats_selected.png" border=0/> Receipt Stats</a></li>		
+            </ul>
+            
+            <h3 class="headerbar"><img src="../../../../../../Android/Final Icons/ic_menu_places.png" border=0/> Places</h3>
+            
+            <h3 class="headerbar"><img src="../../../../../../Android/Final Icons/ic_menu_surveys.png" border=0/> Surveys</h3>
+        
+        </div>
+        </div>
+        
+        <div id="main">
+        {% block content %}
+        {% endblock %}
+        </div>
+        
+        <div class="divider"><img src="/media/mealtime/divider.jpg" /></div>
+        
+        {% block footer %}
+      	<div id="footer">
+        	<p>Copyright (c) 2010 mealtime.mit.edu. All rights reserved.</p> 
+        	<center>
+          		<a href="{% url web.views.techcash_consent %}">TechCash Terms of Service</a>
+          		<a href="{% url web.views.otn_consent %}">Digital Receipt Terms of Service</a>
+        	</center>
+      	</div>
+      	{% endblock footer %}
+    
+    
+    </div>
+    
+<!-- Put all the java scripts at the end of the file for efficient loading -->
+<script src="http://www.google.com/jsapi?key={{ GOOGLE_API_KEY }}" type="text/javascript"></script>
+<script type="text/javascript">
+    google.load("jquery", "1.4.2");
+    google.load("jqueryui", "1.8.2");
+</script>
+
+<script type="text/javascript" src="/scripts/default/jquery.corner.js"></script>
+{% initialize_facebook_connect %}
+{% block scripts %}
+{% endblock scripts %}
+
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-15309665-2");
+        pageTracker._setDomainName("none");
+        pageTracker._setAllowLinker(true);
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+
+<!--For Accordions-->
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="/scripts/ddaccordion.js">
+
+/***********************************************
+* Accordion Content script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* Visit http://www.dynamicDrive.com for hundreds of DHTML scripts
+* This notice must stay intact for legal use
+***********************************************/
+
+</script>
+
+<script type="text/javascript">
+ddaccordion.init({
+	headerclass: "headerbar", //Shared CSS class name of headers group
+	contentclass: "submenu", //Shared CSS class name of contents group
+	revealtype: "click", //Reveal content when user clicks or onmouseover the header? Valid value: "click", "clickgo", or "mouseover"
+	mouseoverdelay: 200, //if revealtype="mouseover", set delay in milliseconds before header expands onMouseover
+	collapseprev: true, //Collapse previous content (so only one open at any time)? true/false
+	defaultexpanded: [], //index of content(s) open by default [index1, index2, etc] [] denotes no content
+	onemustopen: false, //Specify whether at least one header should be open always (so never all headers closed)
+	animatedefault: false, //Should contents open by default be animated into view?
+	persiststate: true, //persist state of opened contents within browser session?
+	toggleclass: ["", "selected"], //Two CSS classes to be applied to the header when it's collapsed and expanded, respectively ["class1", "class2"]
+	togglehtml: ["", "", ""], //Additional HTML added to the header when it's collapsed and expanded, respectively  ["position", "html1", "html2"] (see docs)
+	animatespeed: "normal", //speed of animation: integer in milliseconds (ie: 200), or keywords "fast", "normal", or "slow"
+	oninit:function(headers, expandedindices){ //custom code to run when headers have initalized
+		//do nothing
+	},
+	onopenclose:function(header, index, state, isuseractivated){ //custom code to run whenever a header is opened or closed
+		//do nothing
+	}
+})
+</script>
+</body>
+</html>

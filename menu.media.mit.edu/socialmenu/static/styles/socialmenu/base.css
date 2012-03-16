@@ -1,0 +1,50 @@
+.modal {
+  background-color: #fff;
+  display: none;
+  padding: 15px;
+  width: 640px;
+  min-height: 300px;
+  text-align: left;
+  border: 2px solid #333;
+
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-box-shadow: 0 0 50px #ccc;
+  -webkit-box-shadow: 0 0 50px #ccc;
+}
+
+#update-status {
+  display: none;
+}
+
+.textarea-small {
+  height: 50px;
+  width: 300px;
+}
+
+.guest-list {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 600px;
+}
+
+.guest-list .name {
+  font-size: 1.2em;
+  border: 1px solid;
+  width: 250px;
+}
+
+.guest-list .signature {
+  font-size: 1.2em;
+  border: 1px solid;
+  width: 300px;
+}
+
+#guest-list-header {
+  background-color: #CCCCCC;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  width: 600px;
+}
+

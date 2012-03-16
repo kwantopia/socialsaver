@@ -1,0 +1,83 @@
+{% extends "legals/base.html" %}
+
+{% block page_title %}
+{{ status.survey.title }}
+{% endblock %}
+
+{% block tabnav %}
+  <li><a href="{% url legals.views.index %}">Home</a></li>
+  <li><a href="{% url survey.views.surveys %}">Surveys</a></li> 
+  <li><a href="{% url legals.views.winners %}">Winners</a></li>
+  <li><a href="{% url legals.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+{% block content %}
+<div id="home-body">
+
+{% if status.completed %}
+  <h3>Survey has already been completed. Thank you.</h3>
+{% else %}
+
+  <div class="span-20 last">
+    <h2>{{ status.survey.title }}</h2>
+    <p>{{ status.survey.description }}</p>
+    <p>
+    <div class="prepend-1 span-19 last">
+      <div class="prepend-1 span-19 last">
+        <h4>Please label how close you are with the friends below.</h4>
+      </div>
+      <form action="{% url survey.views.survey survey_id %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="uuid_token" value="{{ uuid_token }}" />
+        {% for d in distances %}
+            <div class="survey {% if forloop.counter0|divisibleby:"2" %}survey-bg{% endif %} span-18 last">
+              <div class="survey-questions {% if forloop.counter0|divisibleby:"2" %}survey-bg{% endif %} span-17 last">
+                  <div class="span-18 last">
+                    <div class="survey-question span-18 last">
+                      <!-- picture and name -->
+                      {{ forloop.counter }}. <img src="{{ d.friend.otnuser.my_image }}"/> {{ d.friend.otnuser.name }}
+                    </div>
+                    <div class="append-1 span-17 last">
+                      <!-- radio fields -->
+                     <ul id="distance{{d.friend.id}}"> 
+                        {% for v in d.LIKERT_CHOICES %}
+                         <li><label for="id_distance_{{ d.friend.id }}"><input name="distance_{{ d.friend.id }}" value="{{ forloop.counter0 }}" id="id_distance_{{ forloop.counter0 }}" type="radio" class="simple" /> {{ v.1 }} </label></li> 
+                        {% endfor %}
+                     </ul> 
+                    </div>
+                  </div>
+              </div>
+            </div>
+        {% endfor %}
+        <div class="survey prepend-14 span-4 last">
+        <p><input type="submit" value="Submit" /></p>
+        </div>
+      </form>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+  $(document).ready( function() {
+    var user_id = 0;
+
+    $(".simple").click( function() {
+      var distance = $(this).attr("value");
+      //console.log(distance);
+      var obj_id = $(this).parents("ul").attr("id");
+      user_id = obj_id.substr(8);  
+      //console.log(user_id);
+      // post to the server
+      $.post("/survey/friends/", {survey_id: {{survey_id}}, friend_id: user_id, distance: distance},
+                                function (result) {
+                                  //console.log(result["result"]);
+                                }, "json");
+
+    });
+  });
+</script>
+{% endblock %}

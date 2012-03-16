@@ -1,0 +1,39 @@
+{% extends "web/base.html" %}
+
+{% load facebook_tags %}
+
+{% block page_title %}
+OTN Home
+{% endblock %}
+
+{% block menu %}
+<li class="nav_icon"><a href="/facebook/login/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> SIGN IN</a></li>
+<li class="nav_icon"><a href="/faq/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> FAQ</a></li>
+<li class="nav_icon"><a href="/mobile/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> MOBILE</a></li>
+<li class="nav_icon"><a href="/about/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> ABOUT</a></li>
+{% endblock %}
+        
+{% block main %}WELCOME TO OTN!{% endblock %}
+{% block sub %}open transaction network at the MIT Media Lab{% endblock %}
+
+{% block content %}
+<div class="pagetext span-20 box last">
+  We are doing research in mobile commerce.  We want to understand the benefits of connecting consumers of with similar purchasing behaviors and understand transaction history based offers on mobile. 
+</div>
+
+<div class="span-20 last">
+  <h2>Follow these simple steps to join:</h2>
+  <ol>
+    <li class="pagetext">Login with your Facebook account by clicking on {% show_connect_button %}</li>
+    <li class="pagetext">Link your <a href="http://www.buxfer.com">Buxfer</a> account</li>
+    <li class="pagetext">Invite your friends to join</li>
+    <li class="pagetext">An iPad will be rewarded at the end of the trial in August 2010 to the person who has most friends joined.</li>
+  </ol>
+</div>
+
+<div class="span-22 last" style="font-size:15px">
+
+  Information is shared only inside OTN community through the web and the mobile. You have control over what you share. 
+  <hr class="space" />
+</div>
+{% endblock %}

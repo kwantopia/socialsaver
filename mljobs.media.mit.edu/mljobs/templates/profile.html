@@ -1,0 +1,12 @@
+<html>
+<head>
+</head>
+<body>
+{{user}}
+{{profile.fact2}}
+{{profile.involvement}}
+{% for each in worked_with %}
+{{each.get_full_name}}
+{% endfor %}
+</body>
+</html>

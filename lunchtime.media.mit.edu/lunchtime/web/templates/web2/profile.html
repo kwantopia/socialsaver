@@ -1,0 +1,176 @@
+{% extends 'web2/base.html' %}
+
+{% load facebook_tags %}
+
+{% block page_styles %}
+<style type="text/css">
+#profile{
+margin:auto;
+width:600px;
+}
+
+.error{
+font-size:0.8em;
+color:#990000;
+width:500px;
+}
+
+#name{
+float:left;
+height:30px;
+font-family:Verdana, sans-serif;
+font-weight:bold;
+font-size:0.9em;
+margin:10px 0px 0px 15px;
+color:#a60008;
+}
+
+#image{
+width:50px;
+padding-left:10px;
+float:left;
+}
+
+#register{
+margin:auto;
+width:700px;
+}
+
+fieldset{
+border-bottom:groove;
+border-top:none;
+border-right:none;
+border-left:none;
+margin:20px 0;
+}
+
+legend{
+color:#127524;
+border:none;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:0.9em;
+display:inline;
+}
+
+p{
+color:#000;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:0.9em;
+border:none;
+}
+
+.wrap{
+width:370px;
+}
+
+.field{
+width:100px;
+float:left;
+text-align:right;
+padding-top:4px;
+padding-right:10px;
+}
+
+.input{
+width:250px;
+float:right;
+}
+
+</style>
+{% endblock %}
+
+{% block small %}
+{% endblock %}
+
+{% block content %}
+<div id="bigwindow">
+<div id="profile">
+<h1>- Your Profile -</h1>
+<h3>Update your PIN and the default sociability of your transactions.</h3>
+
+<div id="image">
+    {% show_facebook_photo user %}
+</div>
+    
+<div id="name">
+    <strong>Name:</strong> {% show_facebook_full_name fbuser %} 
+    <br>
+    <strong>E-mail:</strong> {{ user.otnuser.my_email }}
+</div>
+    <br />
+    <br />
+    <br />
+    <!--[if IE 7]><br /><br /><![endif]-->
+<form action="{% url web.views.profile %}" method="POST">
+    {% csrf_token %} 
+    <fieldset>
+    {% if prompt %}
+    	<div class="error">
+        {{ prompt }}
+    	</div>
+    {% endif %}
+    
+        <div class="wrap">
+        	<div class="field">
+            	<p>	<label>New PIN: </label> </p>
+            </div>
+            
+            <div class="input">
+                <p> <input type="password" name="first"> </p>
+            </div>
+    	</div>
+        
+        <div class="wrap">
+        	<div class="field">
+            	<p>	<label>Re-enter PIN: </label> </p>
+            </div>
+            
+            <div class="input">
+                <p> <input type="password" name="second"> </p>
+            </div>
+    	</div>
+        
+    </fieldset>
+    
+    <fieldset>
+    
+    	<div class="wrap" style="width:470px">
+        	<div class="field" style="width:200px">
+            	<p>	<label> Default Transaction Sociability:</label> </p>
+            </div>
+            
+            <div class="input">
+                <p>
+                	<div style="display:inline-block">
+        			<input type="radio" name="sharing" value="0" {% if sharing == 0 %}checked{% endif %}>Private<br> 
+        			<input type="radio" name="sharing" value="1" {% if sharing == 1 %}checked{% endif %}>Friends<br> 
+        			<input type="radio" name="sharing" value="2" {% if sharing == 2 %}checked{% endif %}>Community<br> 
+        			<input type="radio" name="sharing" value="3" {% if sharing == 3 %}checked{% endif %}>Public<br> 
+    				</div>
+                </p>
+            </div>
+    	</div>
+
+    </fieldset>
+    
+    <!--
+    <div class="span-12 last">
+        If you specify user name, you can use it instead of e-mail when logging in from mobile.
+    </div>
+    <div class="span-6">
+        Username:
+    </div>
+    <div class="span-6 last">
+        {{ form.username }}
+    </div>
+    -->
+        
+    <div align="center">
+        <h3>Community is composed of those people that transact at the same place.  So Dunkin Donuts transactions shared will be visible to others who transact at Dunkin Donuts.</h3>
+
+    <input class="button" type="submit" name="Submit" value="Update">
+    </div>
+  </form>
+</div>
+
+{% endblock %}

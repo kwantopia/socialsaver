@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+{% load facebook_tags %}
+
+ <head>
+  
+  <title>{% block page_title %}{% endblock %}</title>
+
+  <!-- Styles -->
+  <!-- Blueprint CSS -->
+  <link rel="stylesheet" href="/styles/blueprint/screen.css" type="text/css" media="screen, projection">
+  <link rel="stylesheet" href="/styles/blueprint/print.css" type="text/css" media="print">    
+  <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+  
+  <!-- Site specific styles -->
+  <link rel="stylesheet" href="/styles/default/base.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="/styles/default/yellow.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="/styles/webuy/base.css" type="text/css" media="screen">
+  
+  <!-- JQuery UI -->
+  <link rel="stylesheet" href="/styles/excite-bike/jquery-ui-1.8.custom.css"> 
+
+  <!-- JQuery Tipsy -->
+  <link rel="stylesheet" href="/styles/tipsy/tipsy.css">
+
+  <!-- Facebook Scripts -->
+  {% facebook_js %}
+
+  <!-- Page-specific CSS -->
+  {% block extra_styles %}
+  {% endblock %}
+ </head>
+
+<body>
+                      <div class="span-4 last">
+                      {% show_logout %}
+                      </div>
+ <!-- JQuery -->
+  <script type="text/javascript" src="http://www.google.com/jsapi?key={{GOOGLE_API_KEY}}"></script>
+  <script type="text/javascript">
+    google.load("jquery", "1.4.2");
+    google.load("jqueryui", "1.8.0");
+  </script>
+  <script type="text/javascript" src="/scripts/default/jquery.tipsy.js"></script>
+  
+  <!-- Page-specific scripts -->
+  {% block extra_scripts %}
+  {% endblock %}
+
+ <!-- for using Facebook Connect -->
+ {% initialize_facebook_connect %}
+
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+  try {
+  var pageTracker = _gat._getTracker("UA-15309665-3");
+  pageTracker._setDomainName("none");
+  pageTracker._setAllowLinker(true);
+  pageTracker._trackPageview();
+  } catch(err) {}
+</script>
+
+ </body>
+</html>

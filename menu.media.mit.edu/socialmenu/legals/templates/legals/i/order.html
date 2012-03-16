@@ -1,0 +1,63 @@
+{% extends "legals/i/base.html" %}
+
+{% block toolbar %}
+    <h1 id="pageTitle"></h1>
+    <a id="backButton" class="button" href="#"></a>
+    <a id="homebutton" class="button" href="/legals/m/categories/{{order_id}}/" target="_self">Home</a>
+{% endblock %}
+
+{% block content %}
+
+<ul id="order{{ order_id }}" title="My Cart" class="panel items" selected="true">
+
+  {% if order_data|length > 0 %}
+    {% for key,val in order_data.items %}
+        <li class="menuitem">
+        <a href="/legals/m/reconsider/{{ key }}/{{ order_id }}/" style="clear:both;">{{ val.item.name }}
+            <span class="price">
+                {{ key.item.price }}
+            </span>
+            <div class="description">{{ key.item.description }}</div>
+            {% if exp_id in experiments %}
+                {% if val.friend_label %}
+                    <div class="friends">{{ val.friend_label }}</div>
+                {% endif %}
+                {% if val.fliked %}
+                    <div class="friends">
+                        {% for f in val.fliked %} {% if forloop.last %}{{ f }}{% else %}{{ f }}, {% endif %} {% endfor %} like this
+                    </div>
+                {% endif %}
+            {% endif %}
+            {% if exp_id == 3 or exp_id == 4 %}
+                {% if val.anonymous %}
+                    <div class="friends">{{ val.anonymous }}</div>
+                {% endif %}
+                {% if val.aliked %}
+                    <div class="friends">{{ val.aliked }}</div>
+                {% endif %}
+               
+            {% endif %}
+            {% if exp_id == 4 %}
+                {% if val.friend_label %}
+                    <div class="friends">{{ val.friend_label }}</div>
+                {% endif %}
+                {% if val.fliked %}
+                    <div class="friends">
+                        {{ val.fliked }}
+                    </div>
+                {% endif %}
+
+            {% endif %}
+
+        </a>
+        </li>
+    {% endfor %}
+  {% else %}
+    <li class="menuitem">
+        No items ordered.  Please add items to order.
+    </li>
+  {% endif %}
+
+</ul>
+
+{% endblock %}

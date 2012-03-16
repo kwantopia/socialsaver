@@ -1,0 +1,51 @@
+{% extends "web2/base.html" %}
+
+{% block page_title %}
+Winners!
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+#winners{
+margin:auto;
+}
+</style>
+{% endblock %}
+
+{% block small %}
+{% endblock %}
+
+{% block content %}
+<div id="winners">
+<h1>- Winners -</h1>
+    <div class="notice">
+        It might take up to a week for the TechCASH credit to post to ensure accounting.
+    </div>
+    <div class="notice">
+        You must have looked at the Places tab or entered details about your purchases each day to be eligible for daily lottery.
+    </div>
+    <br />
+    <div class="span-18 last">
+        {% for w in winners %}
+        <div class="prepend-2 span-16 last">
+        {% if forloop.counter|divisibleby:"2" %}
+            <div class="span-16 last">
+        {% else %}
+            <div class="evenrow span-16 last">
+        {% endif %}
+                <div class="prepend-1 span-5">
+                    {{ w.user.name }}
+                </div>
+                <div class="span-6">
+                    {{ w.prize }}
+                </div>
+                <div class="span-4 last">
+                    {{ w.timestamp|date:"D d M Y" }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,18 @@
+{% extends 'web/index.html' %}
+
+{% block page_title %}
+FAQ
+{% endblock %}
+
+{% block tabnav %}
+        	<li><a href="/web/">Home</a></li>
+            <li><a href="/legals/winners/">Winners</a></li>
+        	<li><a href="/web/faq/">FAQ</a></li>
+{% endblock tabnav %}
+
+{% block content %}
+    {% include "web/faqcontent.html" %}
+{% endblock content %}
+
+{% block midboxes %}
+{% endblock midboxes %}

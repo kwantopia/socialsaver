@@ -1,0 +1,116 @@
+{% extends 'web2/base.html' %}
+
+{% load facebook_tags %}
+<!-- This page is shown only when user logs in -->
+
+{% block page_title %}
+Your Rewards
+{% endblock %}
+
+{% block tabnav %}
+  <li><a href="{% url web.views.index %}">Home</a></li>
+  <li><a href="{% url survey.views.surveys %}">Surveys</a></li> 
+  <li><a href="{% url web.views.winners %}">Winners</a></li>
+  <li><a href="{% url web.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+{% block warnings %}
+    {% if not comp.verified %}
+        <div class="warning">
+        <p>Accounting office requires the information below for human subject compensation.  Filling out this form serves as digital signature for the Human Subject Voucher below.  No mails will be sent to the address.</p>
+        <p>OR</p> 
+        <p>You may fill out the <a href="/media/consent/mealtimehsv.doc">Human Subject Voucher</a> and e-mail it to <a href='mailto:sansen@media.mit.edu'>Sandy Sener (Media Lab, Viral Communications Group Admin)</a>. Please use {{ user.otnuser.my_email }}, the e-mail address you used to register on this Menu site so she may track your receipt.</p> 
+        </div> 
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% if comp.verified %}
+  <div class="prepend-1 span-18 last">
+  <h2>Your rewards:</h2>
+  <p>
+    {% if winner %}
+        {% for w in wins %}
+            <h3>{{ w.prize }}</h3>
+        {% endfor %}
+        {% if comp.certificates %}
+            <h3>{{ comp.certificates }}</h3>
+        {% endif %}
+    {% else %}
+        <h3>You do not have any rewards.</h3>
+    {% endif %}
+  </p>
+  </div>
+{% else %}
+  <form action="/web/gift/" method="POST">
+    <div class="prepend-1 span-18 last">
+
+      <div class="span-18 last">
+        {% if form.address.errors %}
+        <div class="error span-18 last">
+          {{ form.address.errors }}
+        </div>
+        {% endif %}
+        <div class="default-form-label span-4">
+          {{ form.address.label_tag }}
+        </div>
+        <div class="span-14 last">
+          {{ form.address }}
+        </div>
+      </div>
+
+      <div class="span-18 last">
+        {% if form.city.errors %}
+        <div class="error span-18 last">
+          {{ form.city.errors }}
+        </div>
+        {% endif %}
+        <div class="default-form-label span-4">
+          {{ form.city.label_tag }}
+        </div>
+        <div class="span-14 last">
+          {{ form.city}}
+        </div>
+      </div>
+
+      <div class="span-18 last">
+        {% if form.state.errors %}
+        <div class="error span-18 last">
+          {{ form.state.errors }}
+        </div>
+        {% endif %}
+        <div class="default-form-label span-4">
+          {{ form.state.label_tag }}
+        </div>
+        <div class="span-14 last">
+          {{ form.state }}
+        </div>
+      </div>
+
+      <div class="span-18 last">
+        {% if form.zipcode.errors %}
+        <div class="error span-18 last">
+          {{ form.zipcode.errors }}
+        </div>
+        {% endif %}
+        <div class="default-form-label span-4">
+          {{ form.zipcode.label_tag }}
+        </div>
+        <div class="span-14 last">
+          {{ form.zipcode}}
+        </div>
+      </div>
+
+      <div class="span-18 last">
+        <div class="prepend-10 span-2 append-8 last">
+          <input type="submit" name="verify" value="Submit">
+        </div>
+      </div>
+
+    </div>
+  </form>
+{% endif %}
+
+{% endblock %}
+

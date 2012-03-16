@@ -1,0 +1,19 @@
+{% extends "legals/index.html" %}
+
+{% block page_title %}
+FAQ
+{% endblock %}
+
+{% block tabnav %}
+  <li><a href="{% url legals.views.index %}">Home</a></li>
+  <li><a href="{% url survey.views.surveys %}">Surveys</a></li> 
+  <li><a href="{% url legals.views.winners %}">Winners</a></li>
+  <li><a href="{% url legals.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+{% block content %}
+    {% include "web/faqcontent.html" %}
+{% endblock content %}
+
+{% block midboxes %}
+{% endblock midboxes %}

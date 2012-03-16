@@ -1,0 +1,1 @@
+Modify /usr/lib/python2.6/dist-packages/django/forms/fields.py to handle pdfs and convert it to png

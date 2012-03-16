@@ -1,0 +1,134 @@
+{% extends 'web/index.html' %}
+
+{% block page_title %}
+AJAX Test
+{% endblock %}
+
+{% block content %}
+<style type="text/css">
+    tr {margin-top:5px}
+    .friends{display:none}
+
+    .fieldWrapper {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .backgrey {
+        background-color: #ECEFF6;
+    }
+    
+    .missinganswer {
+        background-color: #FFDDFF;
+    }
+
+    .fieldWrapper1 { 
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+
+    .fieldWrapper2 {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .item {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .item_choice {
+        float:left;
+    }
+    .category h1 {
+        color: #458CEB;
+    }
+
+    .title {font-weight:bold;
+        font-variant:small-caps; 
+        font-size:small;
+        color:#183152;}
+
+    .price {
+        font-weight:bold;
+        color: #527A9F;
+    }
+
+    .description {
+        margin-left:22px;
+        color:#40536C;
+    }
+
+    .error {
+        color: red;
+    }
+
+</style>
+
+<p>
+<p>
+Hello
+<p>
+<form action="" method="POST">
+    <div id="rowtastes">
+    <div class="taste_choice">
+        <input type="checkbox" name="tastes" value="1"/>acidic
+    </div>
+    <div class="taste_choice">
+        <input type="checkbox" name="tastes" value="2"/>bitter
+    </div>
+    <div class="taste_choice">
+        <input type="checkbox" name="tastes" value="3"/>creamy
+    </div>
+    <div class="taste_choice">
+        <input type="checkbox" name="tastes" value="4"/>gooey
+    </div>
+    <div class="taste_choice">
+        <input type="checkbox" name="tastes" value="5"/>hot
+    </div>
+    </div>
+
+    <div id="twotastes">
+    <div class="taste_choice2">
+        <input type="checkbox" name="tastes" value="1"/>acidic
+    </div>
+    <div class="taste_choice2">
+        <input type="checkbox" name="tastes" value="2"/>bitter
+    </div>
+    <div class="taste_choice2">
+        <input type="checkbox" name="tastes" value="3"/>creamy
+    </div>
+    <div class="taste_choice2">
+        <input type="checkbox" name="tastes" value="4"/>gooey
+    </div>
+    <div class="taste_choice2">
+        <input type="checkbox" name="tastes" value="5"/>hot
+    </div>
+    </div>
+
+    <input type="submit" name="Complete" value="Submit" />
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+	$(document).ready(function(){
+
+        $("form").submit( function () {
+            console.log($(".taste_choice2 :input[type=checkbox]:checked").size());
+            if ($(".taste_choice :input[type=checkbox]:checked").size() == 3) {
+                alert("Well done");
+                $("#rowtastes").removeClass("missinganswer");
+                $("#rowtastes").addClass("backgrey");
+                return true;
+            } else {
+                $("#rowtastes").addClass("missinganswer");
+                return false;
+            }
+        });
+    });
+</script>
+{% endblock %}
+

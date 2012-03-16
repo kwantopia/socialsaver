@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- meta tags -->
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="{% block keywords %}{% endblock keywords %}" name="keywords" />
+    <meta content="{% block description %}{% endblock description %}" name="description" />
+
+    <!-- styles -->
+    <link rel="apple-touch-icon" href="{{ STATIC_URL }}media/mobile/{{ header }}-icon.png" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}media/iui/0.4/iui.css" type="text/css" />
+    <link rel="stylesheet" title="Default" href="{{ STATIC_URL }}media/iui/0.4/t/default/default-theme.css" type="text/css" />
+    <link  rel="stylesheet"  href="{{ STATIC_URL }}styles/default/menu.css" type="text/css"  media="screen, mobile"  />
+    <link  rel="stylesheet"  href="{{ STATIC_URL }}styles/default/480.css" type="text/css"  media="screen, mobile"  />
+    <style type="text/css">
+        body > .toolbar {
+            background: url({{ STATIC_URL }}media/mobile/{{ header }}-header.png) #6d84a2 repeat-x;
+        }
+    </style>
+
+    <!-- scripts -->
+    <script type="application/x-javascript" src="{{ STATIC_URL }}media/iui/0.4/iui.js"></script>
+    <script type="text/javascript">
+        iui.animOn = true;
+    </script>
+
+    <title>{% block title %}{{ restaurant.name }} Menu{% endblock title %}</title>
+</head>
+
+{% block body_spec %}
+<body>
+{% endblock %}
+
+<div class="toolbar">
+{% block toolbar %}
+    <h1 id="pageTitle"></h1>
+{% endblock toolbar %}
+</div>
+
+{% block content %}
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}
+</body>
+</html>

@@ -1,0 +1,50 @@
+{% extends "web/base.html" %}
+
+{% block page_title %}
+About OTN
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+
+.question{
+color: #f18888;
+font-size: 17px;
+}
+
+.answer{
+color: #5ecf4f;
+font-size: 15px;
+}
+
+</style>
+{% endblock %}
+
+{% block menu %}
+{% if log %}
+<li class="nav_icon"><a href="/transactions/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> TRANSACTIONS</a></li>
+<li class="nav_icon"><a href="/mobile/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> MOBILE</a></li>
+<li class="nav_icon"><a href="/about/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> ABOUT</a></li>
+<li class="nav_icon"><a href="/faq/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> FAQ</a></li>
+<li class="nav_icon"><a href="/profile/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> MY ACCOUNT</a></li>
+{% else %}
+<li class="nav_icon"><a href="/facebook/login/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> SIGN IN</a></li>
+<li class="nav_icon"><a href="/faq/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> FAQ</a></li>
+<li class="nav_icon"><a href="/mobile/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> MOBILE</a></li>
+<li class="nav_icon"><a href="/about/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> ABOUT</a></li>
+{% endif %}
+{% endblock %}
+
+{% block main %}MOBILE{% endblock %}
+{% block sub %}the open transaction network{% endblock %}
+
+{% block content %}
+	<div class="question span-20 last">
+    	Where can I get the mobile application?
+  	</div> 
+  	<div class="answer prepend-1 span-20 last">
+    	The OTN mobile application is available through the Apple App Store for the iPhone and iPod Touch, or through the Android Market for Android phones.
+  	</div>
+  
+  	<hr class="space" />
+{% endblock %}

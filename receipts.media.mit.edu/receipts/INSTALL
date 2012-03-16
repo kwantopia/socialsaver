@@ -1,0 +1,12 @@
+#Need to setup Postgres DB to be accessible by new DB user otnpostgres
+Modify /etc/postgresql/8.3/main/pg_hba.conf and add the following line
+--> local   all         otnpostgres                 md5
+
+# for creating cache table
+python manage.py createcachetable lunchtime_cache_table
+
+#For using south migration
+./manage.py startmigration <appname> --initial
+
+# need to make the receipts upload directory writable
+sudo chmod 777 /home/www/receipts.media.mit.edu/receipts/static/media/receipts

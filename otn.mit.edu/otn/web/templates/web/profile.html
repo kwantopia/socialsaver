@@ -1,0 +1,150 @@
+{% extends "web/base.html" %}
+
+{% block page_title %}
+OTN - User Profile
+{% endblock %}
+
+{% block content %}
+<form id="profile" action="{% url web.views.profile %}" method="POST">
+    {% csrf_token %}
+    <p>
+    </p>
+    <fieldset>
+    	<legend>Update your PIN</legend>
+        
+        <div id="pin" class="span-11 last">
+    	</div>
+        
+    	<!--{% if prompt %}
+    		<div class="error span-11 last">
+        		{{ prompt }}
+    		</div>
+    	{% endif %}-->
+    	<div class="span-20 last">
+            <div class="span-8" style="padding-top:10px; text-align:right">
+                <p> <label>New PIN: </label> </p>
+            </div>
+                
+            <div class="span-10 last">
+                <p> <input id="first_pin" class="text" type="password" name="first"> </p>
+            </div>
+        </div>
+        
+        <div class="span-20 last">
+            <div class="span-8" style="padding-top:10px; text-align:right">
+                <p> <label>Re-enter PIN: </label> </p>
+            </div>
+                
+            <div class="span-10 last">
+                <p> <input id="second_pin" class="text" type="password" name="second"> </p>
+            </div>
+        </div>
+        
+    </fieldset>
+    
+    <fieldset>
+    	<legend>Link your Buxfer Account</legend>
+        
+        <div id="buxfer" class="span-11 last">
+    	</div>
+            
+       	<div class="span-20 last">
+            <div class="span-8" style="padding-top:10px; text-align:right">
+                <p> <label>Username: </label> </p>
+            </div>
+                
+            <div class="span-10 last">
+                <p> <input id="bux_user" class="text" type="text" name="username"> </p>
+            </div>
+        </div>
+        
+        <div class="span-20 last">
+            <div class="span-8" style="padding-top:10px; text-align:right">
+                <p> <label>Password: </label> </p>
+            </div>
+                
+            <div class="span-10 last">
+                <p> <input id="bux_pass" class="text" type="password" name="password"> </p>
+            </div>
+        </div>
+        
+    </fieldset>
+    
+    <fieldset>
+        <input name="continue" id="continue" type="submit" value="Continue">
+    </fieldset>
+</form>
+
+{% endblock %}
+
+{% block extra_scripts %}
+
+<script type="text/javascript">
+    $('document').ready( function() {
+        var success = false;
+        $('#pin').hide();
+		$("#buxfer").hide();
+		
+        $('#profile').submit( function() {
+			$("#buxfer").hide();
+            if ($('#first_pin').val().length > 0 ) {
+                $('input[type=submit]', this).attr('disabled', 'disabled');
+                $.post('{% url web.views.profile %}', {'first': $('#first_pin').val(),
+                                                       'second': $('#second_pin').val()},
+                                                          
+                    function (data) {
+                        if (data.result == 1) {
+                            $("#pin").text(data.prompt);
+							$("#pin").removeClass().addClass("success span-11 last");
+                            $("#pin").show();
+                            $('input[type=submit]').removeAttr('disabled');
+                        } else if (data.result == -1) {
+                            $("#pin").text(data.prompt);
+							$("#pin").removeClass().addClass("error span-11 last");
+                            $("#pin").show();
+                            $('input[type=submit]').removeAttr('disabled');
+                        }
+                    }, 
+                "json");
+            }
+           
+            if ($('#bux_pass').val().length > 0) {
+				$("#pin").hide();
+                $("#buxfer").text("Loading transactions...");
+				$("#buxfer").removeClass().addClass("success span-11 last");
+                $("#buxfer").show();
+                $('input[type=submit]', this).attr('disabled', 'disabled');
+                $.post('{% url web.views.load_trans %}', {'email':$('#bux_user').val(), 'password':$('#bux_pass').val()}, 
+                    function (data) {
+                        if (data.result == '1') {
+                            $("#buxfer").text("Successfully updated!");
+							$("#buxfer").removeClass().addClass("success span-11 last");
+                            $("#buxfer").show();
+                            $('input[type=submit]').removeAttr('disabled');
+                            success = true;
+                            return success;
+                        } else if (data.result == '-1') {
+                            // show buxfer username and password was not found
+                            $("#buxfer").text(data.error);
+							$("#buxfer").removeClass().addClass("error span-11 last");
+                            $("#buxfer").show();
+                            $('input[type=submit]').removeAttr('disabled');
+                            success = false;
+                            return success;
+                        } else {
+                            // show buxfer username and password was not found
+                            $("#buxfer").text(data.error.email[0]);
+							$("#buxfer").removeClass().addClass("error span-11 last");
+                            $("#buxfer").show();
+                            $('input[type=submit]').removeAttr('disabled');
+                            success = false;
+                            return success;
+                        }
+                    }, "json");
+            }
+            return success;
+        });
+    });
+</script>
+    
+{% endblock %}

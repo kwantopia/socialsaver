@@ -1,0 +1,107 @@
+{% extends "web2/base.html" %}
+{% load facebook_tags %}
+
+{% block page_title %}
+Mealtime Home
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+#ind_win{
+width:620px;
+float:left;
+margin-right:10px;
+padding-right:10px;
+background-color:#fff3db;
+display:inline;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:12pt;
+color:#a60008;
+}
+
+h2{
+font-family:Helvetica, Verdana, sans-serif;
+font-weight:boldest;
+font-size:1.1em;
+font-variant:small-caps;
+text-align:left;
+margin-left:30px;
+color:#004f09;
+padding-top:10px;
+margin-bottom:10px;
+}
+
+ul, li{
+padding:2px 20px;
+margin:0px;
+display:inline-block;
+}
+
+p{
+font-family:Helvetica, Verdana, sans-serif;
+font-size:1.0em;
+text-align:left;
+display:inline;
+}
+
+.imgset1{
+width:200px;
+height:300px;
+margin:5px 5px 5px 5px;
+text-align:center;
+}
+</style>
+{% endblock %}
+
+{% block nav %}
+<div class="nav_li"><a href="{% url web.views.mobile %}">MOBILE</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.about %}">ABOUT</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.faq %}">FAQ</a></div>
+{% endblock %}
+    
+{% block small %}
+{% endblock %}
+
+{% block content %}
+<h1>- Welcome to MealTime! -</h1>
+
+<div id="ind_win">
+<h2>Sign Up Steps:</h2>
+    <ul>
+        {% load facebook_tags %}
+        <li><strong>Step 1</strong>: Log in and register with {% show_connect_button %}</li>
+        <li><strong>Step 2</strong>: Download the <b>MealTime</b> application to your Android phone, iPhone, or iPod Touch (if you have a device).</li>
+        <li><strong>Step 3</strong>: Rate and review your purchases to share with your friends.</li>
+        <li><strong>Step 4</strong>: Each day you use the app and transact with TechCASH, you will be entered into a $5 TechCASH lottery.</li> 
+        <!-- <li><strong>Step 5</strong>: If you have used the app each day and transacted with TechCASH at least 30 days until May 25, 2010 you will be entered into an <b>iPad raffle</b> at the end of the trial (May 25, 2010).  The more transactions you make, the higher the chances of winning.</li> -->
+    </ul>
+
+<h2>Digital Receipts</h2>
+<ul><li>
+   <p>Participate in the TechCASH Digital Receipt trial and help us innovate and redesign the Digital Receipt system.
+
+      The application allows you to track TechCASH consumption, specifically food consumption through the phone application.  We ask you to share your experiences you have at different places through this web site or through the phone application.</p>
+</li></ul>
+
+<h2>Stores</h2>
+<ul><li>
+        <p>Encourage other stores to join TechCASH!</p>
+</li></ul>
+</div>
+
+<div id="main_div"><img src="{{ STATIC_URL }}media/mealtime/maindivider.png" height="720px" width="3px" border=0/></div>
+            
+<div id="home_pics">
+	<div class="imgset1">
+        <img src="{{ STATIC_URL }}media/mealtime/01.png" />
+    </div>
+    
+    <br />
+        
+    <div class="imgset1">
+        <img src="{{ STATIC_URL }}media/mealtime/i0.png" />
+    </div>
+
+{% endblock %}

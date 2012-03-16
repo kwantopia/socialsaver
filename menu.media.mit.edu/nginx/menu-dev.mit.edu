@@ -1,0 +1,21 @@
+server {
+    listen 80; 
+    server_name menu-dev.mit.edu;
+    rewrite ^/(.*) http://menu-dev.mit.edu/$1 permanent;
+}
+
+server {
+    listen 80;
+    server_name menu-dev.mit.edu;
+
+    access_log /home/www/menu.mit.edu/nginx/logs/access.log;
+    error_log /home/www/menu.mit.edu/nginx/logs/error.log;
+
+    location / {
+        #root /home/www/menu.mit.edu/htdocs/;
+        #index index.html;
+        proxy_pass http://127.0.0.1:8089/;
+        include /etc/nginx/proxy.conf;
+    }
+
+}

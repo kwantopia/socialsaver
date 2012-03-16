@@ -1,0 +1,20 @@
+==============================================
+02/23/10
+
+Latest OTN related api has been updated
+
+testOTN.php for just testing random calls
+
+loadOTN.php for initially loading
+pollOTN.php for polling regularly
+loadUser.php for loading a specific user's transactions
+
+==============================================
+
+Two scripts are used under techcash directory
+
+load.php (for initially loading all transactions from last year)
+
+poll.php (for polling for latest transactions)
+
+The TechCASH api is under tech_cash.php

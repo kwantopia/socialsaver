@@ -1,0 +1,255 @@
+{% extends 'web/base.html' %}
+
+{% load facebook_tags %}
+<!-- Only show once user is logged in -->
+
+{% block page_title %}
+{% show_facebook_full_name fbuser %}'s Home
+{% endblock %}
+
+{% block tabnav %}
+    <!--should be separate page -->
+	<li><a href="{% url web.views.transactions 0 %}">Transactions</a></li>
+    <li><a href="{% url survey.views.surveys %}">Surveys</a></li>
+    <li><a href="{% url web.views.winners %}">Winners</a></li>
+    <li><a href="{% url web.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+
+{% block warnings %}
+    <!--
+    <div class="warning">Add <a href="/wesabe/register/">Wesabe</a> and make $10</div>
+    -->
+    {% for survey in surveys %}
+        <div class="warning">Take <a href="/survey/{{survey.id}}/">{{ survey.title }}</a>!</div>
+    {% endfor %}
+
+    {% if winner %}
+        <div class="warning">Please fill out <a href="{% url web.views.gift %}">this form</a> if you have won any gift from Meal Time.</div>
+    {% endif %}
+{% endblock warnings %}	
+
+{% block content %}
+<!-- Show Home Page with generally popular places -->
+<!--
+	<div class="dashboard">
+	<div class="dashitem">
+        <div class="dashfocus">{{ winner.name }}</div>
+        <div class="dashtext">Won $5 yesterday</div>
+	</div>
+	<div class="dashitem">
+        <div class="dashfocus">5</div>
+        <div class="dashtext">Friends are in MealTime</div>
+	</div>
+	<div class="dashitem">
+        <div class="dashtext">Similar Lunch Times</div>
+        <ul>
+            <li>Jane</li>
+            <li>Dawei</li>
+            <li>Boris</li>
+        </ul>
+	</div>
+</div>
+<div style="clear:both"></div>
+-->
+  <div class="dashboard">
+	<div class="dashitem">
+		<div class="dashfocus">{{ stores }}</div>
+		<div class="dashtext">places</div>
+	</div>
+	<div class="dashitem">
+		<div class="dashfocus">{{ people }}</div>
+		<div class="dashtext">people</div>
+	</div>
+	<div class="dashitem">
+		<div class="dashfocus">{{ n_txns }}</div>
+		<div class="dashtext">transactions</div>
+	</div>
+  </div>
+<div style="clear:both"></div>
+
+<!--    Show User's Home Page 
+<ul>
+<li>Have a summary list of favorite places and total amount visited and spent over the last month.
+
+<li>For social group, you let people know who have similar lunch behavior in spending order and time.
+		
+<li>Suggest whom you could eat lunch with.
+</ul>
+-->
+
+<div id="home-body" class="span-20 last">
+  <div class="span-14">
+
+    <h2>Latest Transactions</h2>
+    <b>Please comment on your latest transactions</b>
+
+    <div id = "latest_transactions">
+
+      {% for transaction in transactions %}
+
+        <div class = "transaction">
+          <div class="transaction_header">
+            <h3 class="trans_name">
+                <img src="{{ transaction.location.icon }}" /> {{ transaction.location.name }} - <span class="trans_amount">${{ transaction.get_json.amount }}</span>
+            </h3>
+          </div>
+          <div class="transaction_row">
+            <span class="trans_time">{{ transaction.get_json.date }}</span>
+            <!-- can we get a nicer timestamp -> Monday, June 15 at 5:06PM -->
+          </div>
+          <div class="transaction_row">
+            <form> 
+              {% csrf_token %}
+              <div class="rating_box" id="trans_rating_{{ transaction.id }}">
+                <input type="radio" name="rating" {% ifequal transaction.receipt.rating 1 %}checked="checked"{% endifequal %} value="1" title="Poor" />
+                <input type="radio" name="rating" {% ifequal transaction.receipt.rating 2 %}checked="checked"{% endifequal %} value="2" title="Fair" />
+                <input type="radio" name="rating" {% ifequal transaction.receipt.rating 3 %}checked="checked"{% endifequal %} value="3" title="Average" />
+                <input type="radio" name="rating" {% ifequal transaction.receipt.rating 4 %}checked="checked"{% endifequal %} value="4" title="Good" />
+                <input type="radio" name="rating" {% ifequal transaction.receipt.rating 5 %}checked="checked"{% endifequal %} value="5" title="Excellent" />
+              </div>
+              <div class="rating_caption">
+                <b>Rating:</b> <span id="stars_cap_{{ transaction.id }}"></span>
+              </div>
+            </form>
+          </div>
+          <div class="transaction_row">
+            {% if transaction.receipt.detail %}
+              <div class="trans_detail" id="detail_{{ transaction.id }}" name="{{ transaction.id }}">{{ transaction.receipt.detail }}</div>
+            {% else %}
+              <div class="trans_detail" id="detail_{{ transaction.id }}" name="{{ transaction.id }}">Please add a comment...</div>
+            {% endif %}
+          </div>
+          <div class="transaction_row">
+            <form>
+              {% csrf_token %}
+              <div class="trans_public">
+                <input type="radio" {% ifequal transaction.receipt.sharing 0 %}checked="checked"{% endifequal %} name="sharing" value="{{ transaction.receipt.PRIVATE }}" onclick="update_sharing( {{ transaction.id }}, {{ transaction.receipt.PRIVATE }} )" />Private
+                <input type="radio" {% ifequal transaction.receipt.sharing 1 %}checked="checked"{% endifequal %} name="sharing" value="{{ transaction.receipt.FRIENDS }}" onclick="update_sharing( {{ transaction.id }}, {{ transaction.receipt.FRIENDS }} )" />Friends
+                <input type="radio" {% ifequal transaction.receipt.sharing 2 %}checked="checked"{% endifequal %} name="sharing" value="{{ transaction.receipt.COMMUNITY }}" onclick="update_sharing( {{ transaction.id }}, {{ transaction.receipt.COMMUNITY }} )" />Community
+                <input type="radio" {% ifequal transaction.receipt.sharing 3 %}checked="checked"{% endifequal %} name="sharing" value="{{ transaction.receipt.PUBLIC }}" onclick="update_sharing( {{ transaction.id }}, {{ transaction.receipt.PUBLIC }} )" />Public
+              </div>
+            </form>
+          </div>	
+          <div class="transaction_row friendswholiked">
+              {% for f in transaction.friends %}
+                <div style="display: inline;" id="app2379574490_{{ f.facebook_id }}" class="friend" fbcontext="6498fc0d2e27"><a href="http://hs.facebook.com/profile.php?id={{ f.facebook_id }}" ><img src={{ f.image }} alt={{ f.name }} title={{ f.name }}/></a></div>
+              {% endfor %}
+          </div>
+        </div>
+        
+      {% endfor %}
+
+    </div>
+  </div><!-- span-14 -->
+
+  <div class="span-6 last">
+    <h2>Friends in MealTime</h2>
+    <table>
+      {% for friend in friends_list %}
+
+			<tr><td> {{ friend.name }}</td>
+			<td> <img src="{{ friend.image }}"></img></td></tr>
+
+		
+      {% endfor %}
+			
+    </table>
+  </div> <!-- friends list -->
+
+</div><!-- span-20 -->
+{% endblock content %}
+
+{% block sidebar %}
+	<div id="techcash_box">
+		{% if linked.techcash %}
+		<h3>TechCash Linked</h3>
+		<div id="techcase_update_link">
+        <!--<a href="/techcash/update/">Update Transactions</a>-->
+		</div>
+		{% else %}
+		<h3>Link TechCash</h3>
+		<div id="techcase_update_link">
+        <a href="/techcash/initialize/">Load Transactions</a>
+		</div>
+		{% endif %}
+	</div>
+    <div id="wesabe_box">
+    	{% if linked.wesabe %}
+		<h3>Update Wesabe Account</h3>
+		{% else %}
+        <h3>Link Wesabe Account</h3>
+		{% endif %}
+        <form action="/wesabe/load/" method="POST">
+            {% csrf_token %}
+            <table>
+            <tr>
+            <td align="right"><label for="email">Email:</label></td>
+            <td><input id="email" name="email" type="text"></td>
+           </tr>
+           <tr>
+           <td align="right"><label for="password">Password:</label></td>
+           <td><input id="password" name="password" type="password"></td>
+           </tr>
+           <tr><td><a href="http://www.wesabe.com">Create account</a></td>
+		   {% if linked.wesabe %}
+		   <td align="right"><input type="submit" value="Update"/></td>		   
+		   {% else %}
+		   <td align="right"><input type="submit" value="Download"/></td>
+		   {% endif %}
+		   </tr>
+           </table>
+        </form>
+    </div>
+{% endblock sidebar %}
+
+{% block scripts %}
+    <link href="/styles/default/transactions.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.js"></script>
+    <script type="text/javascript" src="/scripts/default/jquery.jeditable.min.js"></script>
+
+    <script type="text/javascript">
+
+    function update_sharing( tid, value ) {
+        $.post("/web/update/sharing/", 
+            {transaction_id: tid, sharing: value}, 
+            function(){
+                //console.log(json.result);
+            }, "json");
+    }
+
+
+	$(document).ready(function(){
+
+        $("#wesabe").corner();
+        $(".transaction").corner();
+
+        //  bind an event listener that will be called when
+        //  user saves changed content
+        $(".trans_detail").editable("/web/update/description/", {
+            id: 'transaction_id',
+            name: 'description',
+            onblur: 'submit',
+            indicator: 'Saving...',
+            tooltip: 'Click to edit...',
+            width: 400
+        });
+
+        {% for transaction in transactions %}
+            $("#trans_rating_{{ transaction.id }}").stars({
+                captionEl: $("#stars_cap_{{ transaction.id }}"),
+                callback: function(ui, type, value) {
+                    $.post("/web/update/rating/", {transaction_id: {{ transaction.id }}, rating: value}, function(json)
+                    {
+                        $("#stars_cap_{{ transaction.id }}").value = json.result;
+                    }, "json");
+                }
+            });
+        {% endfor %}
+    });
+    </script>
+
+{% endblock scripts %}
+
+

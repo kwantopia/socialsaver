@@ -1,0 +1,118 @@
+{% extends "web/base.html" %}
+
+{% block page_title %}
+OTN - Transactions
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+
+.trans_detail {
+display:inline;
+margin-top:10px;
+background:url(/media/rating/Comment.png) no-repeat 0 2px;
+padding-left:20px;
+width: 300px;
+float:left;
+}
+
+</style>
+{% endblock %}
+
+{% block main %}TRANSACTIONS {% endblock %}
+{% block sub %}track and review your latest purchases{% endblock %}
+
+{% block content %}
+<div class="pagetext span-22 last"> 
+    {% if not transactions.object_list %}
+        No Transactions to Display! Please go <a href="/profile/">here</a> to link your accounts.
+        <hr class="space" />
+	{% endif %}
+
+	{% for transaction in transactions.object_list %}
+		
+        <h2>{{ transaction.memo.txt }} - ${{ transaction.amount|floatformat:2 }}</h2>
+
+        <form> 
+        {% csrf_token %}
+        <div class="prepend-1 span-4" id="trans_rating_{{ transaction.id }}">
+            <input type="radio" name="rating" {% ifequal transaction.receipt.rating 1 %}checked="checked"{% endifequal %} value="1" title="Poor" />
+            <input type="radio" name="rating" {% ifequal transaction.receipt.rating 2 %}checked="checked"{% endifequal %} value="2" title="Fair" />
+            <input type="radio" name="rating" {% ifequal transaction.receipt.rating 3 %}checked="checked"{% endifequal %} value="3" title="Average" />
+            <input type="radio" name="rating" {% ifequal transaction.receipt.rating 4 %}checked="checked"{% endifequal %} value="4" title="Good" />
+            <input type="radio" name="rating" {% ifequal transaction.receipt.rating 5 %}checked="checked"{% endifequal %} value="5" title="Excellent" />
+        </div>
+        <div class="span-5 last">
+            <b>Rating:</b> <span id="stars_cap_{{ transaction.id }}"></span>
+        </div>
+        </form>
+        
+        <hr class="space" />
+            
+        <div class="prepend-1 span-10 last">
+            {% if transaction.receipt.detail %}
+                <div class="trans_detail" id="detail_{{ transaction.id }}" name="{{ transaction.id }}">{{ transaction.receipt.detail }}</div>
+            {% else %}
+                <div class="trans_detail" id="detail_{{ transaction.id }}" name="{{ transaction.id }}">Please click to leave a comment.</div>
+            {% endif %}
+        </div>
+        
+        <hr class="space" />
+        <hr class="space" />
+            
+    
+	{% endfor %}
+
+    {% if transactions.has_previous %}
+        <a href="/transactions/{{ sort }}/1/">first</a>
+        ::
+        <a href="/transactions/{{ sort }}/{{ transactions.previous_page_number }}/">previous </a>
+    {% endif %}
+    
+      <span style="color:#5ECF4F">:: page {{ transactions.number }} of {{ transactions.paginator.num_pages }} ::</span>
+    
+    {% if transactions.has_next %}
+      <a href="/transactions/{{ sort }}/{{ transactions.next_page_number }}/"> next</a>
+        :: 
+      <a href="/transactions/{{ sort }}/{{ transactions.paginator.num_pages }}/">last</a>
+    {% endif %}
+    
+    <hr class="space" />
+ </div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <link href="/scripts/default/otn.stars/jquery.ui.stars.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="/scripts/default/otn.stars/jquery.ui.stars.min.js"></script>
+    <script type="text/javascript" src="/scripts/default/jquery.jeditable.min.js"></script>
+    <script type="text/javascript" src="/scripts/default/jquery.corner.js"></script>
+
+    <script type="text/javascript">
+
+	$(document).ready(function(){
+        //  bind an event listener that will be called when
+        //  user saves changed content
+        $(".trans_detail").editable("/update/description/", {
+            id: 'transaction_id',
+            name: 'description',
+            onblur: 'submit',
+            indicator: 'Saving...',
+            tooltip: 'Click to edit...',
+            width: 400
+        });
+
+        {% for transaction in transactions.object_list %}
+            $("#trans_rating_{{ transaction.id }}").stars({
+                captionEl: $("#stars_cap_{{ transaction.id }}"),
+                callback: function(ui, type, value) {
+                    $.post("/update/rating/", {transaction_id: {{ transaction.id }}, rating: value}, function(json)
+                    {
+                        $("#stars_cap_{{ transaction.id }}").value = json.result;
+                    }, "json");
+                }
+            });
+        {% endfor %}
+    });
+    </script>
+
+{% endblock %}

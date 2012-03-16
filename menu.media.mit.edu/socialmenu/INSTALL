@@ -1,0 +1,28 @@
+Need to setup Postgres DB to be accessible by new DB user otnpostgres
+
+Modify /etc/postgresql/8.3/main/pg_hba.conf and add the following line
+--> local   all         otnpostgres                 md5
+
+===========================================
+
+For using south migration
+
+./manage.py startmigration <appname> --initial
+
+
+===========================================
+After ./manage.py syncdb you need to load some initial data
+and alter the email table for Facebook usage
+
+setup/initialize.sh
+# for fixing email field for Facebook (this is called in initialize.sh)
+#cd common/setup
+#./facebook_email_setup.sh
+
+# load fixtures for menu, optional prices and admin data
+fixtures/*.json needs to be loaded (./manage.py loaddata fixture_name)
+
+# add test table codes
+./manage.py shell
+run setup/tablecodes.py
+

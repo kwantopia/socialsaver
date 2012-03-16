@@ -1,0 +1,29 @@
+{% extends "survey/m/base.html" %}
+
+{% block content %}
+<h2>{{ survey.title }}</h2>
+<p>
+{{ errors }}
+<form action="{% url mobile.views.survey survey_id %}" method="POST">
+
+    {% csrf_token %}
+    <input type="hidden" name="uuid_token" value="{{ uuid_token }}" />
+    <div class="survey-questions">
+    <table>
+    {% for field in form %}
+      <tr {% if forloop.counter0|divisibleby:"2" %}bgcolor=#EEEEEE{% endif %}>
+        <td>{{ field.label_tag }}</td>
+        <td>{{ field }}</td>
+      </tr>  
+    {% endfor %}
+    </table>
+    </div>
+<p>
+<center>
+<div id="shorten-button">
+<input class="button" type="submit" value="Submit" />
+</div>
+</center>
+
+</form>
+{% endblock content %}

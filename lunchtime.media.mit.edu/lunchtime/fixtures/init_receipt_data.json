@@ -1,0 +1,92 @@
+[
+  {
+    "model": "common.Location",
+    "pk": 1,
+    "fields": {
+      "name": "Quizno's subs",
+      "phone": "1234567890",
+	  "description": "Mmmm.... toasty",
+	  "image": "http://www.exit670.com/images/quiznos.jpg"
+    }
+  },
+  {
+    "model": "common.Location",
+    "pk": 2,
+    "fields": {
+      "name": "Anna's Tacqueria",
+      "phone": "1234567890",
+	  "description": "Mexican on the go!",
+	  "image": "http://profile.ak.fbcdn.net/object3/233/93/q31528472971_4480.jpg"
+    }
+  },
+  {
+    "model": "common.Location",
+    "pk": 3,
+    "fields": {
+      "name": "Subway",
+      "phone": "1234567890",
+	  "description": "5 Dollar Foot Longs!",
+	  "image": "http://www.exit670.com/images/subway.jpg"
+    }
+  },
+  {
+    "model": "techcash.TechCashTransaction",
+    "pk": 1,
+    "fields": {
+	  "trans_id": 12345,
+	  "user": 1,
+	  "location": 1,
+	  "amount": "20.00",
+	  "timestamp": "2009-10-10 10:34"
+    }
+  },
+  {
+    "model": "techcash.Receipt",
+    "pk": 1,
+    "fields": {
+      "txn": 1,
+      "detail": "Mesquite Chicken Sandwich",
+	  "rating": "4"
+    }
+  },
+  {
+    "model": "techcash.TechCashTransaction",
+    "pk": 2,
+    "fields": {
+	  "trans_id": 12346,
+	  "user": 1,
+	  "location": 1,
+	  "amount": "20.00",
+	  "timestamp": "2009-10-10 10:34"
+    }
+  },
+  {
+    "model": "techcash.Receipt",
+    "pk": 2,
+    "fields": {
+      "txn": 2,
+      "detail": "Torpedoage!",
+	  "rating": "4"
+    }
+  },
+    {
+    "model": "techcash.TechCashTransaction",
+    "pk": 3,
+    "fields": {
+	  "trans_id": 12346,
+	  "user": 2,
+	  "location": 2,
+	  "amount": "20.00",
+	  "timestamp": "2009-10-10 10:34"
+    }
+  },
+  {
+    "model": "techcash.Receipt",
+    "pk": 3,
+    "fields": {
+      "txn": 3,
+      "detail": "Cheese Quesadilla",
+	  "rating": "4"
+    }
+  }  
+]

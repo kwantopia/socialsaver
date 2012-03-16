@@ -1,0 +1,58 @@
+{% extends 'web/base.html' %}
+
+{% block page_title %}
+Home
+{% endblock %}
+
+{% block tabnav %}
+    <!--should be separate page -->
+    <li><a href="{% url web.views.index %}">Home</a></li>
+    <li><a href="{% url web.views.winners %}">Winners</a></li>
+    <li><a href="{% url web.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+{% block content %}
+
+<!-- Show Home Page with generally popular places -->
+
+<!--
+    <p>Put a summary of last 5 places people have been to and when.</p>
+    <p>Put a summary of how many dollars spent.</p>
+    <p>Put a summary of how many people are participating and encourage people to invite.</p>
+-->
+    <div id="leftCol">
+    <!--<h1>Invite your friends to join! Friends feature gets activated after 10 of your friends sign up.</h1>-->
+    <!--<div class="warning">You can still participate without an iPhone or iPod Touch by adding reviews on the web.</div>-->
+    <p>
+        <h2>Sign Up Steps:</h2>
+        <ul id="sign_up_steps">
+            {% load facebook_tags %}
+            <li><strong>Step 1</strong>: Log in and register with {% show_connect_button %}</li>
+            <li><strong>Step 2</strong>: Download the <b>MealTime</b> iPhone application to your phone or iPod touch (if you have a device)</li>
+            <li><strong>Step 3</strong>: Rate and review your purchases to share with your friends.</li>
+            <li><strong>Step 4</strong>: Each day you use the app and transact with TechCASH you will be entered into $5 TechCASH lottery.</li> 
+            <li><strong>Step 5</strong>: If you have used the app each day and transacted with TechCASH at least 30 days until May 25, 2010 you will be entered into an <b>iPad raffle</b> at the end of the trial (May 25, 2010).  The more transactions you make the higher the chances of winning.</li>
+        </ul>
+
+      <h2>Digital Receipts</h2>
+    <div id="middleContent">Participate in the TechCASH Digital Receipt trial and help us innovate and redesign the Digital Receipt system.</div>
+
+      <p>The application allows you to track TechCASH consumption, specifically food consumption through the phone application.  We ask you to share your experiences you have at different places through this web site or through the phone application.</p>
+    </div>
+
+
+    <div id="boxContainer">
+      <div class="box work">
+        <h2>About Us</h2>
+        <p>We are part of the Viral Communications at the MIT Media Lab conducting research on the future of credit card and payments.  We are attempting to reinvent the payment process through mobile devices by providing users wth the tools that help reflect on your finances and your eating habits.</p>
+      </div>
+      <div class="box book">
+        <h2>Stores</h2>
+        <p>Encourage other stores to join TechCASH.</p>
+      </div>
+    </div>
+    <!-- end boxContainer -->
+
+
+{% endblock content %}
+

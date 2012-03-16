@@ -1,0 +1,98 @@
+@charset "utf-8";
+/* CSS Document */
+/* Margins/Padding: top right bottom left
+					top/bottom  right/left
+					top  left/right  bottom*/
+
+/*Header Stuff*/
+
+#logo{
+width:400px;
+height:104px;
+text-align:left;
+padding-bottom:25px;
+float:left;
+}
+
+#fblogin{
+width:200px;
+float:right;
+margin:20px 10px 20px 0px;
+}
+
+#login{
+width:250px;
+float:right;
+margin:20px 10px 20px 0px;
+}
+
+#user{
+float:right;
+height:10px;
+font-family:Verdana, sans-serif;
+font-size:9pt;
+padding:7px 10px 5px 0px;
+text-align:right;
+}
+
+#how{
+font-family:Helvetica, Verdana, sans-serif;
+font-size:0.8em;
+}
+
+#footer{
+width:942px;
+height:2em;
+padding-top:1em;
+padding-right:1.3em;
+background-color:#f9e361;
+font-family:Verdana,sans-serif;
+font-weight:bolder;
+font-size:0.7em;
+float:left;
+text-align:right;
+color:#004f09;
+}
+
+.nav_li{
+margin-left:8px;
+margin-right:8px;
+display:inline;
+font-family:Verdana, sans-serif;
+font-size:14px;
+font-weight:bolder;
+line-height:30px;
+vertical-align:top;
+}
+
+.nav_d{
+margin-left:3px;
+margin-right:3px;
+vertical-align:middle;
+display:inline;
+}
+
+#window{
+width:550px;
+position:absolute;
+margin-left:60px;
+background-color:#fff3db;
+display:inline;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:12pt;
+color:#a60008;
+}
+
+#home_pics{
+width:220px;
+position:absolute;
+margin-left:30px;
+margin-right:15px;
+padding-bottom:50px;
+background-color:#fff3db;
+}
+
+#maincontent{
+padding:1em;
+min-height:830px;
+}

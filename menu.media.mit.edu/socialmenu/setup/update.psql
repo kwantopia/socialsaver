@@ -1,0 +1,4 @@
+drop table legals_tablecode;
+alter table common_experiment add column active boolean;
+alter table common_experiment add column experiment_id integer;
+alter table legals_tablecode add constraint expconstraint foreign key (experiment_id) references common_experiment; 

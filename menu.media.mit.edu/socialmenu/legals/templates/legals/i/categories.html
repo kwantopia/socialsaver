@@ -1,0 +1,30 @@
+{% extends "legals/i/base.html" %}
+
+{% block toolbar %}
+    <h1 id="pageTitle"></h1>
+    <a id="backButton" class="button" href="#"></a>
+    {% if order_id > 0 %}
+        <a id="cartbutton" class="button greenButton" href="/legals/m/myorder/{{order_id}}/" target="_self">My Cart</a>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <ul id="topmenu" title="Home" selected="true" class="categories">
+        <!-- Need to put friend's choices and chef's choices -->
+        {% for c in categories %}
+            <li> 
+                <a href="/legals/m/category/{{ c.id }}/{{ order_id }}/">
+                    {{ c.name }}
+                </a>
+            </li>
+        {% endfor %}
+
+        <li id="chefslink"><a href="/legals/m/chef/choices/{{ order_id }}/">Features</a></li>
+        <li id="friendslink"><a href="/legals/m/friend/choices/{{ order_id }}/">Friend's Suggestions</a></li>
+
+		<li style="font-size:15px; color:#888"><a href="/legals/m/allergies/{{ order_id }}/">Allergy information and disclaimer about raw food and shellfish</a></li>
+    </ul>
+{% endblock %}
+
+

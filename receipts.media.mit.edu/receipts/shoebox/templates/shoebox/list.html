@@ -1,0 +1,11 @@
+<table border=1>
+{% for r in receipts %}
+    <tr>
+        <td>{{ r.basic.user.email }}</td>
+        <td>{{ r.business.name }}</td>
+        <td>{{ r.basic.amount }}</td>
+        <td>{{ r.basic.purchase_date }}</td>
+        <td>{{ r.basic.img.url }}</td>
+    </tr>
+{% endfor %}
+</table>

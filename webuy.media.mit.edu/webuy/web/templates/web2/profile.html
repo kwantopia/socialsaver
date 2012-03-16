@@ -1,0 +1,161 @@
+{% extends "web2/base.html" %}
+{% load facebook_tags %}
+
+{% block page_title %}
+Shoppley - Profile
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+#profile{
+margin:auto;
+width:600px;
+min-height:500px;
+}
+
+.error{
+font-size:0.8em;
+color:#990000;
+width:500px;
+}
+#name{
+float:left;
+height:30px;
+font-family:Verdana, sans-serif;
+font-weight:bold;
+font-size:0.9em;
+margin:10px 0px 0px 15px;
+color:#a60008;
+}
+
+#image{
+width:50px;
+padding-left:10px;
+float:left;
+}
+
+#register{
+margin:auto;
+width:700px;
+}
+
+fieldset{
+border-bottom:groove;
+border-top:none;
+border-right:none;
+border-left:none;
+margin:20px 0;
+}
+
+legend{
+color:#127524;
+border:none;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:0.9em;
+display:inline;
+}
+
+p{
+color:#000;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:0.9em;
+border:none;
+}
+
+#choices{
+display:inline-block;
+width:200px;
+margin-left:20px;
+}
+
+.wrap{
+width:470px;
+}
+
+.field{
+width:200px;
+float:left;
+text-align:right;
+padding-top:4px;
+padding-right:10px;
+}
+
+.input{
+width:250px;
+float:right;
+}
+</style>
+{% endblock %}
+
+{% block small %}
+{% endblock %}
+
+{% block content %}
+<div id="bigwindow">
+<div id="profile">
+<h1>- Your Profile -</h1>
+<h3>Update Your PIN and RewardZone Number</h3>
+
+<div id="image">
+    {% show_facebook_photo user %}
+</div>
+    
+<div id="name">
+    <strong>Name:</strong> {% show_facebook_full_name fbuser %} 
+    <br>
+    <strong>E-mail:</strong> 
+</div>
+    <br />
+    <br />
+<form action="{% url web.views.profile %}" method="POST">
+    {% csrf_token %} 
+    <fieldset>
+    {% if prompt %}
+    	<div class="error span-11 last">
+        {{ prompt }}
+    	</div>
+    {% endif %}
+    	<div class="wrap">
+        	<div class="field">
+            	<p>	<label>New PIN: </label> </p>
+            </div>
+            
+            <div class="input">
+                <p> <input type="password" name="first"> </p>
+            </div>
+    	</div>
+        
+        <div class="wrap">
+        	<div class="field">
+            	<p>	<label>Re-enter PIN: </label> </p>
+            </div>
+            
+            <div class="input">
+                <p> <input type="password" name="second"> </p>
+            </div>
+    	</div>
+    </fieldset>
+    
+    <fieldset>
+    {% if prompt %}
+    	<div class="error span-11 last">
+        {{ prompt }}
+    	</div>
+    {% endif %}
+    	<div class="wrap">
+        	<div class="field">
+            	<p> <label for="rewardzone">New Reward Zone Number:</label> </p>
+            </div>
+            
+            <div class="input">
+                <p> <input type="rewardzone" name="reward"> </p>
+            </div>
+    	</div>
+
+    </fieldset>
+    
+    <div align="center"><input class="button" type="submit" name="Submit" value="Update"></div>
+</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,200 @@
+{% extends 'web/base.html' %}
+
+{% block page_title %}
+LunchTime Transaction Page 
+{% endblock %}
+
+{% block tabnav %}
+    <!--should be separate page -->
+    <li><a href="{% url web.views.index %}">Home</a></li>
+    <li><a href="{% url survey.views.surveys %}">Surveys</a></li>
+    <li><a href="{% url web.views.winners %}">Winners</a></li>
+    <li><a href="{% url web.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+{% block content %}
+
+
+
+{% if user.is_authenticated %}
+
+<h2>Your Transactions</h2>
+<div id = "latest_transactions">
+
+{% for transaction in transactions.object_list %}
+
+	<div class = "transaction">
+		<div class="transaction_header">
+			<h3 class="trans_name">
+                <img src="{{ transaction.location.icon }}" /> {{ transaction.location.name }} - <span class="trans_amount">${{ transaction.get_json.amount }}</span>
+            </h3>
+		</div>
+        <div class="transaction_row">
+            <span class="trans_time">{{ transaction.get_json.date }}</span>
+            <!-- can we get a nicer timestamp -> Monday, June 15 at 5:06PM -->
+		</div>
+		<div class="transaction_row">
+            <form> 
+                {% csrf_token %}
+		        <div class="rating_box" id="trans_rating_{{ transaction.id }}">
+                    <input type="hidden" name="transaction_id" value="{{ transaction.id }}"/>
+            	    <input type="radio" name="rating" {% ifequal transaction.receipt.rating 1 %}checked="checked"{% endifequal %} value="1" title="Poor" />
+            	    <input type="radio" name="rating" {% ifequal transaction.receipt.rating 2 %}checked="checked"{% endifequal %} value="2" title="Fair" />
+            	    <input type="radio" name="rating" {% ifequal transaction.receipt.rating 3 %}checked="checked"{% endifequal %} value="3" title="Average" />
+            	    <input type="radio" name="rating" {% ifequal transaction.receipt.rating 4 %}checked="checked"{% endifequal %} value="4" title="Good" />
+            	    <input type="radio" name="rating" {% ifequal transaction.receipt.rating 5 %}checked="checked"{% endifequal %} value="5" title="Excellent" />
+                </div>
+                <div class="rating_caption">
+                    <b>Rating:</b> <span id="stars_cap_{{ transaction.id }}"></span>
+                </div>
+            </form>
+		</div>
+		<div class="transaction_row">
+	            {% if transaction.receipt.detail %}
+	                <div class="trans_detail" id="detail_{{ transaction.id }}" name="{{ transaction.id }}">{{ transaction.receipt.detail }}</div>
+	            {% else %}
+	                <div class="trans_detail" id="detail_{{ transaction.id }}" name="{{ transaction.id }}">Please add a comment...</div>
+	            {% endif %}
+        </div>
+		<div class="transaction_row">
+            <form>
+            {% csrf_token %}
+			<div class="trans_public">
+	            <input type="radio" {% ifequal transaction.receipt.sharing 0 %}checked="checked"{% endifequal %} name="sharing" value="{{ transaction.receipt.PRIVATE }}" onclick="update_sharing( {{ transaction.id }}, {{ transaction.receipt.PRIVATE }} )" />Private
+	            <input type="radio" {% ifequal transaction.receipt.sharing 1 %}checked="checked"{% endifequal %} name="sharing" value="{{ transaction.receipt.FRIENDS }}" onclick="update_sharing( {{ transaction.id }}, {{ transaction.receipt.FRIENDS }} )" />Friends
+	            <input type="radio" {% ifequal transaction.receipt.sharing 2 %}checked="checked"{% endifequal %} name="sharing" value="{{ transaction.receipt.COMMUNITY }}" onclick="update_sharing( {{ transaction.id }}, {{ transaction.receipt.COMMUNITY }} )" />Community
+	            <input type="radio" {% ifequal transaction.receipt.sharing 3 %}checked="checked"{% endifequal %} name="sharing" value="{{ transaction.receipt.PUBLIC }}" onclick="update_sharing( {{ transaction.id }}, {{ transaction.receipt.PUBLIC }} )" />Public
+            </div>
+            </form>
+		</div>	
+		<div class="transaction_row friendswholiked">
+            {% for f in transaction.friends %}
+			<div style="display: inline;" id="app2379574490_{{ f.facebook_id }}" class="friend" fbcontext="6498fc0d2e27"><a href="http://hs.facebook.com/profile.php?id={{ f.facebook_id }}" ><img src={{ f.image }} alt={{ f.name }} title={{ f.name }}/></a></div>
+            {% endfor %}
+		</div>
+	</div>
+	
+{% endfor %}
+
+</div>
+
+        {% if transactions.has_previous %}
+            <a href="/web/transactions/{{ transactions.previous_page_number }}/">previous</a>
+        {% endif %}
+		
+		 <span class="current">
+            Page {{ transactions.number }} of {{ transactions.paginator.num_pages }}.
+        </span>
+
+		{% if transactions.has_next %}
+            <a href="/web/transactions/{{ transactions.next_page_number }}/">next</a>
+        {% endif %}
+
+
+</ul>
+<p>
+{% else %}
+<!--    Show Home Page with generally popular places -->
+    <div id="middleContent">Let us help you manage your lunch time. <br>Participate in TechCash digital receipt trial.</div>
+    <p>
+{% endif %}
+
+{% endblock content %}
+
+{% block sidebar %}
+{% if user.is_authenticated %}
+    <div id="wesabe">
+        <h2>Link Wesabe Account</h2>
+        <br>
+        <form action="/wesabe/register" method="POST">
+            {% csrf_token %}
+            <table>
+            <tr>
+            <td align="right"><label for="email">Email:</label></td>
+            <td><input id="email" name="email" type="text"></td>
+           </tr>
+           <tr>
+           <td align="right"><label for="password">Password:</label></td>
+           <td><input id="password" name="password" type="password"></td>
+           </tr>
+           <tr><td></td><td align="right"><input type="submit" value="Download"/></td></tr>
+           </table>
+        </form>
+    </div>
+{% endif %}
+{% endblock sidebar %}
+
+{% block midboxes %}
+{% if not user.is_authenticated %}
+    <div id="boxContainer">
+      <div class="box client">
+        <h2>Download Application</h2>
+        <p>iPhone and Android applications can be downloaded from <a href="">here</a>.</p>
+      </div>
+      <div class="box work">
+        <h2>Our work</h2>
+        <p>We are trying to provide tools that can help reflect on your finances.</p>
+      </div>
+      <div class="box book">
+        <h2>Stores</h2>
+        <p>Encourage other stores to join TechCash.</p>
+      </div>
+    </div>
+    <!-- end boxContainer -->
+
+    <div id="leftCol">
+      <h2>Digital Receipts</h2>
+      <p>The application allows you to track of your lunch consumption through the phone application. We ask you to share any good experiences you might have or bad experiences you might have at different places.</p>
+    </div>
+{% endif %}
+{% endblock midboxes %}
+
+{% block scripts %}
+    <link href="/styles/default/transactions.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.js"></script>
+    <script type="text/javascript" src="/scripts/default/jquery.jeditable.min.js"></script>
+
+    <script type="text/javascript">
+
+    function update_sharing( tid, value ) {
+        $.post("/web/update/sharing/", 
+            {transaction_id: tid, sharing: value}, 
+            function(){
+                //console.log(json.result);
+            }, "json");
+    }
+
+	$(document).ready(function(){
+
+        $("#wesabe").corner();
+        $(".transaction").corner();
+
+        //  bind an event listener that will be called when
+        //  user saves changed content
+        $(".trans_detail").editable("/web/update/description/", {
+            id: 'transaction_id',
+            name: 'description',
+            onblur: 'submit',
+            indicator: 'Saving...',
+            tooltip: 'Click to edit...',
+            width: 400
+        });
+
+        {% for transaction in transactions.object_list %}
+            $("#trans_rating_{{ transaction.id }}").stars({
+                captionEl: $("#stars_cap_{{ transaction.id }}"),
+                callback: function(ui, type, value) {
+                    $.post("/web/update/rating/", {transaction_id: {{ transaction.id }}, rating: value}, function(json)
+                    {
+                        $("#stars_cap_{{ transaction.id }}").value = json.result;
+                    }, "json");
+                }
+            });
+        {% endfor %}
+    });
+    </script>
+
+{% endblock scripts %}
+
+

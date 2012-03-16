@@ -1,0 +1,20 @@
+<ul id="chefchoices" title="Chef" class="items">
+    <div class="cat_description">Today's features</div>
+
+    {% for i in menu_data %}
+        <li class="menuitem">
+        <a href="/legals/m/item/{{ i.item.id }}/{{ order_id }}/" style="clear:both;">{{ i.item.name }}
+            <span class="price">
+                {{ i.item.price }}
+            </span>
+            <div class="nodescription">&nbsp;</div>
+            {% if i.liked %}
+                <div class="friends">{{ i.liked }}</div>
+            {% endif %}
+        </a>
+        </li>
+    {% endfor %}
+
+</ul>
+
+

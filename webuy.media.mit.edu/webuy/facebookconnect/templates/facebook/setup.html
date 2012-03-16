@@ -1,0 +1,130 @@
+{% extends "web2/base.html" %}
+
+{% block page_title %}
+Personal Information Registration
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+#center{
+width:900px;
+margin:auto;
+}
+
+#name{
+float:left;
+height:10px;
+font-family:Verdana, sans-serif;
+font-weight:bold;
+font-size:0.9em;
+margin:35px 0px 0px 15px;
+}
+
+#image{
+width:50px;
+padding-left:10px;
+float:left;
+}
+
+#register{
+margin:auto;
+width:700px;
+}
+
+fieldset{
+border-bottom:groove;
+border-top:none;
+border-right:none;
+border-left:none;
+margin:20px 0;
+}
+
+legend{
+color:#127524;
+border:none;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:0.9em;
+}
+
+p{
+color:#000;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:0.9em;
+border:none;
+}
+
+.wrap{
+width:570px;
+}
+
+.field{
+width:300px;
+float:left;
+text-align:right;
+padding-top:4px;
+padding-right:10px;
+}
+
+.input{
+width:250px;
+float:right;
+}
+
+</style>
+{% endblock %}
+
+{% load facebook_tags %}
+
+{% block small %}
+{% endblock %}
+
+{% block content %}
+<div id="center">
+    <h1>- CREATE MOBILE LOGIN -</h1>
+    
+   	<div id="image">
+		{% show_facebook_photo user %}
+	</div>
+        
+    <div id="name">
+		{% show_facebook_full_name user %}
+    </div>
+    <br />
+    <br />
+ 
+    <!--     <p>
+        If you wanted to collect further user information (ie cell phone #) you would ask the
+        user here.  The steps to do so would be:<br />
+        <ul> -->
+        {% include "web2/register.html" %}
+        
+</div>
+            <!--<li>create a new html form below</li>
+            <li>create a hidden element in the form:  facebook_only with a value of false</li>
+            <li>create a hidden element in the form:  next  with a value == {{ next }}</li>
+            <li>edit the facebookconnect->views.py->setup method (modify the section starting with form.is_valid())</li>-->
+    <!--     </ul>
+        </p> -->
+
+
+    <!--   <h2>Please click the continue button to continue</h2>
+      <p>
+        Doing so will
+            <ul>
+                <li>create a user in auth_user with an username equal to your facebook user id</li>
+                <li>create a record in the facebookconnect_facebookprofile table</li>
+            </ul>
+      </p>
+      <form action="" method="post" accept-charset="utf-8" class="nice-form">
+        <input type="hidden" name="facebook_only" value="true" id="facebook_only">
+        <input type="hidden" name="next" value="{{ next }}" id="next">
+        <p><input type="submit" value="Continue"></p>
+      </form> -->
+
+{% endblock %}
+
+{% block extra_scripts %}
+
+    {% include "web2/register_scripts.html" %}
+ 
+{% endblock %}

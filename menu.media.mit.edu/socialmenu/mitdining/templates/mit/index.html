@@ -1,0 +1,130 @@
+{% extends 'mit/base.html' %}
+
+{% block page_title %}
+MIT Campus Dining
+{% endblock %}
+
+{% block tabnav %}
+        	<li><a href="/mit/">Home</a></li>
+        	<li><a href="/mit/faq/">FAQ</a></li>
+{% endblock tabnav %}
+
+
+{% block content %}
+
+<!--    Show Home Page with generally popular places -->
+   <div id="leftCol">
+      <h2>Your phone is the menu!</h2>
+      <p>The <strong>MIT Media Lab</strong> is conducting a digital menu trial at <strong>campus dining locations at MIT</strong> location.  
+	  <u>Use your phone to browse the menu!</u> 
+	  After your visit, log back on to this site and tell us about your meal.</p>
+    </div>
+	<h2>Experiment Steps:</h2>
+	<ul id="sign_up_steps">
+		{% load facebook_tags %}
+		<li><strong>Step 1</strong>: Log in with {% show_connect_button %}</li>
+		<li><strong>Step 2</strong>: Download the application to your phone</li>
+		<li><strong>Step 3</strong>: Eat campus dining locations and pay with TechCASH or Dining Dollars</li>
+		<li><strong>Step 4</strong>: Rate your meal on this site</li>
+		<li><strong>Step 5</strong>: Each time you pay with TechCASH/Dining Dollars and rate your meal you are entered to win $100 TechCASH!</li>
+	</ul>
+	<div>
+      	<h2>Supported Phones</h2>
+		<ul>
+			<li>iPhone or iPod Touch</li>
+			<li>Android Phones (Droid, myTouch, etc)</li>
+			<li>Palm WebOS (Pre, Pixi)</li>
+		</ul>
+    </div>
+	<div id="stores">
+		<h2>Participating Locations</h2>
+		<p>You must be a member of the MIT Community and be willing to pay for your items using <a href="http://techcash.mit.edu/">TechCASH or Dining Dollars</a></p>
+		<img src="/media/techcash/Annas-Icon.png" />
+		<img src="/media/techcash/Au-Bon-Pain-Icon.png" />
+		<img src="/media/techcash/Baker-House-Icon.png" />
+		<img src="/media/techcash/Bio-Cafe-Icon.png" />
+		<img src="/media/techcash/Bosworths-Icon.png" />
+		<img src="/media/techcash/Cafe-Spice-Icon.png" />
+		<img src="/media/techcash/Cambridge-Grill-Icon.png" />
+		<img src="/media/techcash/Dominos-Icon.png" />
+		<img src="/media/techcash/Dunkin-Donuts-Icon.png" />
+		<img src="/media/techcash/Faculty-Lunch-Icon.png" />
+		<img src="/media/techcash/Forbes-Family-Icon.png" />
+		<img src="/media/techcash/LaVerdes-Icon.png" />
+		<img src="/media/techcash/MacGregor-Convenience-Icon.png" />
+		<img src="/media/techcash/McCormick-Icon.png" />
+		<img src="/media/techcash/Next-Icon.png" />
+		<img src="/media/techcash/Pac-Street-Cafe-Icon.png" />
+		<img src="/media/techcash/Papa-Johns-Icon.png" />
+		<img src="/media/techcash/Quiznos-Icon.png" />
+		<img src="/media/techcash/RD-Pub-Icon.png" />
+		<img src="/media/techcash/Refresher-Course-Icon.png" />
+		<img src="/media/techcash/Sepal-Icon.png" />
+		<img src="/media/techcash/Shinkansen-Icon.png" />
+		<img src="/media/techcash/Simmons-Icon.png" />
+		<img src="/media/techcash/Starbucks-Icon.png" />
+		<img src="/media/techcash/Steam-Icon.png" />
+		<img src="/media/techcash/Subway-Icon.png" />
+		<img src="/media/techcash/Thirsty-Ear-Icon.png" />
+		<img src="/media/techcash/Vending-Icon.png" />
+		<img src="/media/techcash/Zigo-Icon.png" />
+	</div>
+
+{% endblock content %}
+
+{% block sidebar %}
+{% if USER_LOGGED_IN %}
+    <div id="wesabe">
+        <h2>Link Wesabe Account</h2>
+        <br>
+        <form action="/wesabe/register" method="POST">
+            <table>
+            <tr>
+            <td align="right"><label for="email">Email:</label></td>
+            <td><input id="email" name="email" type="text"></td>
+           </tr>
+           <tr>
+           <td align="right"><label for="password">Password:</label></td>
+           <td><input id="password" name="password" type="password"></td>
+           </tr>
+           <tr><td></td><td align="right"><input type="submit" value="Download"/></td></tr>
+           </table>
+        </form>
+    </div>
+{% endif %}
+{% endblock sidebar %}
+
+{% block midboxes %}
+{% if not USER_LOGGED_IN %}
+    <div id="boxContainer">
+      <div class="box client">
+        <h2>Download Application</h2>
+        <p>iPhone and Android applications can be downloaded from <a href="">here</a>.</p>
+      </div>
+      <div class="box work">
+        <h2>Our work</h2>
+        <p>We are trying to provide tools that can help reflect on your finances.</p>
+      </div>
+      <div class="box book">
+        <h2>Stores</h2>
+        <p>Encourage other stores to use digital menu.</p>
+      </div>
+    </div>
+    <!-- end boxContainer -->
+
+    <div id="leftCol">
+      <h2>Digital Menus</h2>
+      <p>The application allows you to track your dining through the phone application. We ask you to share any good experiences you might have or bad experiences you might have at different places.</p>
+    </div>
+{% endif %}
+{% endblock midboxes %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#wesabe").corner();
+        });
+    </script>
+{% endblock scripts %}
+
+

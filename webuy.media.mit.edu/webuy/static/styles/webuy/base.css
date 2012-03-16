@@ -1,0 +1,194 @@
+body,h1, h2, h3 {
+  color: #0339a6;
+}
+
+/*
+Special format for webuy only
+*/
+
+#logo {
+    height: 75px;
+}
+
+#logo h1 img{
+	width:300px;
+}
+
+#frommedialab {
+	left:40px;
+	top:-25px;
+}
+
+#menu li a {
+	font-size:15px;
+}
+
+#old-logo {
+  width: 80px;
+  height: 80px;
+  background: url("/media/webuy/WeBuy80.png")
+}
+
+#logo h2 {
+	padding: 10px 0 0 0;
+	letter-spacing: -1px;
+	font-size: 2.8em;
+}
+
+#sublogo {
+	position:relative;
+	top:-15px;
+	left:40px;
+	font: normal 13px Georgia, "Times New Roman", Times, serif;
+	font-style: italic;
+}
+
+#page-header {
+  margin: 25px 0px;
+}
+
+.pages {
+  margin-top: 25px;
+}
+
+#goals {
+  background-color: #3b74bf;
+  color: #ffffff;
+}
+
+#home-body {
+  margin-top: 25px;
+}
+
+.active {
+  background-color: #0339a6;
+  color: #ffffff;
+}
+
+.menu {
+  background-color: #f2e205;
+  margin-bottom: 20px;
+}
+
+.menu-item {
+  text-align: center;
+  font-size: 1.6em;
+  float: left;
+  margin-left: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+  width: 100px;
+}
+
+/* TODO: Fix this. Must be a better way. */
+.span-7-slider {
+  width: 256px;
+}
+
+div.job-badge {
+  border: 1px solid black;
+}
+
+div.job-badge table ul {
+  margin: 0;
+  padding-left: 2em;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.left {
+  text-align: left;
+}
+
+/* 
+ /jobs/
+*/
+#category {
+  font-size: 2em;
+}
+
+#poster {
+  margin-bottom: 1em;
+}
+
+#description {
+  padding: 1.5em;
+  width: 754px;
+  margin-bottom: 1em;
+  text-align: justify;
+  border: 1px solid gray;
+}
+
+#stats {
+
+}
+
+#stats ul {
+  margin: 0;
+  padding-left: 2em;
+}
+
+#apply {
+
+}
+
+#refer {
+
+}
+
+.big-label {
+    font-size: 200%;
+    margin: 18px;
+}
+
+/* FAQ */
+.question {
+    margin-top:10px;
+    font-weight:bold;
+    font-size:medium;
+}
+
+.answer {
+    margin-left:10px;
+}
+
+#footer {
+  margin: 50px auto 0 auto;
+  padding-top: 20px;
+  background: #f2e205;
+}
+
+.product-list {
+  background: #dddddd;
+  margin-right: 15px;
+  padding-top: 5px;
+}
+
+.transaction {
+  background: #aaaaaa;
+  margin: 5px 0px;
+}
+
+.transaction .item {
+  margin: 5px 15px;
+}
+
+.wish {
+  background: #aaaaaa;
+  margin: 5px 0px;
+}
+
+.wish .item {
+  margin: 5px 15px;
+}
+
+.posted-reviews:hover {
+  color: #ff0000;
+  cursor: crosshair;
+}

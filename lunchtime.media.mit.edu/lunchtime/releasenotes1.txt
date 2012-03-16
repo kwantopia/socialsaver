@@ -1,0 +1,18 @@
+1. Change url to /m/ instead of /mobile/
+
+2. Incorporate menu
+    Click on a place
+    List menu
+    Click on an item (up/down)
+
+3. Use Facebook to register from the phone
+  - 
+  - 
+
+4. How many people have been last hour
+
+5. Feeds with person going to a place
+
+6. bluetooth logging
+
+7. use milliseconds instead of seconds

@@ -1,0 +1,18 @@
+{% extends "legals/base.html" %}
+
+{% block page_title %}
+{{ status.survey.title }}
+{% endblock %}
+
+{% block tabnav %}
+  <li><a href="{% url legals.views.index %}">Home</a></li>
+  <li><a href="{% url survey.views.surveys %}">Surveys</a></li> 
+  <li><a href="{% url legals.views.winners %}">Winners</a></li>
+  <li><a href="{% url legals.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+{% block content %}
+<div id="home-body">
+  <h3>Survey has already been completed. Thank you.</h3>
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+Django Cache Setup
+==============================================
+
+http://docs.djangoproject.com/en/dev/topics/cache/
+
+South Migration Utility
+==============================================
+
+http://south.aeracode.org/wiki/Download
+
+Postgres
+===============================================
+http://antoniocangiano.com/2007/12/26/installing-django-with-postgresql-on-ubuntu/
+# Creating a new user for accessing the db besides postgres
+http://solyaris.wordpress.com/2008/08/09/setup-postgres-in-ubuntu/
+# Reset postgres DB user password
+http://blog.theblinkingcursor.org/2008/12/reset-postgres-user-password.html
+# backup and restore of database
+http://www.felixgers.de/teaching/sql/sql_backup.html
+
+PyFacebook
+===============================================
+http://github.com/sciyoshi/pyfacebook/
+
+sudo ln -s `pwd`/packages/pyfacebook/facebook /usr/lib/python2.6/dist-packages/facebook
+
+sudo ln -s `pwd`/packages/pyfacebook/bin/djangofb.py /usr/local/bin/djangofb.py
+
+Facebook Connect
+================================================
+With Django: http://www.slideshare.net/mrtrosen/lab305-django-facebook-connect-integration-example
+
+http://ryan-mark.com/2009/04/02/django-facebook-connect/
+http://code.google.com/p/django-facebookconnect/
+
+Wesabe
+===============================================
+
+
+Twitter
+===============================================
+http://code.google.com/p/python-twitter/source/checkout
+
+Pinax
+===============================================
+1. Download Pinax release version
+2. apt-get install python-virtualenv
+3. Get and install http://www.doughellmann.com/downloads/virtualenvwrapper-1.20.tar.gz
+
+SMS Extraction from iPhone
+===============================================
+In ~/Library/MobileSync/backup/[some id]/
+3d0d7e5fb2ce288813306e4d4636395e047a3d28.mddata or .mdbackup file contains
+the SMS messages
+
+http://supercrazyawesome.com/ (iphone backup extractor can be used to retrieve from the iphone the SMS data)
+After extraction it will be under Library/SMS/sms.db
+
+http://damon.durandfamily.org/archives/000487.html (contains db schema)
+

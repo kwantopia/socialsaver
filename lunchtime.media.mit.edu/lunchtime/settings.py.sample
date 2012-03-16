@@ -1,0 +1,250 @@
+# Django settings for lunchtime project.
+import os
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+
+# TODO: Need to set this for deployment
+DEPLOY = True 
+
+# MealTime specific settings
+FEEDS_PER_PAGE = 5
+FEED_COLOR = "#127524"
+
+
+if DEPLOY:
+    HOST_NAME = "mealtime.mit.edu"
+    # email server
+    EMAIL_HOST = "smtp.gmail.com"
+    EMAIL_PORT = 587 
+    EMAIL_HOST_USER = "otn.media@gmail.com"
+    EMAIL_HOST_PASSWORD = "aaa"
+    EMAIL_USE_TLS = True
+else:
+    HOST_NAME = "mealtime-dev.mit.edu"
+    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    EMAIL_FILE_PATH = '/tmp/lunchtime-messages'
+
+LOGIN_REDIRECT_URL = "/web/"
+LOGOUT_REDIRECT_URL = "/"
+
+if DEPLOY:
+    # for final deployment
+    FACEBOOK_API_KEY = '4b0cce64863d08fc845eba84b42d19a1'
+    FACEBOOK_SECRET_KEY = '954f67987d2da9f41c75194f07dca019'
+    NUM_FRIEND_RETRIEVE_LIMIT = 500
+
+    GOOGLE_API_KEY = 'ABQIAAAAtw1JH2yMfNAUgmPaNN9VkBTg1w7vHxuDAghPQPER-QrVZGFNRxTUyDorA6b3hZOisYBTwHEhH8a3TA'
+else:
+    # lunchtime Facebook Connect app
+    FACEBOOK_API_KEY = '22697bf7e2c2e2a0be045f00d6dbad7d'
+    FACEBOOK_SECRET_KEY = 'dd8f08814ecde8bb3a3a6cb27dcc3362'
+    NUM_FRIEND_RETRIEVE_LIMIT = 50
+
+    GOOGLE_API_KEY = 'ABQIAAAAtw1JH2yMfNAUgmPaNN9VkBQqot2Kp7Q0voDNgmO8ftOjYGx2JBTFi81OiMN3r11J2es9DLw_uq1hdg'
+FACEBOOK_INTERNAL = True
+FACEBOOK_CACHE_TIMEOUT = 1800
+
+# manages cookies so that sessions are synced with Facebook
+SESSION_COOKIE_AGE = 1800
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# MIT TechCash certificate/private key .pem
+TECHCASH_CERT = os.path.join(PROJECT_ROOT, "keys/techcashdevcert.pem")
+TECHCASH_KEY = os.path.join(PROJECT_ROOT, "keys/techcashnpkey.pem")
+
+# Full path to the APN Certificate / Private Key .pem
+IPHONE_SANDBOX_APN_PUSH_CERT = os.path.join(PROJECT_ROOT, "keys/iphone_ck.pem")
+IPHONE_LIVE_APN_PUSH_CERT = os.path.join(PROJECT_ROOT, "keys/iphone_live.pem")
+
+# Set this to the hostname for the outgoing push server
+IPHONE_SANDBOX_APN_HOST = 'gateway.sandbox.push.apple.com'
+IPHONE_LIVE_APN_HOST = 'gateway.push.apple.com'
+
+# Set this to the hostname for the feedback server
+IPHONE_SANDBOX_FEEDBACK_HOST = 'feedback.sandbox.push.apple.com'
+IPHONE_LIVE_FEEDBACK_HOST = 'feedback.push.apple.com'
+
+THUMBNAIL_SUBDIR = '_thumbs'
+THUMBNAIL_EXTENSION = 'png'
+
+DEBUG = not DEPLOY 
+TEMPLATE_DEBUG = DEBUG
+
+ADMINS = (
+    # ('Your Name', 'your_email@domain.com'),
+)
+
+MANAGERS = ADMINS
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'LunchTime',                      # Or path to database file if using sqlite3.
+        'USER': 'otnpostgres',                      # Not used with sqlite3.
+        'PASSWORD': 'aaa',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+
+    }
+}
+
+# Local time zone for this installation. Choices can be found here:
+# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+# although not all choices may be available on all operating systems.
+# If running in a Windows environment this must be set to the same as your
+# system time zone.
+TIME_ZONE = 'America/New_York'
+
+# Language code for this installation. All choices can be found here:
+# http://www.i18nguy.com/unicode/language-identifiers.html
+LANGUAGE_CODE = 'en-us'
+
+SITE_ID = 1
+
+# If you set this to False, Django will make some optimizations so as not
+# to load the internationalization machinery.
+USE_I18N = True
+
+# Absolute path to the directory that holds media.
+# Example: "/home/media/media.lawrence.com/"
+MEDIA_ROOT = '%s/static/media/'%PROJECT_ROOT
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash if there is a path component (optional in other cases).
+# Examples: "http://media.lawrence.com", "http://example.com/media/"
+MEDIA_URL = "http://%s/media/"%HOST_NAME
+
+STATICFILES_ROOT = PROJECT_ROOT+'/sitestatic/'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+  PROJECT_ROOT + '/static/',
+)
+
+STATICFILES_FINDERS = (
+  'django.contrib.staticfiles.finders.FileSystemFinder',
+  'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
+# trailing slash.
+# Examples: "http://foo.com/media/", "/media/".
+ADMIN_MEDIA_PREFIX = '/static/media/admin/'
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = 'if5k@t)b_*#%5p@)5)np%qi_p1b2e@u^kk$qzogn1bcknz=$8k'
+
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.load_template_source',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'facebook.djangofb.FacebookMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'facebookconnect.middleware.FacebookConnectMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'common.backend.OTNBackend',
+    'facebookconnect.models.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+#AUTH_PROFILE_MODULE = 'common.OTNUser'
+CUSTOM_USER_MODEL = 'common.OTNUser'
+
+if DEPLOY:
+    CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+    # TODO: python manage.py createcachetable [lunchtime_cache_table]
+    #CACHE_BACKEND = 'db://lunchtime_cache_table'
+    CACHE_MIDDLEWARE_SECONDS = 1800
+    CACHE_MIDDLEWARE_KEY_PREFIX = 'lunchtime'
+
+ROOT_URLCONF = 'lunchtime.urls'
+
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    PROJECT_ROOT, 
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+  'django.core.context_processors.static',
+  'django.core.context_processors.media',
+  'django.contrib.auth.context_processors.auth',
+  'django.core.context_processors.request',
+)
+
+
+
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.admin',
+    'django.contrib.staticfiles',
+
+    'facebookconnect',
+    'web',
+    'common',
+    'iphonepush',
+    'techcash',
+    'mobile',
+    'finance',
+    'survey',
+    'south',
+    'analysis',
+    'sorl.thumbnail',
+    'offers',
+
+)
+
+DUMMY_FACEBOOK_INFO = {
+    'uid': 0,
+    'name': '(Private)',
+    'first_name': '(Private)',
+    'last_name': '(Private)',
+    'profile_url': None,
+    'pic': 'http://www.facebook.com/pics/t_silhouette.gif',
+    'pic_square': 'http://www.facebook.com/pics/t_silhouette.gif',
+    'pic_square_with_logo': 'http://www.facebook.com/pics/t_silhouette.gif',
+    'pic_big': 'http://www.usgwarchives.net/wi/kewaunee/images/unknown-peterson.jpg',
+    'affiliations': None,
+    'status': None,
+    'proxied_email': None,
+}
+
+try:
+    LOCAL_DEVELOPMENT = False
+    from local_settings import *
+    LOCAL_DEVELOPMENT = True 
+except ImportError:
+    try:
+        from mod_python import apache
+        apache.log_error('local_settings.py not set; using default settings', apache.APLOG_NOTICE)
+    except ImportError:
+        import sys
+        sys.stderr.write('local_settings.py not set; using default settings\n')
+
+import logging
+import logging.config
+
+try:
+    logging.config.fileConfig(PROJECT_ROOT+"/logging.conf")
+    # create logger
+    LOGGER = logging.getLogger("lunchtime")
+    TECHCASH_LOGGER = logging.getLogger("techcash")
+    FB_LOGGER = logging.getLogger("facebookconnect")
+except:
+    pass
+
+

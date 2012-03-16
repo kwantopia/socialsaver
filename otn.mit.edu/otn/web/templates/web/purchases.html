@@ -1,0 +1,59 @@
+{% extends "web/base.html" %}
+
+{% block page_title %}
+OTN - Transactions
+{% endblock %}
+
+{% block main %}TRANSACTIONS {% endblock %}
+{% block sub %}track and review your latest purchases{% endblock %}
+
+{% block content %}
+<div class="pagetext span-20 last"> 
+    {% for txn in transactions.object_list %}
+    <ul>
+		<li class="timestamp">
+                {{ txn.timestamp|date:"D M j, Y" }} 
+        </li>
+        <li class="description">
+            {% for line in txn.transactionlineitem_set.all %}
+            	<div class="list">
+              		{% if line.line_type == "SL" %}
+                  		<a href="/product/{{ line.product.id }}/">
+                    		{% autoescape off %}
+                      		{{ line.product.name }}
+                    		{% endautoescape %}  
+                  		</a>
+                         - <span style="color:#888888">${{ line.sale_price|stringformat:".2f" }}</span>
+                        
+              		{% endif %}
+                </div>
+          {% endfor %}
+        </li>
+	</ul>
+    {% endfor %}
+
+	<hr class="space" />
+	<hr class="space" />
+    
+    <div class="pagetext span-20 last">
+      {% if transactions.has_previous %}
+      	<a href="/purchases/1/">first</a>
+         ::
+        <a href="/purchases/{{ transactions.previous_page_number }}/">previous</a>
+      {% endif %}
+
+      <span id="current">
+        :: page {{ transactions.number }} of {{ transactions.paginator.num_pages }} ::
+      </span>
+
+      {% if transactions.has_next %}
+        <a href="/purchases/{{ transactions.next_page_number }}/">next</a>
+         :: 
+        <a href="/purchases/{{ transactions.paginator.num_pages }}/">last</a>
+      {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% endblock %}

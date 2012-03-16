@@ -1,0 +1,58 @@
+{% extends 'web2/base.html' %}
+
+{% block page_title %}
+About Us
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+#about{
+width:900px;
+margin:auto;
+min-height:300px;
+}
+
+p{
+font-family:Helvetica, Verdana, sans-serif;
+font-size:12pt;
+text-align:left;
+display:inline;
+}
+</style>
+{% endblock %}
+
+{% block nav %}
+{% if log %}
+<div class="nav_li"><a href="{% url web.views.transactions "date_desc" 1 %}">TRANSACTIONS</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url survey.views.surveys %}">SURVEYS</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.mobile %}">MOBILE</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.about %}">ABOUT</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.faq %}">FAQ</a></div>
+
+{% else %}
+<div class="nav_li"><a href="{% url web.views.mobile %}">MOBILE</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.about %}">ABOUT</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.faq %}">FAQ</a></div>
+{% endif %}
+{% endblock %}
+
+
+{% block small %}
+{% endblock %}
+
+{% block content %}
+<div id="bigwindow">
+<div id="about">
+<h1>- About Us -</h1>
+
+<p>We are part of the Viral Communications group at the MIT Media Lab, conducting research on the future of credit card and payments.  We are attempting to reinvent the payment process through mobile devices by providing users wth the tools that help reflect on your finances and your eating habits.</p>
+
+</div>
+
+{% endblock content %}

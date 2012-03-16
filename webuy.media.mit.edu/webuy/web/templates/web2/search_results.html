@@ -1,0 +1,59 @@
+{% extends "web2/base.html" %}
+{% load facebook_tags %}
+{% facebook_js %}
+
+{% block page_title %}
+Search Results: {{query}}
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+p{
+font-family:Helvetica, Verdana,sans-serif;
+font-size:0.9em;
+font-weight:bold;
+display:inline;
+}
+
+.product_name{
+display:inline;
+font-family:Helvetica, Verdana,sans-serif;
+font-size:0.9em;
+font-weight:bolder;
+}
+</style>
+{% endblock %}
+
+
+{% block small %}
+{% endblock %}
+
+{% block content %}
+<p>Search: {{ query }}  |  </p>
+
+{% if products %}
+    <p>Found {{ products|length }} product{{ products|pluralize }}.</p>
+    {% for p in products %}
+    <ul>
+		<li class="product_name">
+            <a href="/product/{{ p.product.id }}/">
+                {% autoescape off %}
+                  {{ p.product.name }}
+                {% endautoescape %}
+            </a>
+        </li>
+	</ul>
+    {% endfor %}
+{% else %}
+    <p>No products matched your search criteria.</p>
+{% endif %}
+<br />
+{% ifequal page 'purchases' %}
+	<p>Back to <a href="/purchases/">Purchases</a></p>
+{% else %}
+	{% ifequal page 'wishlist' %}
+		<p>Back to <a href="/wishlist/">Wishlist</a></p>
+	{% endifequal %}
+{% endifequal %}
+
+{% endblock %}

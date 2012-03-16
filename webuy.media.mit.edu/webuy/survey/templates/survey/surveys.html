@@ -1,0 +1,54 @@
+{% extends "web/base.html" %}
+
+
+{% load facebook_tags %}
+<!-- This page is shown only when user logs in -->
+
+{% block page_title %}
+{% show_facebook_full_name fbuser %} - Surveys 
+{% endblock %}
+
+{% block tabnav %}
+  <li><a href="{% url web.views.index %}">Home</a></li>
+  <li><a href="{% url survey.views.surveys %}">Surveys</a></li> 
+  <li><a href="{% url web.views.winners %}">Winners</a></li>
+  <li><a href="{% url web.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+
+{% block content %}
+<div id="home-body">
+
+  <div class="prepend-1 span-19 last">
+  There will be a $50 BestBuy gift certificate raffle for each survey.  
+  </div>
+  <div class="prepend-2 span-18 last">
+    <!-- show list of surveys -->
+      {% for s in surveys %}
+      <div class="span-18 last">
+        <div class="survey span-10">
+          <div class="survey-title span-10 last">
+            {% if s.completed %}
+              {{ s.survey.title }}
+            {% else %}
+              <a href="{% url survey.views.survey s.survey.id %}">{{ s.survey.title }}</a>
+            {% endif %}
+          </div>
+          <div class="span-10 last">
+            <i>{{ s.survey.description }}</i>
+          </div>
+        </div>
+        <div class="survey span-6 append-2 last">
+          <div class="span-6 last">
+          {% if s.completed %}
+            Completed on {{ s.complete_date|date }}
+          {% else %}
+            Not completed
+          {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+  </div>
+</div>
+{% endblock %}

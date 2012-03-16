@@ -1,0 +1,28 @@
+{% extends "legals/m/base.html" %}
+
+{% block topbar %}
+{% endblock topbar %}
+
+{% block content %}
+<form method="POST" action="/legals/m/login/">
+    <input type="hidden" name="lat" value="{{ lat }}" />
+    <input type="hidden" name="lon" value="{{ lon }}" />
+    <input type="hidden" name="udid" value="{{ udid }}" />
+    <div class="error">
+        {{ error }}
+    </div>
+
+    <ul class="pageitem">
+        <li class="form"><input name="email" placeholder="E-mail" type="text" value="{{ email }}" /></li>
+        <li class="form"><input name="pin" placeholder="PIN" type="password" value="{{ pin }}" /></li>
+        <li class="form"><input name="table" placeholder="Table Code" type="text" value="{{ tablecode }}" /></li>
+    </ul>
+
+    <ul class="pageitem">
+        <li class="form"><input name="Submit" type="submit" value="Submit"/> 
+    </ul>
+</form>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

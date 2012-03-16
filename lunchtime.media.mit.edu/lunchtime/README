@@ -1,0 +1,5 @@
+# Postgresql configuration on mac
+http://shifteleven.com/articles/2008/03/21/installing-postgresql-on-leopard-using-macports
+
+# GeoDjango configuration which also shows Postgresql configuration on mac
+http://docs.djangoproject.com/en/dev/ref/contrib/gis/install/

@@ -1,0 +1,95 @@
+{% extends 'legals/base.html' %}
+
+{% block page_title %}
+Legal Sea Foods
+{% endblock %}
+
+{% block tabnav %}
+        	<li><a href="{% url legals.views.index %}">Home</a></li>
+            <li><a href="{% url legals.views.winners %}">Winners</a></li>
+        	<li><a href="{% url legals.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+{% block warnings %}
+    <!-- <div class="warning">Add Wesabe and receive $10</div>-->
+    <!--<div class="warning">If three friends participate after you, you will receive $50 Legal's gift certificate.</div>-->
+{% endblock %}
+
+{% block content %}
+
+<!--    Show Home Page with generally popular places -->
+   <div id="leftCol">
+
+
+      <h2>Your phone is the menu!</h2>
+      <p>The <strong>MIT Media Lab</strong> is conducting a digital menu trial at <strong>Legal Sea Food's Kendall Square</strong> location.  
+	  <u>Instead of a paper menu, you use your phone.</u> 
+	  After your visit, log back on to this site and tell us about your meal.</p>
+    </div>
+	<h2>Experiment Steps:</h2>
+	<ul id="sign_up_steps">
+		{% load facebook_tags %}
+		<li><strong>Step 1</strong>: <b>Create PIN</b> by clicking {% show_connect_button %} and logging in. <b>Fill out the presurvey.  Register 24 hours before the day of visit.  Your name should be on the guest list to receive the $10 discount voucher.</b> Facebook is only used for logging in and tracking friend participation.  No data is published to Facebook.</li>
+		<li><strong>Step 2</strong>: <b>Visit Legal Sea Food's Kendall Square, Cambridge for DINNER (after 5 PM)</b> and check in with the host indicating you are participating in the Digital Menu trial. Phones from restaurant will be used instead of paper menu to order. You will have to pay for your own meal, but $10 voucher can be used immediately for your entree order.</li>
+		<li><strong>Step 3</strong>: After your visit, rate your meal and <b>upload your receipt on this web site</b> and you will receive <b>$10 Amazon gift certificate per visit</b>. If instead you link your <a href="http://www.buxfer.com">buxfer.com</a> account you will receive <b>$30 Amazon gift certificate</b> (see <a href="{% url legals.views.faq %}">FAQ</a>).</li>
+        <hr>
+		<li><strong>Bonus 1</strong>: <b>$10 Amazon gift certificate</b> for completing all the surveys.</li>
+        <li><strong>Bonus 2</strong>: Come in group of 4 and <b>instead of $10 voucher each, receive a $50 gift card for the group</b>. If you are coming in group of 4 e-mail <i>kwan at media.mit.edu</i> a DAY BEFORE so I may prearrange the gift card.  <!--In this case, to get Bonus 3 you need to refer new participants.--></li>
+        <!--
+		<li><strong>Bonus 3</strong>: Refer <b>3 friends</b> on Facebook to participate after your participation and you will be rewarded <b>$50 Legal's gift card</b>.</li>
+        -->
+	</ul>
+    <div>
+    <h2>Watch the video for quick preview</h2>
+    <p>We did not have good equipment to record good audio.  Ignore the audio and look at the subtitles.</p>
+        <div style="margin-left:30px">
+<object width="640" height="385"><param name="movie" value="http://www.youtube.com/v/h3hr7BlTDhw&hl=en_US&fs=1&rel=0"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/h3hr7BlTDhw&hl=en_US&fs=1&rel=0" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="385"></embed></object>
+        </div>
+    </div>
+	<div style="margin-top:25px">
+      	<h2>Supported Phones</h2>
+		<ul>
+			<li>iPhones (are available at the restaurant)</li>
+            <!--
+			<li>Android Phones (Droid, myTouch, etc)</li>
+			<li>Palm WebOS (Pre, Pixi)</li>
+            -->
+		</ul>
+    </div>	
+
+{% endblock content %}
+
+{% block midboxes %}
+{% if not user.is_authenticated %}
+    <div id="boxContainer">
+      <div class="box client">
+        <h2>Download Application</h2>
+        <p>iPhone and Android applications can be downloaded from <a href="">here</a>.</p>
+      </div>
+      <div class="box work">
+        <h2>Our work</h2>
+        <p>We are trying to provide tools that can help reflect on your finances.</p>
+      </div>
+      <div class="box book">
+        <h2>Stores</h2>
+        <p>Encourage other stores to use digital menu.</p>
+      </div>
+    </div>
+    <!-- end boxContainer -->
+
+    <div id="leftCol">
+      <h2>Digital Menus</h2>
+      <p>The application allows you to track your dining through the phone application. We ask you to share any good experiences you might have or bad experiences you might have at different places.</p>
+    </div>
+{% endif %}
+{% endblock midboxes %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#wesabe").corner();
+        });
+    </script>
+{% endblock scripts %}
+
+

@@ -1,0 +1,17 @@
+<html>
+<head>
+</head>
+<body>
+{% for each in undergrads %}
+{{each.get_full_name}}
+{% endfor %}
+
+{% for each in grads %}
+{{each.get_full_name}}
+{% endfor %}
+
+{% for each in sponsors %}
+{{each.get_full_name}}
+{% endfor %}
+</body>
+</html>

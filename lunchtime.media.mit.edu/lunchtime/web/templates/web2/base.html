@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+{% load facebook_tags %}
+
+<head>
+  
+	<title>{% block page_title %}{% endblock %}</title>
+	<link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}media/mealtime/favicon.ico">
+    
+	<!-- Styles --
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}styles/mealtime/screen.css" media="screen, projection" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}styles/mealtime/print.css" media="print" /-->
+    
+    
+    <!-- JQuery UI -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}styles/excite-bike/jquery-ui-1.8.custom.css"> 
+    
+    <!-- JQuery Tipsy -->
+    <link rel="stylesheet" href="{{ STATIC_URL }}styles/tipsy/tipsy.css">
+    
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}styles/mealtime/frame.css" />
+	<!--[if IE 7]><link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}styles/mealtime/frame_ie7.css" media="screen, projection" /><![endif]-->
+    
+    <!-- Facebook Scripts -->
+    {% facebook_js %}
+    
+    {% block page_styles %}
+    {% endblock %}
+
+</head>
+
+<body>
+<div id="container">
+	<div id="header">
+    
+    <div id="logo"> <a href="{% url web.views.index %}"><img src="{{ STATIC_URL }}media/mealtime/mealtimelogo.png" border=0/></a></div>
+	
+    {% if user.is_authenticated %}
+    <div id="login">
+    	
+		<div id="pic">
+			{% show_facebook_photo user %}
+		</div>
+        <div id="user">
+			<a href="{% url web.views.profile %}">{% show_facebook_full_name user %}</a>
+        <br />
+			<p style="font-size:0.9em; float:right; padding-top:7px; padding-right:0.6em">{% show_logout %}</p>
+		</div>
+	</div>
+
+	{% else %}
+    <div id="fblogin">
+			{% show_connect_button %}
+		<div id="how">
+			<a href="{% url web.views.faq %}">How is Facebook used?</a>
+        </div>
+    </div>
+	{% endif %}
+    
+    </div>
+    <br />
+
+	<div id="nav">
+    	<!--- box border -->
+		<div class="lb">
+		<div class="rb">
+		<div class="bb"><div class="blc"><div class="brc">
+		<div class="tb"><div class="tlc"><div class="trc">
+		<!--  -->
+				
+		<div id="navcontent">	
+			{% block nav %}
+            <div class="nav_li"><a href="{% url web.views.transactions "date_desc" 1 %}">TRANSACTIONS</a></div>
+        	<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+        	<div class="nav_li"><a href="{% url survey.views.surveys %}">SURVEYS</a></div>
+            <!--<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+        	<div class="nav_li"><a href="{% url web.views.winners %}">WINNERS</a></div>-->
+            <div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+        	<div class="nav_li"><a href="{% url web.views.mobile %}">MOBILE</a></div>
+			<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+			<div class="nav_li"><a href="{% url web.views.about %}">ABOUT</a></div>
+			<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+			<div class="nav_li"><a href="{% url web.views.faq %}">FAQ</a></div>
+			{% endblock %}
+		</div>
+		
+		<!--- end of box border -->
+		</div></div></div></div>
+		</div></div></div></div>
+        	
+    </div>
+    
+    <br />
+    
+    <div id="main">
+    	<!--- box border -->
+		<div class="lb">
+		<div class="rb">
+		<div class="bb"><div class="blc"><div class="brc">
+		<div class="tb"><div class="tlc"><div class="trc">
+		<!--  -->
+				
+		<div id="maincontent">	
+			
+            {% block small %}
+            <div id="sidebar">
+            	{% block menu %}
+            	{% endblock %}
+            </div>
+            
+            <div id="main_div"><img src="{{ STATIC_URL }}media/mealtime/maindivider.png" height="720px" width="3px" border=0/></div>
+            
+            <div id="window">
+            {% endblock %}
+            	{% block content %}
+            	{% endblock %}
+            </div>
+				
+		</div>
+		
+		<!--- end of box border -->
+		</div></div></div></div>
+		</div></div></div></div>
+        
+
+        <div id="footer">
+            &copy; 2010 MIT Media Lab. All Rights Reserved.
+        </div>
+    </div>
+</div>
+
+  <!-- Scripts -->
+
+  <!-- JQuery -->
+  <script type="text/javascript" src="http://www.google.com/jsapi?key={{GOOGLE_API_KEY}}"></script>
+  <script type="text/javascript">
+    google.load("jquery", "1.4.2");
+    google.load("jqueryui", "1.8.2");
+  </script>
+  <script type="text/javascript" src="{{ STATIC_URL }}scripts/default/jquery.tipsy.js"></script>
+  
+  <!-- Page-specific scripts -->
+  {% block extra_scripts %}
+  {% endblock %}
+
+ <!-- for using Facebook Connect -->
+ {% initialize_facebook_connect %}
+
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+  try {
+  var pageTracker = _gat._getTracker("UA-15309665-3");
+  pageTracker._setDomainName("none");
+  pageTracker._setAllowLinker(true);
+  pageTracker._trackPageview();
+  } catch(err) {}
+</script>
+
+</body>
+</html>

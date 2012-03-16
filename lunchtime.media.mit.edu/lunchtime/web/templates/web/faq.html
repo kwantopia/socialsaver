@@ -1,0 +1,70 @@
+{% extends 'web/base.html' %}
+
+{% block page_title %}
+FAQ
+{% endblock %}
+
+{% block tabnav %}
+    <!--should be separate page -->
+    <li><a href="{% url web.views.index %}">Home</a></li>
+    <li><a href="{% url survey.views.surveys %}">Surveys</a></li>
+    <li><a href="{% url web.views.winners %}">Winners</a></li>
+    <li><a href="{% url web.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+
+{% block content %}
+
+    <div class="question">
+        Where can I get the mobile application?
+    </div>
+    <div class="answer">
+        The MealTime mobile application can be downloaded from the Apple App Store through iTunes and is usable on iPhones or iPod Touches.
+    </div>
+
+    <div class="question">
+        How can I increase my chances of winning the iPad?
+    </div>
+    <div class="answer">
+        <ul>
+            <li>Transact with TechCASH</li>
+            <li>Add reviews to your transactions whether it be on the phone or online.</li>
+            <li>Have friends join</li>
+            <li>"Click through" items of interest in Places tab (only one view will be counted per day)</li>
+        </ul>
+    </div>
+
+    <div class="question">
+        Can the system make transactions? 
+    </div>
+    <div class="answer">
+        The system is only for viewing and reviewing your transactions.  It cannot perform any transactions such as paying, reverting or transferring.  The only way you do that is through your MIT ID card and through the card office. 
+    </div>
+
+    <div class="question">
+        Can I use it if I am not an MIT student?
+    </div>
+
+    <div class="answer">
+        Yes, however, you wouldn't get real time alerts when you transact with your existing credit card.  Debit card transactions can be available in a few minutes.  You need to link a Wesabe account to make this happen.
+    </div>
+
+  <div class="question">
+      How is Facebook Connect used? 
+  </div>
+  <div class="answer">
+      Facebook Connect is used so that you do not have to remember or maintain a separate user name or password.  When you login with Facebook Connect, we may know the friend relationship between your account and existing accounts or new accounts created by your friends (feature provided by Facebook).   The data is only collected for research purposes and will be either hashed or purged once the research is over upon user's request.
+  </div>
+
+    <div class="question">
+        How can I contact the researchers? 
+    </div>
+
+    <div class="answer">
+        Currently Kwan Lee, Yod Watanaprakornkul and Michael Plasmeier from MIT Media Lab are working on this research.  Please feel free to contact kwan at media dot mit dot edu to help us improve and make the service better so larger number of people can participate.
+    </div>
+
+{% endblock content %}
+
+{% block midboxes %}
+{% endblock midboxes %}

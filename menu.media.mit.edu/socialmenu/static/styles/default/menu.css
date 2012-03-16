@@ -1,0 +1,16 @@
+.title {font-weight:bold;font-variant:small-caps;font-size:1.4em}
+tr {margin-top:9px}
+td.description {margin-right:5px}
+
+.price{float:right;}
+
+.error {color:red;}
+
+body > ul > li > a div.description {
+	font-size:12px;
+	font-weight:normal;
+}
+
+body > ul > li > a div.nodescription {
+    height: 20px;
+}

@@ -1,0 +1,11 @@
+==================
+02/23/10
+
+The following needs to run in ./manage.py shell
+
+- initusers.py is for loading user transactions that are not signed up for OTN in TechCASH
+- inittc.py loads OTN TechCASH users
+
+The following runs from cron
+
+- updatetc.py

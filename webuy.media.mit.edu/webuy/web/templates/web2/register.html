@@ -1,0 +1,61 @@
+<form action="" method="post" accept-charset="utf-8" class="register">
+    {% csrf_token %}
+    <p>
+    </p>
+    <fieldset>
+       
+        <input type="hidden" name="facebook_only" value="false" id="facebook_only">
+        <input type="hidden" name="next" value="{{ next }}" id="next">
+        </fieldset>
+        <fieldset>
+        <p>
+        The following information is required to participate in the experiment. The information entered will only be used for the research trial and will not be used for any other purposes.
+        </p>
+    </fieldset>
+    <fieldset>
+        <legend>** E-mail (i.e. that you use for Facebook) and PIN are required for <i>mobile access</i> **</legend>
+                
+        <div class="wrap">
+        	<div class="field">
+            	<p> <label for="rewardzone">Reward Zone Number</label> </p>
+            </div>
+            
+            <div class="input">
+                <p> <input type="text" id="rewardzone" name="rewardzone"/> </p>
+            </div>
+    	</div>
+
+		<div class="wrap">
+        	<div class="field">
+            	<p> <label for="email">Email (used for logging into mobile)</label> </p>
+            </div>
+            
+            <div class="input">
+                <p> <input type="text" id="email" name="email"/> </p>
+            </div>
+    	</div>
+        
+        <div class="wrap">
+        	<div class="field">
+            	<p> <label for="pin">PIN (4-6 digits)</label> </p>
+            </div>
+            
+            <div class="input">
+                <p> <input type="password" id="pin" name="pin" size="6"/> </p>
+            </div>
+    	</div>
+    
+        <input type="hidden" name="techcashconsent" id="techcashconsent" value="1"/>
+        
+        <input type="hidden" name="otnconsent" id="otnconsent" value="1" onclick="consent()"/>
+        <!--
+        <label for="otnconsent">
+        I consent to the terms of DigitalMenu research experiment (<a href="/web/consent/otn/" target="_blank">Terms</a>)
+        </label>
+        </p>
+        -->
+    </fieldset>
+    <fieldset>
+        <input name="continue" id="continue" type="submit" value="Continue">
+    </fieldset>
+</form>

@@ -1,0 +1,142 @@
+{% extends 'web2/base.html' %}
+
+{% block page_title %}
+FAQ
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+#faq{
+width:900px;
+margin:auto;
+}
+
+ul{
+display:inline-block;
+width:900px;
+}
+
+.question{
+width:850px;
+font-family:Helvetica, Verdana, sans-serif;
+font-weight:bolder;
+text-align:left;
+font-size:1.1em;
+float:left;
+display:inline-block;
+}
+
+.answer{
+width:850px;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:1.0em;
+text-align:left;
+float:left;
+display:inline-block;
+padding:10px;
+border-bottom:thin solid #004f09;
+}
+
+</style>
+{% endblock %}
+
+{% block nav %}
+{% if log %}
+<div class="nav_li"><a href="{% url web.views.transactions "date_desc" 1 %}">TRANSACTIONS</a></div>
+<div class="nav_d"><img src="/media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url survey.views.surveys %}">SURVEYS</a></div>
+<div class="nav_d"><img src="/media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.mobile %}">MOBILE</a></div>
+<div class="nav_d"><img src="/media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.about %}">ABOUT</a></div>
+<div class="nav_d"><img src="/media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.faq %}">FAQ</a></div>
+
+{% else %}
+<div class="nav_li"><a href="{% url web.views.mobile %}">MOBILE</a></div>
+<div class="nav_d"><img src="/media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.about %}">ABOUT</a></div>
+<div class="nav_d"><img src="/media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.faq %}">FAQ</a></div>
+{% endif %}
+{% endblock %}
+
+
+{% block small %}
+{% endblock %}
+
+{% block content %}
+<div id="bigwindow">
+<div id="faq">
+<h1>- Frequently Asked Questions -</h1>
+    <ul>
+        <li class="question">
+            What browsers are supported by the MealTime website?
+        </li>
+        <li class="answer">
+            We recommend viewing this site on Mozilla Firefox, Google Chrome, Safari, or Internet Explorer 8. Earlier browser versions may not be supported.
+        </li>
+    </ul>
+    
+    <ul>
+        <li class="question">
+            Where can I get the mobile application?
+        </li>
+        <li class="answer">
+            The MealTime mobile application is available through the Apple App Store for the iPhone and iPod Touch, or through the Android Market for Android phones.
+        </li>
+    </ul>
+    
+	<ul>
+        <li class="question">
+            How can I increase my chances of winning the iPad?
+        </li>
+        <li class="answer">
+            <ul>
+                <li>Transact with TechCASH</li>
+                <li>Add reviews to your transactions whether it be on the phone or online.</li>
+                <li>Have friends join</li>
+                <li>"Click through" items of interest in Places tab (only one view will be counted per day)</li>
+            </ul>
+        </li>
+    </ul>
+    
+    <ul>
+        <li class="question">
+            Can the system make transactions? 
+        </li>
+        <li class="answer">
+            The system is only for viewing and reviewing your transactions.  It cannot perform any transactions such as paying, reverting or transferring.  The only way you do that is through your MIT ID card and through the card office. 
+        </li>
+    </ul>
+	
+    <ul>
+        <li class="question">
+            Can I use it if I am not an MIT student?
+        </li>
+    
+        <li class="answer">
+            Yes, however, you wouldn't get real time alerts when you transact with your existing credit card.  Debit card transactions can be available in a few minutes.  You need to link a Wesabe account to make this happen.
+        </li>
+    </ul>
+
+    <ul>
+        <li class="question">
+      How is Facebook Connect used? 
+        </li>
+        <li class="answer">
+      Facebook Connect is used so that you do not have to remember or maintain a separate user name or password.  When you login with Facebook Connect, we may know the friend relationship between your account and existing accounts or new accounts created by your friends (feature provided by Facebook).   The data is only collected for research purposes and will be either hashed or purged once the research is over upon user's request.
+        </li>
+    </ul>
+
+	<ul>
+        <li class="question">
+            How can I contact the researchers? 
+        </li>
+    
+        <li class="answer">
+            Currently Kwan Lee, Yod Watanaprakornkul, Eric Shyu, and Stephanie Chang from the MIT Media Lab are working on this research.  Please feel free to contact kwan at media dot mit dot edu to help us improve and make the service better so a larger number of people can participate.
+        </li>
+    </ul>
+</div>
+{% endblock content %}

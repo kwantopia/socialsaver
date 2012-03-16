@@ -1,0 +1,29 @@
+{% extends "web/base.html" %}
+
+{% block page_title %}
+About OTN
+{% endblock %}
+
+{% block menu %}
+{% if log %}
+<li class="nav_icon"><a href="/transactions/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> TRANSACTIONS</a></li>
+<li class="nav_icon"><a href="/mobile/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> MOBILE</a></li>
+<li class="nav_icon"><a href="/about/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> ABOUT</a></li>
+<li class="nav_icon"><a href="/faq/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> FAQ</a></li>
+<li class="nav_icon"><a href="/profile/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> MY ACCOUNT</a></li>
+{% else %}
+<li class="nav_icon"><a href="/facebook/login/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> SIGN IN</a></li>
+<li class="nav_icon"><a href="/faq/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> FAQ</a></li>
+<li class="nav_icon"><a href="/mobile/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> MOBILE</a></li>
+<li class="nav_icon"><a href="/about/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> ABOUT</a></li>
+{% endif %}
+{% endblock %}
+
+{% block main %}ABOUT{% endblock %}
+{% block sub %}the open transaction network{% endblock %}
+
+{% block content %}
+	<div class="pagetext span-20 last">
+		We are part of the Viral Communications group at the MIT Media Lab.
+    </div>
+{% endblock %}

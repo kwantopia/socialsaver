@@ -1,0 +1,26 @@
+{% extends 'web/index.html' %}
+
+{% block content %}
+    <div id="pinchange">
+        <h2>Change PIN Number</h2>
+        <br>
+        {{ prompt }}
+        <br>
+        <form action="/web/pin/" method="POST">
+            <table>
+            <tr>
+            <td align="right"><label for="first">PIN:</label></td>
+            <td><input id="first" name="first" type="password"></td>
+           </tr>
+           <tr>
+           <td align="right"><label for="second">Re-enter PIN:</label></td>
+           <td><input id="second" name="second" type="password"></td>
+           </tr>
+           <tr><td></td><td align="right"><input type="submit" value="Change PIN"/></td></tr>
+           </table>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block midboxes %}
+{% endblock midboxes %}

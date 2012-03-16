@@ -1,0 +1,24 @@
+{% block sidebar %}
+{% if user.is_authenticated %}
+    <div id="wesabe">
+        <h2>Link Wesabe Account</h2>
+        <br>
+        <form action="/wesabe/register" method="POST">
+            {% csrf_token %}
+            <table>
+            <tr>
+            <td align="right"><label for="email">Email:</label></td>
+            <td><input id="email" name="email" type="text"></td>
+           </tr>
+           <tr>
+           <td align="right"><label for="password">Password:</label></td>
+           <td><input id="password" name="password" type="password"></td>
+           </tr>
+           <tr><td></td><td align="right"><input type="submit" value="Download"/></td></tr>
+           </table>
+        </form>
+    </div>
+{% endif %}
+{% endblock sidebar %}
+
+

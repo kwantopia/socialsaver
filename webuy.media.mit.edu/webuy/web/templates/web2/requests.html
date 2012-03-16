@@ -1,0 +1,133 @@
+{% extends "web2/base.html" %}
+{% load facebook_tags %}
+
+{% block page_title %}
+Shoppley - Reviews
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+
+#reviews{
+width:540px;
+float:right;
+padding-right:2em;
+text-align:left;
+}
+
+ul{
+display:inline-block;
+}
+
+li{
+display:inline-block;
+}
+.product_name{
+font-family:Helvetica, Verdana, sans-serif;
+font-weight:bolder;
+text-align:left;
+font-size:1.1em;
+width:540px;
+float:left;
+display:inline;
+padding:10px 5px 0px 10px;
+}
+/*CSS Hack: IE above declarations, all others below*/
+html>body .product_name {
+width:510px;
+}
+
+.description{
+width:510px;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:1.0em;
+text-align:left;
+float:left;
+display:inline;
+padding:10px 0px 10px 15px;
+border-bottom:thin solid #336699;
+}
+
+.rating_box {
+display:inline;
+float:left;
+margin-left:25px;
+margin-top:10px;
+}
+</style>
+{% endblock %}
+    
+{% block menu %}
+<div class="sort">
+<h1>- REVIEWS -</h1>  
+    
+    <p><br />
+        <b>
+        <a href="{% url web.views.reviews "posted" 1 %}">Sort Reviews by Date</a><br /><br />
+        <a href="{% url web.views.reviews "rating" 1 %}">Sort Reviews by Rating</a><br /><br />
+        <a href="{% url web.views.reviews "pending" 1 %}">Respond to Requests</a><br /><br />
+
+        <a href="{% url web.views.requests %}">Reviews You Requested</a><br /><br />
+   		</b>
+    </p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="reviews">
+	<h1>- Reviews Requested -</h1>
+     
+   {% if not requests %}
+	<br />
+	<br />
+	<div style="text-align:center">
+		You have not requested any reviews!
+	</div>
+	{% endif %}
+    
+    <!--{% for req in requests %}
+    	<b>{{ req.product.name }}</b><br />
+    
+    {% endfor %}-->
+    
+    {% for r in responses %}
+    <ul>
+    	<li class="product_name">
+        	<a href="/product/{{ r.product.id }}/">
+                {% autoescape off %}
+                  {{ r.product.name }}
+                {% endautoescape %}
+            </a>
+        </li>
+        
+        <li class="description">
+        	<a href="/user/{{ r.reviewer.id }}/">
+                <i>{% autoescape off %}
+                Reviewed by {{ r.reviewer.name }}
+                {% endautoescape %}</a> - {{ r.posted|date:"M j, Y" }}</i>
+                <br />
+                <div class="rating_box">
+                    <input type="radio" name="rating" {% ifequal r.rating 1 %}checked="checked"{% endifequal %} value="1" title="Not Worth Buying" />
+                    <input type="radio" name="rating" {% ifequal r.rating 2 %}checked="checked"{% endifequal %} value="2" title="It's Bad" />
+                    <input type="radio" name="rating" {% ifequal r.rating 3 %}checked="checked"{% endifequal %} value="3" title="It's OK" />
+                    <input type="radio" name="rating" {% ifequal r.rating 4 %}checked="checked"{% endifequal %} value="4" title="It's Good" />
+                    <input type="radio" name="rating" {% ifequal r.rating 5 %}checked="checked"{% endifequal %} value="5" title="Best Buy" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ r.content}}</div>
+        </li>
+    </ul>
+    {% endfor %}
+
+</div>
+        
+{% endblock %}
+
+{% block extra_scripts %}
+	<link href="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.js"></script>
+    
+    <script type="text/javascript">
+     $(".rating_box").stars({
+			disabled:true,
+		});
+	</script>
+{% endblock %}

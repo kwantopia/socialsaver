@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+{% load facebook_tags %}
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>{% block page_title %}{% endblock %} - DigitalMenu from the MIT Media Lab</title>
+<link rel="icon" type="image/png" href="{{ STATIC_URL }}media/default/smicon.gif">
+<link href="{{ STATIC_URL }}styles/default/base.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="{{ STATIC_URL }}styles/default/pink.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="{{ STATIC_URL }}styles/blueprint/screen.css" rel="stylesheet" type="text/css" media="screen,projection" />
+<link href="{{ STATIC_URL }}styles/blueprint/print.css" rel="stylesheet" type="text/css" media="print" />
+<!--[if lt IE 8]><link rel="stylesheet" href="{{ STATIC_URL }}styles/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+{% facebook_js %}
+</head>
+
+<body>
+<div class="container">
+  <div class="prepend-2 span-20 last">
+    <div id="header">
+      <div class="span-20 last">
+        <div class="span-14">
+          <div id="logo">
+              <h1><a href="#"><img src="{{ STATIC_URL }}media/default/DigitalMenu25.png" style="border:none" /><span class="img_replace">Legal Sea Foods Digital Menu</span></a></h1>
+              <p id="frommedialab"> from the <a href="http://www.media.mit.edu/">MIT Media Lab</a></p>
+          </div>
+        </div>
+
+        <div class="span-6 last">
+          <div id="user">
+              {% if user.is_authenticated %}
+                  <table border='0'>
+                  <tr>
+                      <td>
+                          Welcome <a href="/legals/profile/">{% show_facebook_full_name user %}</a>  {% show_logout %} <br />
+                          {% show_facebook_photo user %}
+                      </td>
+                  </tr>
+                  </table>
+              {% else %}
+              <table border='0'>
+                  <tr>
+                  <td nowrap valign='middle' align='center'>
+                      <a href="/web/faq/">How is Facebook used?</a>
+                  </td>
+                  <td nowrap valign='middle' align='center'>
+                    {% show_connect_button %}
+                  </td>
+                  </tr>
+              </table>
+              {% endif %}
+          </div> <!-- end #user --> 
+        </div>
+      </div>
+
+      <div class="span-20 last">
+
+		<!--<span id="facebook_connect"><form class="connect-button" name="login" method="post" action="/facebook/login"><input type="hidden" name="next" value="" /><input type="image" onclick="facebookConnect(this.form);return false;" src="http://static.ak.fbcdn.net/images/fbconnect/login-buttons/connect_light_large_long.gif" /></form></span>-->
+
+        <div id="menu">
+            <ul>
+            {% block tabnav %}
+            {% endblock tabnav %}
+            </ul><!-- end nav -->
+        </div>
+        <div id="header_bar"></div>
+      </div>
+
+    </div><!-- header -->
+
+    <div class="span-20 last">
+     <div id="wrapper">
+        <div id="page">
+            <div id="content">
+                {% if user.is_authenticated %}
+                <div class="post" id="warnings">
+                    {% block warnings %}
+                        
+                    {% endblock warnings %}	
+                </div>
+                {% endif %}
+                <div class="post">
+
+                    {% block content %}
+                    Base homepage
+                    {% endblock content %}
+
+
+                </div>
+
+                <div class="post">
+                {% block midboxes %}
+                {% endblock midboxes %}
+                </div>
+            </div>
+            <div style="clear: both;">&nbsp;</div>
+        </div>
+        <!-- end #page -->
+    </div>
+  </div>
+
+  <div class="span-20 last">
+    {% block footer %}
+    <div id="footer">
+        <p>Copyright (c) 2010 menu.mit.edu. All rights reserved.</p> 
+        <p>
+        <!--<a href="/web/consent/techcash/">TechCash Terms of Service</a>&nbsp;-->
+        <a href="/web/consent/otn/">Digital Menu Terms of Service</a>
+        </p>
+    </div>
+    {% endblock footer %}
+  </div>
+</div>
+
+</div><!-- container -->
+	
+<script type="text/javascript" src="{{ STATIC_URL }}scripts/default/jquery.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}scripts/default/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}scripts/default/jquery.corner.js"></script>
+
+{% initialize_facebook_connect %}
+	
+{% block scripts %}
+{% endblock scripts %}
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15309665-1");
+pageTracker._setDomainName(".mit.edu");
+pageTracker._trackPageview();
+} catch(err) {}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+Setup
+==========================================================
+
+* Soft link appropriate site file at /home/www/shoppley.mit.edu/conf.d/<script> to /etc/apache2/sites-available
+* a2ensite shoppley.mit.edu
+* chmod 777 /home/www/shoppley.mit.edu/logs (so that log files can be written by django)
+* Make sure webuy/apache/webuy.wsgi exists

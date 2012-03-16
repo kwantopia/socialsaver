@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>Guest Sign Up</title>
+<style type="text/css">
+table.sample {
+    border-width: 1px;
+    border-spacing: 1px;
+    border-style: solid;
+    border-color: gray;
+    border-collapse: separate;
+    background-color: white;
+}
+table.sample th {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: gray;
+    background-color: white;
+    -moz-border-radius: ;
+}
+table.sample td {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: gray;
+    background-color: white;
+    -moz-border-radius: ;
+    font-size:0.8em;
+}
+
+.signature {
+    width: 100px;
+}
+</style>
+</head>
+<body>
+{% if authorized %}
+
+    {% if tablecodes %}
+        <b>Table codes left: {{ tablecodes }}</b>
+    {% endif %}
+
+
+    <table>
+    {% for o in latest %}
+    <tr>
+        <td>{{ o.user }}</td>
+        <td>{{ o.date }}</td>
+        <td>
+        {% for d in o.dishes %}
+            {{ d.name }},
+        {% endfor %}
+        </td>
+        <td>{{ o.total }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    <h2>Please call 617-909-2101 to verify if not on guest list</h2>
+    <h3>Check off the list</h3>
+    <table class="sample">
+    <tr>
+        <th>Name</th>
+        <th>Presurvey</th> 
+        <th class="signature">Check</th>
+        <th>&nbsp;</th>
+        <th>Name</th>
+        <th>Presurvey</th> 
+        <th class="signature">Check</th>
+    </tr>
+    {% for u in participants %}
+        {% if forloop.counter0|divisibleby:"2" %}
+        <tr>
+            <td>{{ u.name }}</td>
+            <td>{{ u.presurvey }}</td> 
+            <td class="signature">&nbsp;</td>
+            <td>&nbsp;</td>
+        {% else %}
+            <td>{{ u.name }}</td>
+            <td>{{ u.presurvey }}</td> 
+            <td class="signature">&nbsp;</td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    </table>
+{% else %}
+    You are not authorized.
+{% endif %}
+</body>

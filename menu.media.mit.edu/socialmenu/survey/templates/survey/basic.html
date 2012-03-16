@@ -1,0 +1,80 @@
+{% extends "legals/base.html" %}
+
+{% block page_title %}
+{{ status.survey.title }}
+{% endblock %}
+
+{% block tabnav %}
+  <li><a href="{% url legals.views.index %}">Home</a></li>
+  <li><a href="{% url survey.views.surveys %}">Surveys</a></li> 
+  <li><a href="{% url legals.views.winners %}">Winners</a></li>
+  <li><a href="{% url legals.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+{% block content %}
+<div id="home-body">
+
+{% if status.completed %}
+  <h3>Survey has already been completed. Thank you.</h3>
+{% else %}
+
+  <div class="span-20 last">
+    <h2>{{ status.survey.title }}</h2>
+    <p>{{ status.survey.description }}</p>
+    <p>
+    <div class="prepend-1 span-19 last">
+      <form action="{% url survey.views.survey survey_id %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="uuid_token" value="{{ uuid_token }}" />
+        {% for field in form %}
+            <div class="survey {% if forloop.counter0|divisibleby:"2" %}survey-bg{% endif %} span-18 last">
+              <div class="span-18 last">
+                {% if field.errors %}
+                <div class="error">
+                  {{ field.errors }}
+                </div>
+                {% endif %}
+              </div>
+              <div class="survey-questions {% if forloop.counter0|divisibleby:"2" %}survey-bg{% endif %} span-17 last">
+                {% if field.html_name in form.radio_fields %}
+                  <div class="span-18 last">
+                    <div class="survey-question span-18 last">
+                    {{ forloop.counter }}. {{ field.label_tag }}
+                    </div>
+                    <div class="append-1 span-17 last">
+                      {{ field }}
+                    </div>
+                  </div>
+                {% else %}
+                    {% if field.html_name == "comments" %}
+                      <div class="span-18 last">
+                        <div class="survey-question span-18 last">
+                          {{ forloop.counter }}. {{ field.label_tag }}
+                        </div>
+                        <div class="append-1 span-17 last">
+                          {{ field }}
+                        </div>
+                      </div>
+                    {% else %}
+                      <div class="span-18 last">
+                        <div class="survey-question span-12">
+                          {{ forloop.counter }}. {{ field.label_tag }}
+                        </div>
+                        <div class="span-6 last">
+                          {{ field }}
+                        </div>
+                      </div>
+                    {% endif %}
+                {% endif %}
+              </div>
+            </div>
+        {% endfor %}
+        <div class="survey prepend-14 span-4 last">
+        <p><input type="submit" value="Submit" /></p>
+        </div>
+      </form>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

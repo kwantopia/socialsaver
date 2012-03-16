@@ -1,0 +1,143 @@
+   
+    <ul id="home" title="Back" selected="true" class="categories">
+		<!-- build main menu -->
+		<li id="friendslink"><a href="#suggestions">Friend's Suggestions</a></li>
+        {% for c in categories %}
+            <li><a href="#cat{{ c.id }}">{{ c.name }}</a></li>
+        {% endfor %}
+
+		<li style="font-size:15px; color:#888"><a href="#allergies">Allergy information and disclaimer about raw food and shellfish</a></li>
+
+		<!--<li><a href="stats.php">Stats</a></li>
+        <li><a href="http://code.google.com/p/iui/" target="_self">About</a></li>
+        <li>Nothing</li>-->
+    </ul>
+
+    <!-- build category pages -->
+    {% for m in menu_data %}
+        <ul id="cat{{ m.category.id }}" title="{{ m.category.name }}" class="items">
+            {% if m.category.description %}
+            <div class="cat_description">{{ m.category.description }}</div>
+            {% else %}
+            <div class="cat_description">{{ m.category.name }}</div>
+            {% endif %}
+            {% for i in m.items %}
+                <li class="menuitem">
+                <a href="#item{{ i.item.id }}">{{ i.item.name }}
+                    <span class="price">
+                        {{ i.item.price }}
+                    </span>
+                    <div class="description">{{ i.item.description }}</div>
+                    {% ifnotequal i.liked 0 %}
+                    <div class="friends">{{ i.liked}} friends liked this</div>
+                    {% endifnotequal %}
+                </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+    <!-- build item pages -->
+    {% for m in menu_data %} 
+        {% for i in m.items %}
+            <div id="item{{ i.item.id }}" class="panel item" title="{{ i.item.name }}" class="menuitem">
+            <p class="title">{{ i.item.name }}</p>
+            <span class="price">{{ i.item.price }}</span>
+            <p class="description">{{ i.item.description }}</p>
+            {# add savings opp #}
+            <div class="savingsopp">Why don't you try <a href="#item{{ alternate }}">just the Crab Cake</a> and save $10</div>
+            {% for o in m.items.ordered %}
+                <div class="friend">{{ o.name }} ordered this {{ o.date }}</div>
+            {% endfor %}
+            <div class="ordered_button" id="ordered_button{{ i.item.id }}" onclick="items[{{ i.item.id }}].toggleOrdered(this)">
+                <input type="checkbox" id="item{{ i.item.id }}check" onclick="items[{{ i.item.id }}].toggleOrdered(this)" />
+                <span>Mark as ordered</span>
+            </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <ul id="suggestions" title="Friend's Suggestions" class="items">
+    <!-- ordered by suggestions -->
+    <div class="cat_description friends_suggestions">Friend's Suggestions</div>
+    <li class="menuitem">
+    <a href="#item1">Legal Experience 
+        <span class="price">24.99</span>
+        <div class="description">sample our blackened raw* tuna “sashimi”, steamed wontons, shrimp cocktail and crab cakes</div>
+        <div class="friends">6 friends liked this</div>
+    </a></li>
+    <li class="menuitem">
+        <a href="#item2">Legal’s Signature Crab Cake 
+            <span class="price">14.50</span>
+            <div class="description">lump crab, mustard sauce, seasonal salad (contains nuts)</div>
+			<div class="friends">5 friends liked this</div>
+	   </a></li>
+
+				  <li class="menuitem"><a href="#item3">Oysters Legal <span class="price">13.95</span>
+				  <div class="description">baked with spinach, cheese and crumbs</div>
+				  <div class="friends">3 friends liked this</div>
+
+				  </a></li>
+
+				  <li class="menuitem"><a href="#item4">Hot Lump Crab Dip with Seafood Chips <span class="price">11.95</span>
+				  <div class="description">lump crab, horseradish, cheddar and cream cheese</div>
+				  <div class="friends">1 friends liked this</div>
+				  </a></li>
+				  </ul>
+    
+	
+	<div id="allergies" class="panel item" title="" class="menuitem">
+    	<p class="title">Allergy information and disclaimer about raw food and shellfish</p>
+        <p class="description">Ask about our Gluten-Free menu</p>
+		<p class="description">Tell your server if you have any allergies</p>
+		<p class="description">Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase
+your risk of foodborne illness. More information about the safety of consuming raw food
+is available upon request.</p>
+
+    </div>
+    
+    <form id="cart" title="My Orders" class="dialog" method="POST" action="/legals/m/order/" target="_self">
+ 
+        <fieldset>
+            <h1>My Order</h1>
+            <a class="button leftButton" type="cancel" href="#">Close</a>
+            <!--<a class="button blueButton" type="submit">Search</a>-->
+            
+			<ul id="cartlist" class="items">
+				<!-- Dynamically updated -->
+				
+			</ul>
+            <div id="submitorder" class="whiteButton" onclick="submitOrder(this);" style="position:absolute; top:370px; left:87px;">Submit Order</div>
+        </fieldset>
+    </form>
+
+    <!--<div id="settings" title="Settings" class="panel">
+        <h2>Playback</h2>
+        <fieldset>
+            <div class="row">
+                <label>Repeat</label>
+                <div class="toggle" onclick=""><span class="thumb"></span><span class="toggleOn">ON</span><span class="toggleOff">OFF</span></div>
+            </div>
+            <div class="row">
+                <label>Shuffle</label>
+                <div class="toggle" onclick="" toggled="true"><span class="thumb"></span><span class="toggleOn">ON</span><span class="toggleOff">OFF</span></div>
+            </div>
+        </fieldset>
+        
+        <h2>User</h2>
+        <fieldset>
+            <div class="row">
+                <label>Name</label>
+                <input type="text" name="userName" value="johnappleseed"/>
+            </div>
+            <div class="row">
+                <label>Password</label>
+                <input type="password" name="password" value="delicious"/>
+            </div>
+            <div class="row">
+                <label>Confirm</label>
+                <input type="password" name="password" value="delicious"/>
+            </div>
+        </fieldset>
+    </div>
+	-->

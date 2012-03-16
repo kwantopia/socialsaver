@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+{% load facebook_tags %}
+
+<head>
+  
+    <title>{% block page_title %}{% endblock %}</title>
+
+     
+    <!-- Styles -->
+    <!-- Blueprint CSS -->
+    <link rel="stylesheet" href="/styles/blueprint/screen.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="/styles/blueprint/print.css" type="text/css" media="print" />    
+    <!--[if lt IE 8]><link rel="stylesheet" href="/styles/blueprint/ie.css" type="text/css" media="screen, projection" /><![endif]-->
+  	<!--[if IE]><link rel="stylesheet" href="/styles/otn/ie_otn.css" type="text/css" /><![endif]-->
+ 
+  	<!-- JQuery UI -->
+  	<!--<link rel="stylesheet" href="/styles/excite-bike/jquery-ui-1.8.custom.css" /> -->
+
+  	<!-- JQuery Tipsy -->
+  	<!--<link rel="stylesheet" href="/styles/tipsy/tipsy.css" />-->
+  
+ 
+    <!-- Facebook Scripts -->
+    {% facebook_js %}
+
+    <!-- Page-specific CSS -->
+    {% block page_styles %}
+    {% endblock %}
+
+ 	<!-- Site specific styles -->
+  	<link rel="stylesheet" href="/styles/otn/base.css" type="text/css" media="screen" />
+</head>
+
+<body>
+
+<div class="container">
+    <hr class="space">
+    <div id="header" class="column span-24 last">
+        <div class="span-18">
+          <a href="{% url web.views.index %}"><img src="/media/otn/otn_logo_text.png" height="100" border=0> </a>
+        </div>
+        
+        {% if user.is_authenticated %}
+        <div class="span-6 last">
+            <div class="span-4" style="text-align:right">
+                <a href="{% url web.views.profile %}">{% show_facebook_full_name user %}</a>
+            <br />
+                <p style="font-size:0.9em; float:right; padding-top:3px; padding-right:0.6em">{% show_logout %}</p>
+            </div>
+            
+            <div class="span-2 last">
+                {% show_facebook_photo user %}
+            </div>          
+        </div>
+    
+        {% else %}
+        <div class="span-6 last">
+            <div class="span-6 last">
+                {% show_connect_button %}
+            </div>
+            <div id="how" class="span-6 last">
+                <a href="{% url web.views.faq %}">How is Facebook used?</a>
+            </div>
+        </div>
+        {% endif %}
+    
+    </div>
+      
+    <hr class="space"><hr class="space">
+    
+    <div id="menu_bar" class="prepend-1 span-22 append-1">
+        <ul>
+        {% block menu %}
+          	<li class="nav_icon"><a href="/transactions/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> TRANSACTIONS</a></li>
+            <li class="nav_icon"><a href="/mobile/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> MOBILE</a></li>
+            <li class="nav_icon"><a href="/about/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> ABOUT</a></li>
+            <li class="nav_icon"><a href="/faq/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> FAQ</a></li>
+            <li class="nav_icon"><a href="/profile/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> MY ACCOUNT</a></li>
+        {% endblock %}
+        </ul>
+    </div>
+      
+    <hr class="space">
+    
+    <div id="contentbox" class="span-24">
+        <div id="page_name" class="prepend-1 span-22 append-1">
+          	<hr class="space">
+          	<hr class="space">
+          
+          	<span class="main">{% block main %}{% endblock %}</span> <span class="sub">{% block sub %}{% endblock %}</span>
+            <hr class="space" />
+            
+			{% block content %}
+            
+            <div id="bar" class="span-6 colborder">
+            	{% block sidebar %}
+            	{% endblock %}
+            </div>
+            
+            <div class="span-15 last">
+            	{% block window %}
+            	{% endblock %}
+            </div>
+            
+          	{% endblock %}
+        </div>
+    </div>
+      
+    <hr class="space">
+    
+    <div id="footer">
+      &copy; 2010 --- OTN.MIT.EDU --- ALL RIGHTS RESERVED
+    </div>
+    <hr class="space"><hr class="space"><hr class="space"><hr class="space"><hr class="space">
+</div>
+
+  	<!-- Scripts -->
+
+  	<!-- JQuery -->
+  	<script type="text/javascript" src="http://www.google.com/jsapi?key={{GOOGLE_API_KEY}}"></script>
+  	<script type="text/javascript">
+    	google.load("jquery", "1.4.2");
+    	google.load("jqueryui", "1.8.2");
+  	</script>
+  	<script type="text/javascript" src="/scripts/default/jquery.tipsy.js"></script>
+  
+  	<!-- extra scripts -->
+  	<script type="text/javascript" src="/scripts/default/jquery.corner.js"></script>
+  	<!--[if lt IE 9]> 
+  	<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js">IE7_PNG_SUFFIX=".png";</script> 
+  	<![endif]-->
+	<script type="text/javascript">
+		$("#contentbox").corner("10px");
+	</script>
+  
+  	<!-- Page-specific scripts -->
+  	{% block extra_scripts %}
+  	{% endblock %}
+
+ 	<!-- for using Facebook Connect -->
+ 	{% initialize_facebook_connect %}
+
+
+	<script type="text/javascript">
+
+  	var _gaq = _gaq || [];
+  	_gaq.push(['_setAccount', 'UA-15309665-5']);
+  	_gaq.push(['_trackPageview']);
+
+  	(function() {
+    	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  	})();
+
+	</script>
+
+</body>
+</html>

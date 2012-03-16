@@ -1,0 +1,159 @@
+{% extends 'legals/base.html' %}
+
+{% load facebook_tags %}
+
+{% block tabnav %}
+        	<li><a href="/legals/">Home</a></li>
+        	<li><a href="/legals/faq/">FAQ</a></li>
+{% endblock tabnav %}
+
+
+{% block content %}
+<h1>Facebook Profile Information</h1>
+<p>This page shows all the available tags in the facebook template_tags file<p>
+<div>
+    <table border="1">
+        <tr style="background: #BAD8F5;">
+            <th>Tag Name</th>
+            <th>Facebook Value</th>
+            <th>Description</th>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_facebook_full_name
+            </td>
+            <td>
+                {% show_facebook_full_name fbuser %}
+            </td>
+            <td>
+                shows the users full name without a link
+            </td>
+        </tr>
+        <tr style="background: #DDD;">
+            <td align='center' valign='top'>
+                show_facebook_name
+            </td>
+            <td>
+                {% show_facebook_name fbuser %}
+            </td>
+            <td>
+                Shows the users full name with link back to facebook profile
+            </td>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_facebook_first_name
+            </td>
+            <td>
+                {% show_facebook_first_name fbuser %}
+            </td>
+            <td>
+                show the users first name with link to facebook profile
+            </td>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_facebook_last_name
+            </td>
+            <td>
+                {% show_facebook_last_name fbuser %}
+            </td>
+            <td>
+                show the users last name with link to facebook profile
+            </td>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_facebook_possesive
+            </td>
+            <td>
+                {% show_facebook_possesive fbuser %}
+            </td>
+            <td>
+                shows the facebook 'possessive' value for the user
+            </td>
+        </tr>
+        <tr style="background: #DDD;">
+            <td>
+                show_facebook_greeting
+            </td>
+            <td>
+                {% show_facebook_greeting fbuser %}
+            </td>
+            <td>
+                A greeting you want to show the user.  You can change the greeting in the tag
+            </td>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_facebook_photo
+            </td>
+            <td>
+                {% show_facebook_photo fbuser %}
+            </td>
+            <td>
+                shows the cropped users facebook profile image
+            </td>
+        </tr>
+        <tr style="background: #DDD;">
+            <td>
+                show_connect_button
+            </td>
+            <td>
+                {% show_connect_button %}
+            </td>
+            <td>
+                show the facebook connect button
+            </td>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_logout
+            </td>
+            <td>
+                {% show_logout %}
+            </td>
+            <td>
+                Show the logout link
+            </td>
+        <tr style="background: #DDD;">
+            <td>
+                show_invite_link
+            </td>
+            <td>
+                {% show_invite_link %}
+            </td>
+            <td>
+                shows a 'invite your friends' popup that retrieves the list of all your friends<br />
+                modify the facebook/invitiation.fbml file to modify look/feel.
+            </td>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_facebook_info
+            </td>
+            <td>
+                {% show_facebook_info fbuser %}
+            </td>
+            <td>
+                show some of the users facebook information.  Modify the facebook/display.html file to modify
+                the look and feel.
+            </td>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_profile_mosaic
+            </td>
+            <td>
+                {% show_profile_mosaic friendList %}
+            </td>
+            <td>
+                show a mosaic of your friends list.  The number of friends returned is
+                limited by the settings.NUM_FRIEND_RETRIEVE_LIMIT setting.
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+{% endblock %}

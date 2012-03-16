@@ -1,0 +1,235 @@
+{% extends "web2/base.html" %}
+{% load facebook_tags %}
+
+{% block page_title %}
+Shoppley - Reviews
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+#maincontent
+	{
+	padding:2em;
+	min-height:800px;
+	}
+	
+#reviews{
+width:580px;
+float:right;
+padding-right:0.5em;
+text-align:left;
+}
+
+h4{
+color:#004f09;
+font-size:12pt;
+}
+
+.rev{
+display:inline;
+}
+
+.review{
+padding-left:50px;
+margin-top:30px;
+margin-bottom:30px;
+
+}
+
+.review_header{
+margin-bottom:0px;
+}
+
+.review_row {
+width:500px;
+margin-left:40px;
+clear:both;
+margin-bottom:5px;
+display:block;
+}
+
+.rating_box {
+padding-top: 5px;
+}
+
+.rating_caption {
+font-size:0.9em;
+margin-top: -1px;
+margin-left: 110px;
+}
+
+.review_detail {
+display:inline;
+margin-top:10px;
+background:url(/media/rating/Comment.png) no-repeat 0 2px;
+padding-left:20px;
+width: 400px;
+height:90px;
+font-size:0.9em;
+float:left;
+}
+
+.review_time {
+color:#AAAAAA;
+font-size:10pt;
+margin-top:-20px;
+}
+
+.review_public {
+padding-top:5px; /* for stars */
+margin-left:-3px;
+}
+
+#pgcount{
+width:560px;
+font-size:0.85em;
+margin-top:2em;
+float:right;
+text-align:center;
+}
+</style>
+{% endblock %}
+    
+{% block menu %}
+<div class="sort">
+<h1>- Reviews -</h1>  
+    
+    <p><br />
+        <b>
+        <a href="{% url web.views.reviews "posted" 1 %}">Sort Reviews by Date</a><br /><br />
+        <a href="{% url web.views.reviews "rating" 1 %}">Sort Reviews by Rating</a><br /><br />
+        <a href="{% url web.views.reviews "pending" 1 %}">Respond to Requests</a><br /><br />
+
+        <a href="{% url web.views.requests %}">Reviews You Requested</a><br /><br />
+   		</b>
+    </p>
+    
+    
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="reviews">
+	<h1>- Review Products -</h1>
+    
+    {% if pending_count > 0 %}
+    	<h3>You have <b>{{ pending_count }}</b> pending review(s): <a href="{% url web.views.reviews "pending" 1 %}">Click to Respond!</a></h3>
+    {% endif %}
+    
+    {% if not reviews.object_list %}
+	<br />
+	<br />
+	<div style="text-align:center">
+		No Reviews to Display!
+	</div>
+	{% endif %}
+
+    {% for review in reviews.object_list %}
+	<div class="rev">
+        <div class="review">
+			<div class="review_header">
+				<h4>
+					<a href="/product/{{ review.product.id }}/">
+                	{% autoescape off %}
+                  	{{ review.product.name }}
+                	{% endautoescape %}
+            		</a>
+            	</h4>
+            </div>
+        
+            <div class="review_row">
+            	<div class="review_time">{{ review.posted|date:"M j, Y - P" }}</div>
+            </div>
+
+            <div class="review_row">
+                <form> 
+                {% csrf_token %}
+                <div class="rating_box" id="review_rating_{{ review.id }}">
+                    <input type="radio" name="rating" {% ifequal review.rating 1 %}checked="checked"{% endifequal %} value="1" title="Poor" />
+                    <input type="radio" name="rating" {% ifequal review.rating 2 %}checked="checked"{% endifequal %} value="2" title="Fair" />
+                    <input type="radio" name="rating" {% ifequal review.rating 3 %}checked="checked"{% endifequal %} value="3" title="Average" />
+                    <input type="radio" name="rating" {% ifequal review.rating 4 %}checked="checked"{% endifequal %} value="4" title="Good" />
+                    <input type="radio" name="rating" {% ifequal review.rating 5 %}checked="checked"{% endifequal %} value="5" title="Excellent" />
+                </div>
+                <div class="rating_caption">
+                    <b>Rating:</b> <span id="stars_cap_{{ review.id }}"></span>
+                </div>
+                </form>
+            </div>
+            
+            <div class="review_row">
+                {% if review.content|length == 0 %}
+                    <div class="review_detail" id="detail_{{ review.id }}" name="{{ review.id }}"></div>
+                {% else %}
+                    <div class="review_detail" id="detail_{{ review.id }}" name="{{ review.id }}">{{ review.content }}</div>
+                {% endif %}
+            </div>
+            
+        </div>
+    </div>
+    <br /><br /><br /><br />
+    <hr style="color:#E8A31F"/>
+	{% endfor %}
+</div>
+
+<div id="pgcount">
+      {% if reviews.has_previous %}
+      <a href="/reviews/{{ sort }}/1/">first</a>
+         ::
+        <a href="/reviews/{{ sort }}/{{ reviews.previous_page_number }}/">previous</a>
+      {% endif %}
+
+      <span class="current">
+        :: page {{ reviews.number }} of {{ reviews.paginator.num_pages }} ::
+      </span>
+
+      {% if reviews.has_next %}
+        <a href="/reviews/{{ sort }}/{{ reviews.next_page_number }}/">next</a>
+         :: 
+        <a href="/reviews/{{ sort }}/{{ reviews.paginator.num_pages }}/">last</a>
+      {% endif %}
+</div>
+        
+{% endblock %}
+
+{% block extra_scripts %}
+	<link href="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.css" rel="stylesheet" type="text/css" media="screen" />
+    <script type="text/javascript" src="/scripts/default/jquery.ui.stars/jquery.ui.stars.min.js"></script>
+    <script type="text/javascript" src="/scripts/default/jquery.jeditable.min.js"></script>
+    <script type="text/javascript" src="/scripts/default/jquery.corner.js"></script>
+
+    <script type="text/javascript">
+
+
+	$(document).ready(function(){
+
+        $("#wesabe").corner();
+        $(".review").corner();
+
+        //  bind an event listener that will be called when
+        //  user saves changed content
+        $(".review_detail").editable("/update/description/", {
+            id: 'review_id',
+            name: 'description',
+            onblur: 'submit',
+            indicator: 'Saving...',
+            tooltip: 'Click to edit...',
+            type:'textarea',
+			rows:4,
+			col:60
+        });
+
+        {% for review in reviews.object_list %}
+            $("#review_rating_{{ review.id }}").stars({
+                captionEl: $("#stars_cap_{{ review.id }}"),
+                callback: function(ui, type, value) {
+                    $.post("/update/rating/", {review_id: {{ review.id }}, rating: value}, function(json)
+                    {
+                        $("#stars_cap_{{ review.id }}").value = json.result;
+                    }, "json");
+                }
+            });
+        {% endfor %}
+    });
+    </script>
+{% endblock %}

@@ -1,0 +1,49 @@
+#
+#  webuy.mit.edu 
+# (/etc/apache2/sites-available/webuy-dev.mit.edu)
+#
+<VirtualHost *:80>
+        ServerName  webuy-dev.mit.edu
+        ServerAlias webuy-dev.mit.edu 
+        ServerAdmin kwan@media.mit.edu
+
+        Alias /xd_receiver.htm /home/www/webuy.mit.edu/webuy/static/xd_receiver.htm
+        Alias /crossdomain.xml /home/www/webuy.mit.edu/webuy/static/crossdomain.xml
+        Alias /robots.txt /home/www/webuy.mit.edu/webuy/static/robots.txt
+        Alias /favicon.ico /home/www/webuy.mit.edu/webuy/static/favicon.ico
+
+        #AliasMatch /([^/]*\.css) /home/www/webuy.mit.edu/webuy/static/styles/$1
+
+        Alias /media/ /home/www/webuy.mit.edu/webuy/static/media/
+        Alias /scripts/ /home/www/webuy.mit.edu/webuy/static/scripts/
+        Alias /styles/ /home/www/webuy.mit.edu/webuy/static/styles/
+        Alias /php/ /home/www/webuy.mit.edu/webuy/static/php/
+        Alias /api /home/www/webuy.mit.edu/webuy/static/api/build/html/
+
+        <Directory /home/www/webuy.mit.edu/webuy/static>
+            Order deny,allow
+            Allow from all
+        </Directory>
+
+        WSGIDaemonProcess webuy-dev.mit.edu processes=2 threads=15 display-name=${GROUP}
+        WSGIProcessGroup webuy-dev.mit.edu
+
+        # Django root for webuy site
+        WSGIScriptAlias / /home/www/webuy.mit.edu/webuy/apache/webuy.wsgi
+
+        <Directory /home/www/webuy.mit.edu/webuy/apache>
+            Order allow,deny
+            Allow from all
+        </Directory>
+
+        # CGI Directory
+        ScriptAlias /cgi-bin/ /home/www/webuy.mit.edu/cgi-bin/
+        <Location /cgi-bin>
+                Options +ExecCGI
+        </Location>
+
+        # Logfiles
+        ErrorLog  /home/www/webuy.mit.edu/logs/error.log
+        CustomLog /home/www/webuy.mit.edu/logs/access.log combined
+</VirtualHost>
+

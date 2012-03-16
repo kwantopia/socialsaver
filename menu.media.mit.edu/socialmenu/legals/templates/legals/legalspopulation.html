@@ -1,0 +1,360 @@
+{% extends "legals/base.html" %}
+
+{% load facebook_tags %}
+<!-- This page is shown only when user logs in -->
+
+{% block page_title %}
+{% show_facebook_full_name user %} - Legal's DigitalMenu Presurvey 
+{% endblock %}
+
+{% block tabnav %}
+  <li><a href="{% url legals.views.orders 0 %}">Orders</a></li>
+  <li><a href="{% url survey.views.surveys %}">Surveys</a></li> 
+  <li><a href="{% url legals.views.winners %}">Winners</a></li>
+  <li><a href="{% url legals.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+
+{% block content %}
+
+{% if fbuser.experiment == 0 or fbuser.experiment == 1 %}
+    {% include "presurvey/intro.html" %}
+{% else %}
+    {% include "presurvey/altruism.html" %}
+{% endif %}
+
+{% if fbuser.completed %}
+    {% if friends|length > 1 %}
+        <div class="clearfix" style="float: left; border: 1px #d8dfea solid; padding: 10px 10px 10px 10px; margin-left: 30px; margin-bottom: 30px; width: 540px;">
+            <label>Friends who have completed the survey:</label>
+            <p>
+            {% for f in friends %}
+                <img src="{{ f.pic_square }}"/>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% else %}
+    {% if friends|length > 3 %}
+        <!-- if there are not many friends don't show -->
+        <div class="clearfix" style="float: left; border: 1px #d8dfea solid; padding: 10px 10px 10px 10px; margin-left: 30px; margin-bottom: 30px; width: 540px;">
+            <label>Friends who have completed the survey:</label>
+            <p>
+            {% for f in friends %}
+                <img src="{{ f.pic_square }}"/>
+            {% endfor %}
+        </div>
+
+    {% endif %}
+{% endif %}
+
+<style type="text/css">
+    tr {margin-top:5px}
+    .friends{display:none}
+
+    .fieldWrapper {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .backgrey {
+        background-color: #ECEFF6;
+    }
+    
+    .missinganswer {
+        background-color: #FFDDFF;
+    }
+
+    .fieldWrapper1 { 
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .fieldWrapper2 {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .item {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .item_choice {
+        float:left;
+    }
+    .category h1 {
+        color: #458CEB;
+    }
+
+    .title {font-weight:bold;
+        font-variant:small-caps; 
+        font-size:small;
+        color:#183152;}
+
+    .price {
+        font-weight:bold;
+        color: #527A9F;
+    }
+
+    .description {
+        margin-left:22px;
+        color:#40536C;
+    }
+
+    .error {
+        color: red;
+        display: none;
+    }
+
+</style>
+
+{% if fbuser.completed %}
+<div class="clearfix" style="float: left; border: 1px #d8dfea solid; padding: 10px 10px 10px 10px; margin-left: 30px; margin-bottom: 30px; width: 540px;">
+    Thank you! You have already completed the survey.  <a href="/{{appname}}/legals/invite/">Invite more friends</a> to share their tastes or e-mail them the link:
+    <b>http://apps.facebook.com/{{appname}}/</b>
+</div>
+
+{% else %}
+
+<form action="/legals/presurvey/" method="POST">
+{% csrf_token %}
+<div class="clearfix" style="float: left; border: 1px #d8dfea solid; padding: 10px 10px 10px 10px; margin-left: 30px; margin-bottom: 30px; width: 540px;">
+    <input type="hidden" name="facebook_id" value="{{ fbuser.id }}" />
+
+    <table>
+    <div class="fieldWrapper2">
+        <tr>
+        <td align="right">        
+        <label for="id_referrer">{{ form.referrer.label_tag }}</label>
+        </td>
+        <td align="left">
+        {{ form.referrer}}<br>
+        </td>
+        <td align="left">
+        <div class="error">{{ form.referrer.errors }}</div>
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper1">
+        <tr>
+        <td class="backgrey" align="right">        
+        <label for="id_email">{{ form.email.label_tag }}</label>
+        </td>
+        <td class="backgrey" align="left">
+        {{ form.email}}<br>
+        <!-- Your e-mail address will only be used for the duration of the research experiment to notify you of events related to the trial.-->
+        </td>
+        <td align="left">
+        <div class="error">{{ form.email.errors }}</div>
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper2">
+        <tr>
+        <td align="right">
+        <label for="id_zipcode">{{ form.zipcode.label_tag }}</label>
+        </td>
+        <td align="left">
+        {{ form.zipcode }}
+        </td>
+        <td align="left">
+        <div class="error">{{ form.zipcode.errors }}</div>
+        </td>
+        </tr>
+    </div>
+
+    <div class="fieldWrapper1">
+        <tr>
+        <td class="backgrey" align="right">
+        <label for="id_sex">{{ form.sex.label_tag }}</label>
+        </td>
+        <td class="backgrey" align="left">
+        {{ form.sex }}
+        </td>
+        <td align="left">
+        <div class="error">{{ form.sex.errors }}</div>
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper2">
+        <tr>
+        <td align="right">
+        <label for="id_age">{{ form.age.label_tag }}</label>
+        </td>
+        <td align="left">
+        {{ form.age}}
+        </td>
+        <td align="left">
+        <div class="error">{{ form.age.errors }}</div>
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper1">
+        <tr>
+        <td class="backgrey" align="right">        
+        <label for="id_like_seafood">{{ form.like_seafood.label_tag }}</label>
+        </td>
+        <td class="backgrey" align="left">
+        {{ form.like_seafood }}
+        </td>
+        <td align="left">
+        <div class="error">{{ form.like_seafood.errors }}</div>
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper2">
+        <tr>
+        <td align="right">        
+        <label for="id_restaurant_visits">{{ form.restaurant_visits.label_tag }}</label>
+        </td>
+        <td align="left">
+        {{ form.restaurant_visits }}
+        </td>
+        <td align="left">
+        <div class="error">{{ form.restaurant_visits.errors }}</div>
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper1">
+        <tr>
+        <td class="backgrey" align="right">        
+        <label for="id_seafood_visits">{{ form.seafood_visits.label_tag }}</label>
+        </td>
+        <td class="backgrey" align="left">
+        {{ form.seafood_visits }}
+        </td>
+        <td align="left">
+        <div class="error">{{ form.seafood_visits.errors }}</div>
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper2">
+        <tr>
+        <td align="right">        
+        <label for="id_legals_visits">{{ form.legals_visits.label_tag }}</label>
+        </td>
+        <td align="left">
+        <input type="radio" name="legals_visits" value="1" />Yes
+        <input type="radio" name="legals_visits" value="0" checked />No        
+        </td>
+        <td align="left">
+        <div class="error">{{ form.legals_visits.errors }}</div>
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper1">
+        <tr>
+        <td class="backgrey" align="right">        
+        <label for="id_frequency">{{ form.frequency.label_tag }}</label>
+        </td>
+        <td class="backgrey" align="left">
+        {{ form.frequency }}
+        </td>
+        <td align="left">
+        <div class="error">{{ form.frequency.errors }}</div>
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper2">
+        <tr>
+        <td align="right">        
+        <label for="id_vegetarian">{{ form.vegetarian.label_tag }}</label>
+        </td>
+        <td align="left">
+        <input type="radio" name="vegetarian" value="1" />Yes
+        <input type="radio" name="vegetarian" value="0" checked />No
+        </td>
+        <td align="left">
+        <div class="error">{{ form.vegetarian.errors }}</div>
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper1">
+        <tr>
+        <td class="backgrey" align="right">        
+        <label for="id_gluten">{{ form.gluten.label_tag }}</label>
+        </td>
+        <td class="backgrey" align="left">
+        <input type="radio" name="gluten" value="1" />Yes
+        <input type="radio" name="gluten" value="0" checked />No
+        </td>
+        <td align="left">
+        <div class="error">{{ form.gluten.errors }}</div>
+        </td>
+        </tr>
+    </div>
+
+    <div class="fieldWrapper2">
+        <tr>
+        <td align="right">        
+        <label for="id_phone_type">{{ form.phone_type.label_tag }}</label>
+        </td>
+        <td align="left">
+        {{ form.phone_type }}
+        </td>
+        <td align="left">
+        <div class="error">{{ form.phone_type.errors }}</div>
+        </td>
+        </tr>
+    </div>
+    <div class="fieldWrapper1">
+        <tr id="rowtastes">
+        <td class="backgrey" align="right">        
+        <label for="id_tastes">{{ form.tastes.label_tag }}</label>
+        </td>
+        <td class="backgrey" align="left">
+            {{ form.tastes }}
+        </td>
+        <td align="left">
+        <div class="error">{{ form.tastes.errors }}</div>
+        </td>
+        </tr>
+    </div>
+
+    </table>
+</div>
+
+<div class="clearfix" style="float: left; border: 1px #d8dfea solid; padding: 10px 10px 10px 10px; margin-left: 30px; margin-bottom: 30px; width: 540px;">
+    <div class="fieldWrapper">
+        <div class="error">{{ form.favorite_dishes.errors }}</div>
+        <p>
+        <label for="id_favorite_dishes">{{ form.favorite_dishes.label_tag }}</label>
+        </p>
+        {% for cat in menu %}
+        <div class="category">
+        <h1>{{ cat.category }}</h1>
+        {% for dish in cat.dishes %}
+        <div class="item">
+            <div class="item_choice"><input type="checkbox" name="favorite_dishes" value="{{ dish.id }}"/></div>
+            <div class="item_detail">
+                <div class="title">{{ dish.name }}</div>
+                <span class="price">{{ dish.price }}</span>
+                <div class="description">{{ dish.description }}</div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+<input type="submit" name="Complete" value="Submit" />
+</div>
+</form>   
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-4915049-4");
+        pageTracker._setDomainName("none");
+        pageTracker._setAllowLinker(true);
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+<?php
+$page->title('TechCASH: Details')
+     ->header($account_name);
+
+$page->content_begin();
+?>
+{'balance':'<?=$current_balance?>',
+'count':'<?=count($transactions)?>',
+'transactions':[
+<? foreach($transactions as $transaction) { ?>
+{
+'amount':'<?=$transaction['APPRVALUEOFTRAN']?>',
+'location':'<?=$transaction['LOCATION']?>',
+'datetime':'<?=date("m/d g:i A",$transaction['UNIX_TRANDATE'])?>
+},
+<? } ?>
+]}
+<? $page->content_end(); ?>

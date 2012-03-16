@@ -1,0 +1,117 @@
+{% extends "web/base.html" %}
+
+{% block page_title %}
+WeBuy - Wish List
+{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url web.views.wishlist %}">Wish List</a></li>
+    <li><a href="{% url web.views.purchases %}">Purchases</a></li>
+{% endblock %}
+
+{% block content %}
+
+<!-- show feeds -->
+
+<div id="dashboard" class="span-20 last">
+  <div class="dashboard">
+    <div class="dashitem">
+        <div class="dashfocus">{{ num_requests }}</div>
+        <div class="dashtext">review requests</div>
+    </div>
+    <div class="dashitem">
+        <div class="dashfocus">{{ num_wishes }}</div>
+        <div class="dashtext">items wished</div>
+    </div>
+    <div class="dashitem">
+        <div class="dashfocus">{{ num_people }}</div>
+        <div class="dashtext">people</div>
+    </div>
+  </div>
+  <!-- <div style="clear:both"></div> --> 
+</div>
+
+<div id="home-body" class="span-20 last">
+  <div class="span-14">
+    <h2>Wishlist</h2>  
+    <div class="product-list span-14 last">
+      {% for w in wishlist.object_list %}
+        <div class="span-14 last">
+            {{ w.added|date:"D M j, Y" }} 
+        </div>
+        <div class="wish span-14 last">
+          <div class="item span-14 last">
+            <div class="span-10">
+              <a href="/product/{{ w.product.id }}/">
+                {% autoescape off %}
+                  {{ w.product.name }}
+                {% endautoescape %}
+              </a>
+            </div>
+            <div class="span-3 last">
+              ${{ w.max_price|stringformat:".2f" }}
+            </div>
+          </div>
+          <div class="prepend-1 span-13 last">
+            {% if w.review == 0 %}
+              <a href="/review/request/{{w.product.id}}/">Request Review</a>
+            {% endif %}
+            {% if w.review == 1 %}
+              Review Requested
+            {% endif %}
+            {% if w.review == 2 %}
+              <div id="reviews{{w.product.id}}" class="posted-reviews">
+                Reviews Posted
+              </div>
+              <div id="reviews_list{{w.product.id}}">Hello</div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="pages span-14 last">
+      {% if wishlist.has_previous %}
+        <a href="/wishlist/{{ wishlist.previous_page_number }}/">previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ wishlist.number }} of {{ wishlist.paginator.num_pages }}.
+      </span>
+
+      {% if wishlist.has_next %}
+        <a href="/wishlist/{{ wishlist.next_page_number }}/">next</a>
+      {% endif %}
+    </div>
+
+  </div>
+
+
+  <div class="span-6 last">
+    <h2>Friends in WeBuy</h2>
+    <table>
+      {% for friend in friends_list %}
+        <tr><td> {{ friend.name }}</td>
+        <td><img src="{{ friend.image }}"></img></td></tr>
+      {% endfor %}
+    </table>
+  </div><!-- friends -->
+</div><!-- #home-body -->
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script type="text/javascript">
+  $(document).ready( function () {
+    {% for w in wishlist.object_list %}
+      $("#reviews_list{{w.product.id}}").hide();
+      $("#reviews{{ w.product.id}}").click( function () {
+        $.post("/reviews/{{w.product.id}}/", function (data) {
+          $("#reviews_list{{w.product.id}}").html(data);
+          $("#reviews_list{{w.product.id}}").show();
+        });
+      });
+    {% endfor %}
+  });
+</script>
+{% endblock %}

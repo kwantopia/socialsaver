@@ -1,0 +1,145 @@
+{% extends "web2/base.html" %}
+
+
+{% block extra_scripts %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="/scripts/ddaccordion.js">
+
+/***********************************************
+* Accordion Content script- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* Visit http://www.dynamicDrive.com for hundreds of DHTML scripts
+* This notice must stay intact for legal use
+***********************************************/
+
+</script>
+
+<script type="text/javascript">
+ddaccordion.init({
+	headerclass: "headerbar", //Shared CSS class name of headers group
+	contentclass: "submenu", //Shared CSS class name of contents group
+	revealtype: "click", //Reveal content when user clicks or onmouseover the header? Valid value: "click", "clickgo", or "mouseover"
+	mouseoverdelay: 200, //if revealtype="mouseover", set delay in milliseconds before header expands onMouseover
+	collapseprev: true, //Collapse previous content (so only one open at any time)? true/false
+	defaultexpanded: [], //index of content(s) open by default [index1, index2, etc] [] denotes no content
+	onemustopen: false, //Specify whether at least one header should be open always (so never all headers closed)
+	animatedefault: false, //Should contents open by default be animated into view?
+	persiststate: true, //persist state of opened contents within browser session?
+	toggleclass: ["", "selected"], //Two CSS classes to be applied to the header when it's collapsed and expanded, respectively ["class1", "class2"]
+	togglehtml: ["", "", ""], //Additional HTML added to the header when it's collapsed and expanded, respectively  ["position", "html1", "html2"] (see docs)
+	animatespeed: "normal", //speed of animation: integer in milliseconds (ie: 200), or keywords "fast", "normal", or "slow"
+	oninit:function(headers, expandedindices){ //custom code to run when headers have initalized
+		//do nothing
+	},
+	onopenclose:function(header, index, state, isuseractivated){ //custom code to run whenever a header is opened or closed
+		//do nothing
+	}
+})
+</script>
+{% endblock %}
+
+{% block page_styles %}
+<link href="/styles/webuy/menu.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+#product{
+margin:auto;
+padding-bottom:15em;
+}
+
+#product img{
+border:1px solid #E8A31F;
+}
+
+#request{
+margin:auto;
+}
+
+.label{
+font-family:Verdana, sans-serif;
+font-weight:bold;
+font-size:0.9em;
+}
+
+li{
+display:inline;
+}
+</style>
+{% endblock %}
+
+{% block small %}
+{% endblock %}
+
+{% block content %}
+
+<div id="container">
+    	 
+    <div class="prodmenu">
+
+        <h3 class="headerbar">
+            {% if p.medium_image %}
+                <img src="{{ p.medium_image }}" border="1" color="#E8A31F">
+            {% else %}
+                <img src="/media/webuy/dummy_product.gif">
+            {% endif %}
+
+            {{ p.name }}
+            <br />
+        </h3>
+
+        <!--Submenu depends on user: Option to review if in purchases, option to request or remove if in wishlist, option to add if neither-->
+        {% if p.id in purchases %}
+        <ul class="">
+            <li>
+            Please give a review!<br /><br />
+            <form action="" method="post">{% csrf_token %}
+
+                {% if form.content.errors %}
+                    {{ form.content.errors }}
+                {% endif %} 
+                <div class="label">
+                    {{ form.content.label_tag }}: 
+                </div>
+                {{ form.content }}
+                
+                <br /><br />
+                
+                {% if form.rating.errors %}
+                    {{ form.rating.errors }}
+                {% endif %} 
+                <div class="label">
+                    {{ form.rating.label_tag }}: 
+                </div>
+                {{ form.rating }}
+                
+                <br /><br /><br />
+                
+                <input type="submit" value="Submit Review">
+            </form>
+            </li>
+        </ul>
+        
+        
+        {% else %}
+            {% if p.id in wishes %}
+            <ul class="">
+                <li>
+                Request Review or Remove from Wishlist
+                
+                </li>
+            </ul>
+            
+            {% else %}
+            <ul class = "">
+                <li>
+                Add to Wishlist?
+                </li>
+            </ul>
+        
+            {% endif %}
+        
+        {% endif %}
+
+    </div>
+        
+</div>
+{% endblock %}

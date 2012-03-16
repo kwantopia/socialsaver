@@ -1,0 +1,31 @@
+{% extends "web/base.html" %}
+
+{% load facebook_tags %}
+
+{% block page_title %}
+WeBuy Home
+{% endblock %}
+
+{% block content %}
+
+<h1>Participate in the MIT Media Lab/BestBuy Trial</h1>
+
+<div id="goals" class="span-19 box last">
+  We are doing research in mobile commerce.  We want to understand the benefits of connecting real consumers of electronic products with potential consumers and understand the effects on attitudes towards products as people navigate through the world.
+</div>
+
+<div id="instructions" class="span-20 last">
+  <h3>Follow these simple steps to join:</h3>
+  <ol>
+    <li>Login with your Facebook account by clicking on {% show_connect_button %}</li>
+    <li>Link your Reward Zone membership</li>
+    <li>Invite your friends to join</li>
+    <li>We will give an iPad at the end of the trial in August 2010 to the one who has most friends signed up and active.</li>
+  </ol>
+</div>
+
+<div class="span-20 last">
+
+  Information is shared only inside WeBuy community through web and mobile. You have control over what you share. 
+</div>
+{% endblock %}

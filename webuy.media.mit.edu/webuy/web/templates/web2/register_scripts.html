@@ -1,0 +1,64 @@
+<!-- Scripts used for registration page -->
+<!--<link rel="stylesheet" type="text/css" media="screen" href="/scripts/default/jquery-validate/demo/css/screen.css" />-->
+<style type="text/css">
+    
+</style>
+<script type="text/javascript" src="/scripts/default/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/scripts/default/jquery-validate/additional-methods.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        //$("input[type=submit]").attr('disabled', 'disabled');
+
+        $("#setup").submit( function () {
+            $("input[type=submit]", this).attr('disabled', 'disabled');
+        });
+
+        $("#setup").validate({
+            rules: {
+                rewardzone: {
+                    required: true,
+                    digits: true,
+                    minlength: 9
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                pin: {
+                    digits: true,
+                    required: true,
+                    minlength: 4,
+                    maxlength: 6
+                },
+            },
+            messages: {
+                rewardzone: {
+                    required: "Please enter your Reward Zone ID",
+                    digits: "Your Reward Zone ID must be numerical digits",
+                    minlength: "Your Reward Zone ID must be 9 digits"
+                },
+                email: {
+                    required: "Please enter e-mail you use for Facebook.  It will be used as user name to login from mobile application.",
+                    email: "Please enter a valid e-mail address"
+                },
+                pin: {
+                    digits: "Use numerical digits",
+                    required: "Please enter a PIN number",
+                    minlength: "It must be at least 4 digits",
+                    maxlength: "It must be at most 6 digits"
+                },
+            }
+        });
+    });
+
+    function consent() {
+        if ($('input[name=otnconsent]').is(':checked')) {
+            $("input[type=submit]").removeAttr('disabled');
+        } else {
+            $("input[type=submit]").attr('disabled', 'disabled');
+        }
+    }
+</script>
+
+

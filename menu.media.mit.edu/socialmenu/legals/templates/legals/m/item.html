@@ -1,0 +1,36 @@
+{% extends "legals/m/base.html" %}
+
+{% block topbar %}
+    {% if order_id > 0 %}
+    <div id="rightbutton">
+        <a href="/legals/m/myorders/{{order_id}}/">My Orders</a>
+    </div>
+    {% endif %}
+
+    <div id="leftnav">
+        <a href="/legals/m/categories/{{order_id}}/"><img src="/media/iwebkit/images/home.png"></a>
+        <a href="/legals/m/category/{{cat_id}}/{{order_id}}/">Back</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <ul id="pageitem">
+            <div id="item{{ i.item.id }}" class="panel item" title="{{ i.item.name }}" class="menuitem">
+            <p class="title">{{ i.item.name }}</p>
+            <span class="price">{{ i.item.price }}</span>
+            <p class="description">{{ i.item.description }}</p>
+            {# add savings opp #}
+            {% if i.alternative %}
+            <div class="savingsopp">Why don't you try <a href="#item{{ alternate }}">the Crab Cake</a> and save $5</div>
+            {% endif %}
+            {% for o in i.ordered %}
+                <div class="friend">{{ o }}</div>
+            {% endfor %}
+            <div class="ordered_button" id="ordered_button{{ i.item.id }}" onclick="items[{{ i.item.id }}].toggleOrdered(this)">
+                <input type="checkbox" id="item{{ i.item.id }}check" onclick="items[{{ i.item.id }}].toggleOrdered(this)" />
+                <span>Mark as ordered</span>
+            </div>
+            </div>
+
+    </ul>
+{% endblock %}

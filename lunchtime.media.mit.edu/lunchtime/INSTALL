@@ -1,0 +1,57 @@
+# PyFacebook needs to be installed
+cd packages
+./download.sh
+cd pyfacebook
+sudo python setup.py install
+
+# tagging module needs to be added
+cd packages/django-tagging
+sudo python setup.py install
+
+cp logging.conf.sample logging.conf
+cp mobilog.conf.sample mobilog.conf
+cp settings.py.sample settings.py
+
+# Need to make log files writable
+sudo chmod 777 /tmp/*.log (or whatever dir specified in logging.conf)
+sudo chown www-data.www-data /tmp/*.log
+
+#Need to setup Postgres DB to be accessible by new DB user otnpostgres
+Modify /etc/postgresql/8.4/main/pg_hba.conf and add the following line
+--> local   all         otnpostgres                 md5
+
+# setup memcache
+
+#For using south migration
+./manage.py startmigration <appname> --initial
+
+===========================================
+After ./manage.py syncdb you need to load some initial data
+and alter the email table for Facebook usage
+
+fixtures/*.json needs to be loaded (./manage.py loaddata fixture_name)
+init_admin_experiments_loc.json: the initialization of admin user, experiments and few locations
+
+# for fixing email field for Facebook
+cd common/setup
+./facebook_email_setup.sh
+
+# for fixing image url's for locations
+./manage.py shell
+run common/setup/location_images.py
+
+# Need to have the keys for techcash and push service
+copy "keys" directory
+
+# Need to change tech cash upload scripts updatetc.sh and updatetc.py
+
+# make sure crontab is enabled
+crontab -l  (to list)
+crontab -e  (to edit)
+0 * * * * /home/www/mealtime.mit.edu/lunchtime/techcash/updatetc.sh
+
+# Need to pg_dump database and psql load database
+
+
+# For deployment
+iphonepush/models.py should be edited so iPhone model has test_phone = default=False

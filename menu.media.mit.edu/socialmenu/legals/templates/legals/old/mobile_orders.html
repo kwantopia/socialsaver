@@ -1,0 +1,20 @@
+{% extends "legals/mobile_base.html" %}
+    
+{% block content %}
+    <form id="cart" title="My Orders" class="dialog" method="POST" action="/legals/m/order/" target="_self">
+ 
+        <fieldset>
+            <h1>My Order</h1>
+            <a class="button leftButton" type="cancel" href="#">Close</a>
+            
+			<ul id="cartlist" class="items">
+				<!-- Dynamically updated -->
+                {% for i in orders %}
+                    <li>{{ i.name }} <span class="price">{{ i.get_json.price }}</span></li>
+                {% endfor %}
+			</ul>
+            <div id="submitorder" class="whiteButton" onclick="submitOrder(this);" style="position:absolute; top:370px; left:87px;">Submit Order</div>
+        </fieldset>
+    </form>
+
+{% endblock %}

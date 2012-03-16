@@ -1,0 +1,230 @@
+{% extends 'web/base.html' %}
+
+{% block page_title %}
+My Profile
+{% endblock %}
+
+{% load facebook_tags %}
+
+{% block content %}
+<h1>My Profile</h1>
+	<div style="margin-left:10px;"><strong>Email Address</strong>: TODO JUST DISPLAY</div>
+	<div style="margin-left:10px;"><strong>Mobile PIN</strong>: TODO DISPLAY NUMBER OF STARS (<a href="/web/pin/">change</a>)</div>
+	<div style="margin-left:10px;">TODO: Experiements involved in</div>
+	
+
+<h1>Analysis Details</h1>
+<ul>
+<li>Have a summary list of favorite menus, total amount visited and spent over the last month.
+
+<li>For social group, you let people know who have similar taste of menu 
+		
+		<table>
+{% for friend in friends_list %}
+
+			<tr><td> {{ friend.name }}</td>
+			<td> <img src="{{ friend.image }}"></img></td></tr>
+
+{% endfor %}
+			
+		</table>
+
+
+<li>Suggest whom you could ask about a new menu item.
+</ul>
+	
+<h3>Facebook</h3>
+  <div style="margin-left:10px;"><strong>Name</strong>: {% show_facebook_name fbuser %} <span style="margin:0 .4em .4em 0; height:25px; width:25px" height="25px">{% show_facebook_photo fbuser %}</span></div>
+  <div style="margin-left:10px;"><strong>Id</strong>: {% show_facebook_id fbuser %}</div>
+
+<h3>MIT</h3>
+	<div style="margin-left:10px;"><strong>Id</strong>: TODO DISPLAY NUMBER OF STARS; PERHAPS CHANGE</div>
+	<div style="margin-left:10px;"><a href="#">TODO: VIEW DATA</a></div>
+
+<h3>Wesabe</h3>
+	<div style="margin-left:10px;"><strong>Email</strong>: TODO DISPLAY/CHANGE</div>
+	<div style="margin-left:10px;"><a href="#">TODO: VIEW DATA</a></div>
+        <form action="/wesabe/register" method="POST" style="margin-left:10px;">
+            <table>
+            <tr>
+            <td align="right"><label for="email">Email:</label></td>
+            <td><input id="email" name="email" type="text"></td>
+           </tr>
+           <tr>
+           <td align="right"><label for="password">Password:</label></td>
+           <td><input id="password" name="password" type="password"></td>
+           </tr>
+           <tr><td></td><td align="right"><input type="submit" value="Download"/></td></tr>
+           </table>
+        </form>
+    
+
+<!--<p>This page shows all the available tags in the facebook template_tags file<p>
+<div>
+    <table border="1">
+        <tr style="background: #BAD8F5;">
+            <th>Tag Name</th>
+            <th>Facebook Value</th>
+            <th>Description</th>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_facebook_full_name
+            </td>
+            <td>
+                {% show_facebook_full_name fbuser %}
+            </td>
+            <td>
+                shows the users full name without a link
+            </td>
+        </tr>
+        <tr style="background: #DDD;">
+            <td align='center' valign='top'>
+                show_facebook_name
+            </td>
+            <td>
+                {% show_facebook_name fbuser %}
+            </td>
+            <td>
+                Shows the users full name with link back to facebook profile
+            </td>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_facebook_first_name
+            </td>
+            <td>
+                {% show_facebook_first_name fbuser %}
+            </td>
+            <td>
+                show the users first name with link to facebook profile
+            </td>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_facebook_last_name
+            </td>
+            <td>
+                {% show_facebook_last_name fbuser %}
+            </td>
+            <td>
+                show the users last name with link to facebook profile
+            </td>
+        </tr>
+        <tr style="background: #DDD;">
+            <td>
+                show_facebook_large_photo
+            </td>
+            <td>
+                {% show_facebook_large_photo fbuser %}
+            </td>
+            <td>
+                Show the users large profile image (non cropped)
+            </td>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_facebook_possesive
+            </td>
+            <td>
+                {% show_facebook_possesive fbuser %}
+            </td>
+            <td>
+                shows the facebook 'possessive' value for the user
+            </td>
+        </tr>
+        <tr style="background: #DDD;">
+            <td>
+                show_facebook_greeting
+            </td>
+            <td>
+                {% show_facebook_greeting fbuser %}
+            </td>
+            <td>
+                A greeting you want to show the user.  You can change the greeting in the tag
+            </td>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_facebook_photo
+            </td>
+            <td>
+                {% show_facebook_photo fbuser %}
+            </td>
+            <td>
+                shows the cropped users facebook profile image
+            </td>
+        </tr>
+        <tr style="background: #DDD;">
+            <td>
+                show_connect_button
+            </td>
+            <td>
+                {% show_connect_button %}
+            </td>
+            <td>
+                show the facebook connect button
+            </td>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_logout
+            </td>
+            <td>
+                {% show_logout %}
+            </td>
+            <td>
+                Show the logout link
+            </td>
+        <tr style="background: #DDD;">
+            <td>
+                show_invite_link
+            </td>
+            <td>
+                {% show_invite_link %}
+            </td>
+            <td>
+                shows a 'invite your friends' popup that retrieves the list of all your friends<br />
+                modify the facebook/invitiation.fbml file to modify look/feel.
+            </td>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_facebook_info
+            </td>
+            <td>
+                {% show_facebook_info fbuser %}
+            </td>
+            <td>
+                show some of the users facebook information.  Modify the facebook/display.html file to modify
+                the look and feel.
+            </td>
+        </tr>
+        <tr style="background: #DDD;">
+            <td>
+                show_facebook_status
+            </td>
+            <td>
+                {% show_facebook_status fbuser %}
+            </td>
+            <td>
+                show the users current facebook status message
+            </td>
+        </tr>
+        <tr style="background: #FFF;">
+            <td>
+                show_profile_mosaic
+            </td>
+            <td>
+                {% show_profile_mosaic friendList %}
+            </td>
+            <td>
+                show a mosaic of your friends list.  The number of friends returned is
+                limited by the settings.NUM_FRIEND_RETRIEVE_LIMIT setting.
+            </td>
+        </tr>
+    </table>
+</div>
+-->
+
+{% endblock %}

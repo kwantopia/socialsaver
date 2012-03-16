@@ -1,0 +1,29 @@
+{% extends "legals/m/base.html" %}
+
+{% block topbar %}
+    {% if order_id > 0 %}
+    <div id="rightbutton" class="green" >
+        <a href="/legals/m/myorders/{{order_id}}/">My Orders</a>
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <ul class="pageitem">
+        <!-- Need to put friend's choices and chef's choices -->
+
+        {% for c in categories %}
+            <li class="menu">
+                <a href="/legals/m/category/{{ c.id }}/{{ order_id }}/">
+                    <span class="name">{{ c.name }}</span>
+                    <span class="arrow"></span>
+                </a>
+            </li>
+        {% endfor %}
+
+		<li class="menu" style="font-size:15px; color:#888"><a href="/legals/m/allergies/{{ order_id }}/">Allergy information and disclaimer about raw food and shellfish</a></li>
+    </ul>
+{% endblock %}
+
+

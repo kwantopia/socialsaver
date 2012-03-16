@@ -1,0 +1,49 @@
+HOST_NAME = "localhost:8000"
+
+PREFIX = "/home/kwan/workspace/OTNWeb/lunchtime"
+#PREFIX = "/Users/kwan/workspace/OTNWeb/"
+
+# for local development
+NUM_FRIEND_RETRIEVE_LIMIT = 50
+FACEBOOK_API_KEY = '1a85f3ca0dc4a998c0c4086ec0254e95'
+FACEBOOK_SECRET_KEY = 'cff867dbf21878e73b9fe1da24ad8518'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'LunchTime.db',                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+
+    },
+    'test': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'LunchTime',                      # Or path to database file if using sqlite3.
+        'USER': 'otnpostgres',                      # Not used with sqlite3.
+        'PASSWORD': 'aaa',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+
+    }
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = '/tmp/lunchtime-messages'
+
+# for local serving
+MEDIA_ROOT = PREFIX+'/static/media/'
+STYLES_ROOT = PREFIX+'/static/styles/'
+SCRIPTS_ROOT = PREFIX+'/static/scripts/'
+MEDIA_URL = '/media/'
+STYLES_URL = '/styles/'
+SCRIPTS_URL = '/scripts/'
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    PREFIX,
+)
+
+

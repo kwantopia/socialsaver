@@ -1,0 +1,24 @@
+{% extends "web/base.html" %}
+
+{% block content %}
+{% if authorized %}
+    <table>
+    <tr>
+        <th>Name</th>
+        <th>E-mail</th>
+        <th>Voucher</th>
+        <th>Presurvey</th> 
+    </tr>
+    {% for u in participants %}
+    <tr>
+        <td>{{ u.name }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.voucher }}</td>
+        <td>{{ u.presurvey }}</td> 
+    </tr>
+    {% endfor %}
+    </table>
+{% else %}
+    You are not authorized.
+{% endif %}
+{% endblock %}

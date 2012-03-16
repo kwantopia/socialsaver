@@ -1,0 +1,243 @@
+{% extends 'web2/base.html' %}
+
+{% block page_title %}
+The Shoppley Mobile Application
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+#mobile{
+width:900px;
+margin:auto;
+}
+
+ul{
+display:inline-block;
+width:900px;
+}
+.question{
+width:850px;
+font-family:Helvetica, Verdana, sans-serif;
+font-weight:bolder;
+text-align:left;
+font-size:1.1em;
+float:left;
+display:inline-block;
+}
+
+.answer{
+width:850px;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:1.0em;
+text-align:left;
+float:left;
+display:inline-block;
+padding:10px;
+border-bottom: thin solid #004f09;
+}
+
+#imgcontainer{
+width:900px;
+margin:auto;
+display:inline;
+text-align:center;
+}
+
+.imgset1{
+width:200px;
+height:300px;
+margin:5px 5px 50px 5px;
+float:left;
+display:inline;
+}
+
+.imgset2{
+width:400px;
+height:300px;
+margin:5px 5px 50px 5px;
+float:left;
+display:inline;
+}
+
+.screenshot{
+margin-bottom:5px;
+text-align:center;
+}
+
+.caption{
+font-family:Helvetica, Verdana, sans-serif;
+font-size:0.9em;
+text-align:center;
+}
+</style>
+{% endblock %}
+
+{% block nav %}
+{% if log %}
+<div class="nav_li"><a href="{% url web.views.purchases %}">PURCHASES</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/shoppley/navdivider.png" border=0 /></div>
+<div class="nav_li"><a href="{% url web.views.reviews %}">REVIEWS</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/shoppley/navdivider.png" border=0 /></div>
+<div class="nav_li"><a href="{% url web.views.wishlist %}">WISHLIST</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/shoppley/navdivider.png" border=0 /></div>
+<div class="nav_li"><a href="{% url web.views.mobile %}">MOBILE</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/shoppley/navdivider.png" border=0 /></div>
+<div class="nav_li"><a href="{% url web.views.about %}">ABOUT</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/shoppley/navdivider.png" border=0 /></div>
+<div class="nav_li"><a href="{% url web.views.faq %}">FAQ</a></div>
+
+{% else %}
+<div class="nav_li"><a href="{% url web.views.mobile %}">MOBILE</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/shoppley/navdivider.png" border=0 /></div>
+<div class="nav_li"><a href="{% url web.views.about %}">ABOUT</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/shoppley/navdivider.png" border=0 /></div>
+<div class="nav_li"><a href="{% url web.views.faq %}">FAQ</a></div>
+{% endif %}
+{% endblock %}
+
+
+{% block small %}
+{% endblock %}
+
+{% block content %}
+<div id="bigwindow">
+<div id="mobile">
+<h1>- How to Use the Mobile App -</h1>
+    <ul>
+        <li class="question">
+            Where can I get the mobile application?
+        </li>
+        <li class="answer">
+            The Shoppley mobile application is available through the Apple App Store for the iPhone and iPod Touch, or through the Android Market for Android phones.
+        </li>
+    </ul>
+    
+
+    <ul>
+    	<li class="question">
+        	The Android App:<br /><br />
+        </li>
+        
+        <div id="imgcontainer">
+
+		<div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/shoppley/00.png" /></div>
+            
+            <div class="caption">
+            View your recent purchases
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/shoppley/01.png" /></div>
+            
+            <div class="caption">
+            Add items to your wishlist...
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/shoppley/02.png" /></div>
+            
+            <div class="caption">
+            ...View their details...
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/shoppley/03.png" /></div>
+            
+            <div class="caption">
+            ...And request reviews from other users.
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/shoppley/04.png" /></div>
+            
+            <div class="caption">
+            View requests for your product reviews
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/shoppley/05.png" /></div>
+            
+            <div class="caption">
+            See purchased product details
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/shoppley/06.png" /></div>
+            
+            <div class="caption">
+            Rate and comment on your purchases
+            </div>
+        </div>
+        
+        </div>
+    </ul>
+    
+    
+    <ul>
+    	<li class="question">
+        	The iPhone App: <i>Coming Soon</i><br /><br />
+        </li>
+        
+        <!--div id="imgcontainer">
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/shoppley/i0.png" /></div>
+            
+            <div class="caption">
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/shoppley/i1.png" /></div>
+            
+            <div class="caption">
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/shoppley/i2.png" /></div>
+            
+            <div class="caption">
+            </div>
+        </div>
+        
+        <div class="imgset1">
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/shoppley/i3.png" /></div>
+            
+            <div class="caption">
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/shoppley/i4.png" /></div>
+            
+            <div class="caption">
+            </div>
+        </div>
+        
+        </div-->
+    </ul>
+
+</div>
+
+{% endblock content %}
+
+
+{% block extra_scripts %}
+<script type="text/javascript">
+$(document).ready(function(){
+     
+   });
+   
+</script>
+{% endblock %}

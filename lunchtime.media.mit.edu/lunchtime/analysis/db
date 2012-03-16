@@ -1,0 +1,9 @@
+sudo pg_dump LunchTime -U otnpostgres > /tmp/lunchtime.dump
+
+sudo psql LunchTime -U otnpostgres < lunchtime.dump
+
+vacuumdb -a -z to VACUUM ANALYZE all databases;
+pg_dump -h yaba.mit.edu LunchTime | psql -h enchalla.mit.edu LunchTime 
+
+
+http://www.postgresql.org/docs/8.1/static/backup.html

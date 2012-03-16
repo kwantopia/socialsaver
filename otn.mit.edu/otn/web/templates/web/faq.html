@@ -1,0 +1,82 @@
+{% extends "web/base.html" %}
+
+{% block page_title %}
+Open Transaction Network FAQ
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+
+.question{
+color: #f18888;
+font-size: 17px;
+}
+
+.answer{
+color: #5ecf4f;
+font-size: 15px;
+}
+
+</style>
+{% endblock %}
+
+{% block menu %}
+{% if log %}
+<li class="nav_icon"><a href="/transactions/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> TRANSACTIONS</a></li>
+<li class="nav_icon"><a href="/mobile/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> MOBILE</a></li>
+<li class="nav_icon"><a href="/about/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> ABOUT</a></li>
+<li class="nav_icon"><a href="/faq/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> FAQ</a></li>
+<li class="nav_icon"><a href="/profile/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> MY ACCOUNT</a></li>
+{% else %}
+<li class="nav_icon"><a href="/facebook/login/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> SIGN IN</a></li>
+<li class="nav_icon"><a href="/faq/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> FAQ</a></li>
+<li class="nav_icon"><a href="/mobile/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> MOBILE</a></li>
+<li class="nav_icon"><a href="/about/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> ABOUT</a></li>
+{% endif %}
+{% endblock %}
+
+{% block main %}FAQ {% endblock %}
+{% block sub %}frequently asked questions{% endblock %}
+
+{% block content %}
+
+  	<div class="question span-20 last">
+    	What browsers are supported by the Shoppley website?
+  	</div> 
+  	<div class="answer prepend-1 span-20 last">
+    	We recommend viewing this site on Mozilla Firefox, Google Chrome, Safari, or Internet Explorer 8. Earlier browser versions may not be supported.
+  	</div>
+  
+  	<hr class="space" />
+  
+  	<div class="question span-20 last">
+    	Where can I get the mobile application?
+  	</div> 
+  	<div class="answer prepend-1 span-20 last">
+    	The OTN mobile application is available through the Apple App Store for the iPhone and iPod Touch, or through the Android Market for Android phones.
+  	</div>
+  
+  	<hr class="space" />
+
+  	<div class="question span-20 last">
+      	How is Facebook Connect used? 
+  	</div>
+  	<div class="answer prepend-1 span-20 last">
+      	Facebook Connect is used so that you do not have to remember or maintain a separate user name or password.  When you login with Facebook Connect, we may know the friend relationship between your account and existing accounts or new accounts created by your friends (feature provided by Facebook).   The data is only collected for research purposes and will be either hashed or purged once the research is over upon user's request.
+  	</div>
+  
+  	<hr class="space" />
+
+  	<div class="question span-20 last">
+      	How can I contact the researchers? 
+  	</div>
+
+  	<div class="answer prepend-1 span-20 last">
+      	Currently Kwan Lee, Yod Watanaprakornkul, Eric Shyu, and Stephanie Chang from the MIT Media Lab are working on this research.  Please feel free to contact kwan at media dot mit dot edu to help us improve and make the service better so larger number of people can participate.
+  	</div>
+  
+  	<hr class="space" />
+  	<hr class="space" />
+	<hr class="space" />
+    
+{% endblock %}

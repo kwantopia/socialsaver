@@ -1,0 +1,47 @@
+HOST_NAME = "localhost:8000"
+APP_NAME = "pickadishlocal"
+
+DATABASES = {
+    'test': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'SocialMenu',                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'SocialMenu',                      # Or path to database file if using sqlite3.
+        'USER': 'otnpostgres',                      # Not used with sqlite3.
+        'PASSWORD': 'aaa',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+
+    }
+}
+
+
+PREFIX = "/home/kwan/workspace/OTNWeb/socialmenu"
+#PREFIX = "/Users/kwan/workspace/OTNWeb/"
+
+## for local development
+FACEBOOK_API_KEY = '9efda1d7d843b582052ba0fcdf101043'
+FACEBOOK_SECRET_KEY = '04d903a88b43c744fbc7e517e78dbe20'
+
+GOOGLE_API_KEY = 'ABQIAAAAtw1JH2yMfNAUgmPaNN9VkBQCULP4XOMyhPd8d_NrQQEO8sT8XBSLf36_YWyVea2ikThzBt_vr5Qwag'
+
+MEDIA_ROOT = PREFIX+'/static/media/'
+STYLES_ROOT = PREFIX+'/static/styles/'
+SCRIPTS_ROOT = PREFIX+'/static/scripts/'
+MEDIA_URL = '/media/'
+STYLES_URL = '/styles/'
+SCRIPTS_URL = '/scripts/'
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    PREFIX,
+)
+
+

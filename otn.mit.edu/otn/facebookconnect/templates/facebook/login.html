@@ -1,0 +1,18 @@
+{% extends 'web/base.html' %}
+{% load facebook_tags %}
+
+{% block menu %}
+<li class="nav_icon"><a href="/facebook/login/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> SIGN IN</a></li>
+<li class="nav_icon"><a href="/faq/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> FAQ</a></li>
+<li class="nav_icon"><a href="/mobile/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> MOBILE</a></li>
+<li class="nav_icon"><a href="/about/"><img class="menu_icon" src="/media/otn/menu_hex.png" width="27"/> ABOUT</a></li>
+{% endblock %}
+
+{% block main %}LOG IN {% endblock %}
+{% block sub %}using Facebook Connect{% endblock %}
+
+{% block content %}
+<form method="POST" action="/">
+    {% show_connect_button %}
+</form>
+{% endblock content %}

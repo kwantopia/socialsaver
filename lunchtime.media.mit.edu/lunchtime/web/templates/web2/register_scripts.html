@@ -1,0 +1,97 @@
+<!-- Scripts used for registration page -->
+<!--link rel="stylesheet" type="text/css" media="screen" href="/scripts/default/jquery-validate/demo/css/screen.css" /-->
+<style type="text/css">
+#setup {width: 670px;}
+#setup label {width: 230px;}
+#setup label.error {
+	margin-left: 10px;
+	width: auto;
+	display: inline;
+}
+#consentforms label {width:500px;}
+#consentforms input {margin-left:10px;}
+#consentforms label.error {
+	display: none;
+	margin-left: 103px;
+}
+</style>
+<script type="text/javascript" src="/scripts/default/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/scripts/default/jquery-validate/additional-methods.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("input[type=submit]").attr('disabled', 'disabled');
+        $("#setup").submit( function () {
+            $("input[type=submit]", this).attr('disabled', 'disabled');
+        });
+
+        $("#setup").validate({
+            rules: {
+                phone: {
+                    required: true,
+                    phone: true
+                },
+                mit_id: {
+                    required: true,
+                    digits: true,
+                    minlength: 9
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                pin: {
+                    digits: true,
+                    required: true,
+                    minlength: 4,
+                    maxlength: 6
+                },
+                techcashconsent: "required",
+                otnconsent: "required"
+            },
+            messages: {
+                phone: {
+                    required: "Please enter your cell phone number",
+                    phone: "Please enter a valid US phone number"
+                },
+                mit_id: {
+                    required: "Please enter your MIT ID",
+                    digits: "Your MIT ID must be numerical digits",
+                    minlength: "Your MIT ID must be 9 digits"
+                },
+                email: {
+                    required: "Please enter e-mail you use for Facebook.  It will be used as user name to login from mobile application.",
+                    email: "Please enter a valid e-mail address"
+                },
+                pin: {
+                    digits: "Use numerical digits",
+                    required: "Please enter a PIN number",
+                    minlength: "It must be at least 4 digits",
+                    maxlength: "It must be at most 6 digits"
+                },
+                techcashconsent: "Please accept policies regarding use of TechCash data",
+                otnconsent: "Please accept policies regarding the LunchTime experiment"
+            }
+        });
+
+        $('#techcashconsent').click(function() {
+            if ($('input[name=otnconsent]').is(':checked') && $('input[name=techcashconsent]').is(':checked')) {
+                $("input[type=submit]").removeAttr('disabled');
+            } else {
+                $("input[type=submit]").attr('disabled', 'disabled');
+            }
+        });
+
+        $('#otnconsent').click(function() {
+            if ($('input[name=otnconsent]').is(':checked') && $('input[name=techcashconsent]').is(':checked')) {
+                $("input[type=submit]").removeAttr('disabled');
+            } else {
+                $("input[type=submit]").attr('disabled', 'disabled');
+            }
+
+        });
+
+    });
+
+</script>
+
+

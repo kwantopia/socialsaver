@@ -1,0 +1,49 @@
+#
+#  lunchtime.media.mit.edu 
+# (/etc/apache2/sites-available/lunchtime.media.mit.edu)
+#
+<VirtualHost *>
+        ServerName  lunchtime.media.mit.edu
+        ServerAlias lunchtime.media.mit.edu 
+        ServerAdmin kwan@media.mit.edu
+
+        Alias /xd_receiver.htm /home/www/lunchtime.media.mit.edu/lunchtime/static/xd_receiver.htm
+        Alias /crossdomain.xml /home/www/lunchtime.media.mit.edu/lunchtime/static/crossdomain.xml
+        Alias /robots.txt /home/www/lunchtime.media.mit.edu/lunchtime/static/robots.txt
+        Alias /favicon.ico /home/www/lunchtime.media.mit.edu/lunchtime/static/favicon.ico
+
+        #AliasMatch /([^/]*\.css) /home/www/lunchtime.media.mit.edu/lunchtime/static/styles/$1
+
+        Alias /media/ /home/www/lunchtime.media.mit.edu/lunchtime/static/media/
+        Alias /scripts/ /home/www/lunchtime.media.mit.edu/lunchtime/static/scripts/
+        Alias /styles/ /home/www/lunchtime.media.mit.edu/lunchtime/static/styles/
+        Alias /php/ /home/www/lunchtime.media.mit.edu/lunchtime/static/php/
+        Alias /api /home/www/lunchtime.media.mit.edu/lunchtime/static/api/build/html/
+
+        <Directory /home/www/lunchtime.media.mit.edu/lunchtime/static>
+            Order deny,allow
+            Allow from all
+        </Directory>
+
+        WSGIDaemonProcess lunchtime.media.mit.edu processes=2 threads=15 display-name=${GROUP}
+        WSGIProcessGroup lunchtime.media.mit.edu
+
+        # Django root for lunchtime site
+        WSGIScriptAlias / /home/www/lunchtime.media.mit.edu/lunchtime/apache/lunchtime.wsgi
+
+        <Directory /home/www/lunchtime.media.mit.edu/lunchtime/apache>
+            Order allow,deny
+            Allow from all
+        </Directory>
+
+        # CGI Directory
+        ScriptAlias /cgi-bin/ /home/www/lunchtime.media.mit.edu/cgi-bin/
+        <Location /cgi-bin>
+                Options +ExecCGI
+        </Location>
+
+        # Logfiles
+        ErrorLog  /home/www/lunchtime.media.mit.edu/logs/error.log
+        CustomLog /home/www/lunchtime.media.mit.edu/logs/access.log combined
+</VirtualHost>
+

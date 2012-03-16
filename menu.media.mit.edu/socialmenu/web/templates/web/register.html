@@ -1,0 +1,76 @@
+    <style type="text/css">
+        /* Registration Form */
+        .consent {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <form id="setup" action="" method="post" accept-charset="utf-8" class="nice-form">
+        {% csrf_token %}
+        <p>
+            <p style="margin-left:30px">You will be using the e-mail and PIN you create here to login to the digital menu at the restaurant.</p>
+    </p>
+			<input type="hidden" name="facebook_only" value="false" id="facebook_only">
+			<input type="hidden" name="next" value="{{ next }}" id="next">
+            <input type="hidden" name="mit_id" value="999999999">
+            <input type="hidden" name="phone" value="617-999-9999">
+        <div class="span-20 last">
+        <fieldset>
+            <legend>Create PIN (for <i>mobile access</i>)</legend>
+            <p>
+            <div class="span-20 last">
+              <div class="profile-label prepend-1 span-6">
+                <label for="email">Email (i.e. use your Facebook e-mail for easy recall)</label>
+              </div>
+              <div class="span-13 last">
+                <input type="text" class="text" id="email" name="email"/>
+              </div>
+            </div>
+            </p>
+            <p>
+            <div class="span-20 last">
+              <div class="profile-label prepend-1 span-6">
+                <label for="pin">PIN (4-6 digits)</label>
+              </div>
+              <div class="span-13 last">
+                <input type="password" class="text" id="pin" name="pin"/>
+              </div>
+            </div>
+            </p>
+            <input type="hidden" name="techcashconsent" id="techcashconsent" value="1"/>
+            <p>
+            
+            <div class="consent span-20 last">
+              <div class="span-20 last">
+                <div class="prepend-1 span-1">
+                  <input type="checkbox" name="readconsent" id="readconsent" value="1" />
+                </div>
+                <div class="span-18 last">
+                <label for="readconsent">
+                  I have read the terms of DigitalMenu research experiment (<a href="/web/consent/otn/" target="_blank">Terms</a>)
+                </label>
+                </div>
+              </div>
+              <div class="span-20 last">
+                <div class="prepend-1 span-1">
+                  <input type="checkbox" name="otnconsent" id="otnconsent" value="1"/>
+                </div>
+                <div class="span-18 last">
+                <label for="otnconsent">
+                  I consent to the terms of DigitalMenu research experiment 
+                </label>
+                </div>
+              </div>
+            </div>
+            </p>
+        </fieldset>
+        <p>
+        <div class="prepend-18 span-1 last">
+        <input name="continue" id="continue" type="submit" value="Continue">
+        </div>
+        </p>
+
+        </div>
+    </form>
+			
+

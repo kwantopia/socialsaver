@@ -1,0 +1,15 @@
+{% extends 'web2/base.html' %}
+{% load facebook_tags %}
+
+{% block content %}
+
+    <p>
+    Login by clicking:
+    {% show_connect_button %}
+    </p>
+    
+    <p>
+    If you came here and you don't reach the above page depicted in the image after Facebook Login, please contact Kwan (kwan at media.mit.edu)
+    </p>
+{% endblock content %}
+

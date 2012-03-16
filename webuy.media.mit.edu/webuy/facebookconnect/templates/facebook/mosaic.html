@@ -1,0 +1,7 @@
+<div class="mosaic">
+    {% for p in profiles %}
+        <a href="{{ p.profile_url }}">
+            <img src="{{ p.pic_square }}" alt="{{ p.name }}" title="{{ p.name }}" border="0" />
+        </a>
+    {% endfor %}
+</div>

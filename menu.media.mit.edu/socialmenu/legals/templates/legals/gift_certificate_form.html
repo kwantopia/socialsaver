@@ -1,0 +1,133 @@
+{% load facebook_tags %}
+<!-- This page is shown only when user logs in -->
+
+{% block content %}
+
+{% if authorized %}
+    <!-- put person's information -->
+    <div class="prepend-1 span-13 last">
+      <h2>{{ comp.user.otnuser.name }}</h2>
+    </div>
+
+    <form action="/legals/gift/certificate/{{subject_id}}/" method="POST">
+      <div class="span-14 last">
+        <div id="update-status" class="success span-14 last">
+          Updated successfully. 
+        </div>
+
+        <div class="span-14 last">
+          {% if form.address.errors %}
+          <div class="error span-14 last">
+            {{ form.address.errors }}
+          </div>
+          {% endif %}
+          <div class="default-form-label span-4">
+            {{ form.address.label_tag }}
+          </div>
+          <div class="span-10 last">
+            {{ form.address }}
+          </div>
+        </div>
+
+        <div class="span-14 last">
+          {% if form.city.errors %}
+          <div class="error span-14 last">
+            {{ form.city.errors }}
+          </div>
+          {% endif %}
+          <div class="default-form-label span-4">
+            {{ form.city.label_tag }}
+          </div>
+          <div class="span-10 last">
+            {{ form.city}}
+          </div>
+        </div>
+
+        <div class="span-14 last">
+          {% if form.state.errors %}
+          <div class="error span-14 last">
+            {{ form.state.errors }}
+          </div>
+          {% endif %}
+          <div class="default-form-label span-4">
+            {{ form.state.label_tag }}
+          </div>
+          <div class="span-10 last">
+            {{ form.state }}
+          </div>
+        </div>
+
+        <div class="span-14 last">
+          {% if form.zipcode.errors %}
+          <div class="error span-14 last">
+            {{ form.zipcode.errors }}
+          </div>
+          {% endif %}
+          <div class="default-form-label span-4">
+            {{ form.zipcode.label_tag }}
+          </div>
+          <div class="span-10 last">
+            {{ form.zipcode }}
+          </div>
+        </div>
+
+        <div class="span-14 last">
+          {% if form.certificates.errors %}
+          <div class="error span-14 last">
+            {{ form.certificates.errors }}
+          </div>
+          {% endif %}
+          <div class="default-form-label span-4">
+            {{ form.certificates.label_tag }}
+          </div>
+          <div class="span-10 last">
+            {{ form.certificates }}
+          </div>
+        </div>
+
+        <div class="span-14 last">
+          <div class="prepend-10 span-2 last">
+            <input type="submit" name="update" value="Save">
+          </div>
+        </div>
+      </div>
+    </form>
+{% else %}
+  <h3>One does not have access</h3>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script type="text/javascript" src="http://www.google.com/jsapi?key={{GOOGLE_API_KEY}}"></script>
+<script type="text/javascript">
+  google.load("jquery", "1.4.2"); 
+  google.load("jqueryui", "1.8.1");
+</script>
+
+<script type="text/javascript">
+  $("document").ready( function () {
+    $("form").submit( function () {
+
+      $("#cert{{subject_id}}").text($("#id_certificates").attr("value"));
+
+      $.post('/legals/gift/certificate/{{subject_id}}/', 
+        {'address': $("#id_address").attr("value"), 
+          'city': $("#id_city").attr("value"),
+          'state': $("#id_state").attr("value"),
+          'zipcode': $("#id_zipcode").attr("value"),
+          'certificates': $("#id_certificates").attr("value")},
+        function(data) {
+          if (data['result'] == 1) {
+            $('#update-status').text("Update successful").show().fadeOut(2000);
+          } else {
+            $('#update-status').html("There was a problem updating:"+data['errors']).show().fadeOut(5000);
+          }
+        }
+      );
+      return false;
+    });
+  });
+</script>
+
+{% endblock %}

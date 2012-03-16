@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>{% block title %}{{ restaurant.name }} Menu{% endblock title %}</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/>
+<link rel="apple-touch-icon" href="/media/mobile/{{ header }}-icon.png" />
+<meta name="apple-touch-fullscreen" content="YES" />
+
+<style type="text/css" media="screen">
+@import url("/media/iui/iui.css");
+</style>
+<script type="application/x-javascript" src="/media/iui/iui.js"></script>
+<script type="application/x-javascript" src="/scripts/default/jquery-1.3.2.min.js"></script>
+<script type="application/x-javascript" src="/scripts/default/json2.js"></script>
+<link  rel="stylesheet"  href="/styles/default/menu.css" type="text/css"  media="screen, mobile"  />
+<link  rel="stylesheet"  href="/styles/default/480.css" type="text/css"  media="screen, mobile"  />
+<script type="text/javascript">
+	iui.animOn = true;
+</script>
+
+<style type="text/css">
+body > .toolbar {
+    background: url(/media/mobile/{{ header }}-header.png) #6d84a2 repeat-x;
+}
+</style>
+
+<script type="text/javascript">
+    var order_submitted = false;
+	function Item(number, name, description, price) {
+		this.number = number;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.ordered = 0;
+		this.markOrdered = function(checkbox) {
+			this.ordered = checkbox.checked;
+			console.log('Item '+this.number+' is '+this.ordered);
+            
+			return true;
+		};
+		this.toggleOrdered = function(item) {
+			console.log(this.number);
+			var id = "ordered_button"+this.number
+			console.log(id);
+			div = document.getElementById("ordered_button"+this.number)
+			console.log(div)
+			if (div.children[0].checked == true) {
+				div.children[0].checked = false;
+			} else {
+				div.children[0].checked = true;
+			}
+			this.markOrdered(div.children[0]);
+			/* regenerate */
+			viewCart();
+			return true;
+		};
+		return true;
+	}
+	function Items() {
+
+		this.getOrdered = function() {
+			var order = [];
+			order[0] = false;
+			console.log(this);
+			for (i=1; i< countItemList(items); i++) {
+				if (isset(this[i])) {
+					if (this[i].ordered == 1) {
+						order[i] = true;
+						console.log(this[i])
+					}
+					else {
+						order[i] = false;
+					}
+				}
+			}
+			console.log(order);
+			return order;
+		};
+
+
+        this.justOrdered = function() {
+            var order = items.getOrdered();
+            var tosubmit = new Array(); 
+            for (var i = 1; i < order.length; i++) {
+                if (order[i] == true) {
+                    tosubmit.push(items[i].number);
+                }
+            }
+            return tosubmit;
+        };
+
+		return true;
+	}
+    var items_info;
+    var items = new Items();
+    $(document).ready( function () {
+        $.get("/legals/m/json/menu/", function(data) {
+            items_info = eval(data);
+
+            //find max assigned id
+            var max = 0;
+            for (var i in items_info) {
+                if (parseInt(items_info[i]['id']) > max) {max = items_info[i]['id'];}
+            }
+            console.log('max: '+max);
+            for (var i = 0; i<max; i++) { //fix so largest value
+                items[items_info[i]['id']] = new Item(items_info[i]['id'], items_info[i]['name'], items_info[i]['description'], items_info[i]['price']);
+            }
+
+        });
+    });
+
+	
+	function countItemList (items_info) {
+		var j =0;
+		for (var i in items_info) {
+			j++;
+		}
+		return j;
+	}
+	
+	function viewCart() {
+		var order = items.getOrdered();
+		var nothing = true;
+		document.getElementById('cartlist').innerHTML = ''; //blank it
+        if (order_submitted == true) {
+
+            document.getElementById('cartlist').innerHTML = '<div>Your order has been saved to the digital menu site.  You will still have to tell your order to the server.</div>';
+            for (var i = 1;i<order.length;i++) {
+                if (order[i] == true) {
+                    console.log(items[i]);
+                    document.getElementById('cartlist').innerHTML += '<li><div class="name">'+items[i].name+'</div><div class="price">'+items[i].price+'</div><div class="description">'+items[i].description+'</div></li>';
+                    nothing = false;
+                }
+            }
+        } else {
+            for (var i = 1;i<order.length;i++) {
+                if (order[i] == true) {
+                    console.log(items[i]);
+                    document.getElementById('cartlist').innerHTML += '<li><div class="name">'+items[i].name+'</div><div class="price">'+items[i].price+'</div><div class="delete"><img src="/media/mobile/delete.png" onclick="items['+i+'].toggleOrdered(this);"/></div><div class="description">'+items[i].description+'</div></li>';
+                    nothing = false;
+                }
+            }
+        }
+        if (nothing == true) {
+            document.getElementById('cartlist').innerHTML = 'You have not mark anything as ordered!';
+        }
+	}
+
+    function submitOrder(b) {
+
+        var tosubmit = items.justOrdered();
+        var order = items.getOrdered();
+        $.post("/legals/m/order/", {"items": JSON.stringify(tosubmit), "table":"5A48"}, function(data) {
+                    if (data["result"] == "1") {
+                        console.log("Successful POST of ordered items");
+                    } else {
+                        console.log("Failed POST of ordered items");
+                    }
+                }, "json");
+
+        document.getElementById('cartlist').innerHTML = '<div>Your order has been saved to the digital menu site.  You will still have to tell your order to the server.</div>';
+        for (var i = 1;i<order.length;i++) {
+            if (order[i] == true) {
+                console.log(items[i]);
+                document.getElementById('cartlist').innerHTML += '<li><div class="name">'+items[i].name+'</div><div class="price">'+items[i].price+'</div><div class="description">'+items[i].description+'</div></li>';
+            }
+        }
+        //change button's look and make inactive
+        $("#submitorder").remove();
+        order_submitted = true;
+    }
+
+	function isset () {
+    // !No description available for isset. @php.js developers: Please update the function summary text file.
+    // 
+    // version: 909.322
+    // discuss at: http://phpjs.org/functions/isset
+    // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // +   improved by: FremyCompany
+    // +   improved by: Onno Marsman
+    // *     example 1: isset( undefined, true);
+    // *     returns 1: false
+    // *     example 2: isset( 'Kevin van Zonneveld' );
+    // *     returns 2: true
+    
+    var a=arguments, l=a.length, i=0;
+    
+    if (l===0) {
+        throw new Error('Empty isset'); 
+    }
+    
+    while (i!==l) {
+        if (typeof(a[i])=='undefined' || a[i]===null) { 
+            return false; 
+        } else { 
+            i++; 
+        }
+    }
+    return true;
+}
+
+</script>
+
+</head>
+<body>
+    <div class="toolbar">
+        <h1 id="pageTitle"></h1>
+        <a id="backButton" class="button" href="#"></a>
+        <a id="cartbutton" class="button greenButton" href="#cart" onclick="javascript:viewCart();">My Order</a>
+    </div>
+ 
+{% block content %}
+
+{% endblock content %}
+</body>

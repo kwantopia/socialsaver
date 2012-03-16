@@ -1,0 +1,42 @@
+{% extends "web/base.html" %}
+
+{% block page_title %}
+OTN - Home
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+table.table-pad td{
+padding-bottom:30px;
+}
+</style>
+{% endblock %}
+
+{% block main %}HOME {% endblock %}
+{% block sub %}open transaction network at the MIT Media Lab{% endblock %}
+
+{% block sidebar %}
+	<h2>Friends</h2>
+    <table class="table-pad">
+        {% for friend in friends_list %}
+          <tr>
+          <td style="text-align:center"><img src="{{ friend.get_image }}" border=0></img></td>
+          <td><a href="/friend/{{ friend.id }}"> {{ friend.name }} </a></td>
+          </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block window %}
+	<h2>Recent OTN Activity</h2>
+	<hr class="space" />
+
+    {% for f in feeds %}
+        <div class="span-16 last">
+        	{% autoescape off %}
+            {{ f.markup }}
+            {% endautoescape %}
+        </div>
+        <hr class="space" />
+    {% endfor %}
+{% endblock %}

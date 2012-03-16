@@ -1,0 +1,69 @@
+{% extends 'web/base.html' %}
+
+<!-- Top Landing Page where user can choose the experiments -->
+
+{% block page_title %}
+Home
+{% endblock %}
+
+{% block tabnav %}
+        	<li><a href="/web/">Home</a></li>
+            <li><a href="/legals/winners/">Winners</a></li>
+        	<li><a href="/web/faq/">FAQ</a></li>
+{% endblock tabnav %}
+
+{% block content %}
+
+    <h2>Go to <a href="/legals/">Legal's Study</a> to register.
+    </h2>
+
+	<h2>Choose from our 2 studies:</h2>
+	<div id="experiments">
+		<table class="image" style="margin-left:auto;margin-right:auto">
+			<tr><td><a href="/legals"><img src="{{STATIC_URL}}media/images/Legals.png" /></a></td>
+			<td><img src="{{STATIC_URL}}media/images/MIT-Campus-Dining.png" /></td></tr>
+			<!--<td><a href="/mit"><img src="/media/images/MIT-Campus-Dining.png" /></a></td></tr>-->
+			<tr><td><span class="subtext">(For now) Kendall Square, Cambridge Location Only</span></td>
+			<td><span class="subtext">MIT Community Only</span></td></tr>
+		</table>
+			</div>
+    
+{% endblock content %}
+
+{% block midboxes %}
+
+<div id="leftCol">
+      <h2>Your phone is the menu!</h2>
+      <p>Use your phone to browse the menu at either Legal Sea Foods' Kendall Square location or on-campus dining locations at MIT.  
+	  Then, tell us about your meal on this website.  We are studying how digital menus changes your dining experience.</p>
+    </div>
+
+    <div id="boxContainer">
+      <div>
+      	<h2>Supported Phones</h2>
+		<ul>
+			<li>iPhone</li>
+            <!--
+			<li>iPod Touch (for MIT Campus Dining only)</li>
+			<li>Android Phones (Droid, myTouch, etc)</li>
+			<li>Palm WebOS (Pre, Pixi)</li>
+            -->
+		</ul>
+      </div>	
+      <!--
+      <div class="box work">
+        <h2>Our work</h2>
+        <p>Our research investigates the design elements for the digital menu.  
+		We also hope to provide tools that can help reflect on your eating habits.</p>
+      </div>
+      
+      <div class="box book">
+        <h2>Stores</h2>
+        <p>Encourage other stores to use digital menu.</p>
+      </div>
+      -->
+    </div>
+    <!-- end boxContainer -->
+
+{% endblock midboxes %}
+

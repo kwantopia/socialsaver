@@ -1,0 +1,15 @@
+body {
+  width: 320px;
+}
+
+#mobile-body {
+  width: 320px;
+}
+
+.survey-questions ul {
+    list-style-type:none;
+}
+
+.survey-questions li {
+    margin-left: -40px;
+}

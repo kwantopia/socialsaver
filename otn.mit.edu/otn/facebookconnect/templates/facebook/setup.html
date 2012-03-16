@@ -1,0 +1,60 @@
+{% extends "web/base.html" %}
+
+{% block page_title %}
+Personal Information Registration
+{% endblock %}
+
+
+{% load facebook_tags %}
+{% block content %}
+<h1>Create Mobile Login</h1>
+    <p>
+    <div class="pagetext span-20 last">
+      	<div class="prepend-1 span-10 last">
+          	<div class="span-2">
+            	<span style="margin:0 .4em .4em 0; height:25px; width:25px" height="25px">{% show_facebook_photo user %}</span>
+          	</div>
+          	<div class="span-8 last">
+            	Name: {% show_facebook_name user %}
+          	</div>
+        </div>
+        
+        <div class="span-20 last">
+    <!--     <p>
+        If you wanted to collect further user information (ie cell phone #) you would ask the
+        user here.  The steps to do so would be:<br />
+        <ul> -->
+        {% include "web/register.html" %}
+        
+        </div>
+            <!--<li>create a new html form below</li>
+            <li>create a hidden element in the form:  facebook_only with a value of false</li>
+            <li>create a hidden element in the form:  next  with a value == {{ next }}</li>
+            <li>edit the facebookconnect->views.py->setup method (modify the section starting with form.is_valid())</li>-->
+    <!--     </ul>
+        </p> -->
+
+
+    <!--   <h2>Please click the continue button to continue</h2>
+      <p>
+        Doing so will
+            <ul>
+                <li>create a user in auth_user with an username equal to your facebook user id</li>
+                <li>create a record in the facebookconnect_facebookprofile table</li>
+            </ul>
+      </p>
+      <form action="" method="post" accept-charset="utf-8" class="nice-form">
+        <input type="hidden" name="facebook_only" value="true" id="facebook_only">
+        <input type="hidden" name="next" value="{{ next }}" id="next">
+        <p><input type="submit" value="Continue"></p>
+      </form> -->
+
+    </div><!-- span-20 -->
+
+{% endblock content %}
+
+{% block extra_scripts %}
+
+    {% include "web/register_scripts.html" %}
+ 
+{% endblock %}

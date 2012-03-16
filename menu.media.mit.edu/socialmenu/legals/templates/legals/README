@@ -1,0 +1,12 @@
+=== Web ===
+base.html
+index.html
+home.html
+
+
+=== Mobile ===
+
+mobile_base.html
+login.html
+menu.html
+searchform.html

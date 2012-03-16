@@ -1,0 +1,18 @@
+<center>
+<div>
+	<p style="padding:5px;"><strong>Welcome to the Digital Menu Trial</strong>.  When you arrive at Legal Sea Foods in Cambridge, use this app to browse the menu.</p>
+	<!-- notification here if survey -->
+				<div class="post" id="warnings">
+					{% block warnings %}
+						
+					<div class="warning" style="background: #FFF4AB;border:1px solid #FFDE05;padding:3px;">Add Wesabe and make $10</div>
+					<div class="warning" style="background: #FFF4AB;border:1px solid #FFDE05;padding:3px;">Take the survey!</div>
+	
+					{% endblock warnings %}	
+				</div>
+				
+	<div class="blueButton" style="margin-top:0;"><a height="35px" href="/legals/m/menu/{{ exp_id }}/"><span>See Menu</span></a></div>
+	<div style="height:300px; padding:5px;color:#C8C8C8;">Scroll down for past orders</div>
+	<h2 style="padding:5px;">Past Orders</h2>
+</div>
+</center>

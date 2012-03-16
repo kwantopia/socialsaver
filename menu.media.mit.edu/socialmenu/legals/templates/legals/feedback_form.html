@@ -1,0 +1,10 @@
+{% extends "legals/base.html" %}
+
+{% block content %}
+
+<form action="/legals/feedback/post/" method="POST">
+{{ form.as_ul }}
+<input type="submit" value="Submit"/>
+</form>
+
+{% endblock %}

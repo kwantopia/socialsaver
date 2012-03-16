@@ -1,0 +1,103 @@
+{% extends "web2/base.html" %}
+
+
+{% load facebook_tags %}
+<!-- This page is shown only when user logs in -->
+
+{% block page_title %}
+{% show_facebook_full_name fbuser %} - Surveys 
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+#surveys{
+margin:auto;
+width:900px;
+}
+
+h3{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-size:12pt;
+font-weight:normal;
+font-style:italic;
+text-align:center;
+margin-top:-5px;
+margin-bottom:30px;
+}
+
+.border{
+width:600px;
+margin:auto;
+border-bottom:thin solid #004f09;
+padding-bottom:20px;
+margin-bottom:20px;
+}
+
+.wrap{
+width:600px;
+height:50px;
+}
+
+.survey{
+width:350px;
+float:left;
+margin-top:10px;
+}
+
+.complete{
+width:250px;
+margin-top:10px;
+float:right;
+text-align:right;
+}
+
+.survey-title{
+width:350px;
+}
+
+.descrip{
+width:350px;
+padding-left:20px;
+}
+</style>
+{% endblock %}
+
+{% block small %}
+{% endblock %}
+
+
+{% block content %}
+<div id="bigwindow">
+<div id="surveys">
+	<h1>- Surveys -</h1>
+	<h3>There will be a $50 Amazon or Apple gift certificate raffle for each survey ({{ surveys|length }} raffles).</h3>
+<!-- show list of surveys -->
+    {% for s in surveys %}
+    <div class="border">
+        <div class="wrap">
+            <div class="survey">
+            		<b>
+                    {% if s.completed %}
+                        {{ s.survey.title }}
+                    {% else %}
+                        <a href="{% url survey.views.survey s.survey.id %}">{{ s.survey.title }}</a>
+                    {% endif %}
+                    </b>
+                <br />
+                	<span style="padding-left:20px"><i>{{ s.survey.description }}</i></span>
+            </div>
+            
+            <div class="complete">
+                {% if s.completed %}
+                    Completed on {{ s.complete_date|date }}
+                {% else %}
+                    Not completed
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+  	{% endfor %}
+  	
+</div>
+{% endblock %}

@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+
+Name       : Compromise
+Description: A two-column, fixed-width design with dark color scheme.
+Version    : 1.0
+Released   : 20081103
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>SocialSaver from the MIT Media Lab</title>
+<link href="/media/style.css" rel="stylesheet" type="text/css" media="screen" />
+</head>
+<body>
+	<div id="header">
+		<div id="logo">
+			<h1><a href="#"><img src="/media/images/SocialSaver_50.png" height="50px" style="border:none" /><span class="img_replace">SocialSaver</span></a></h1>
+			<p style="margin-left:330px;margin-top:64px"> from the <a href="http://www.media.mit.edu/">MIT Media Lab</a></p>
+		</div>
+	</div>
+	<!-- end #header -->
+	<div id="menu">
+		<ul>
+			<li class="first"><a href="#">Home</a></li>
+			<li><a href="#">Blog</a></li>
+			<li><a href="#">Photos</a></li>
+			<li><a href="#">About</a></li>
+			<li><a href="#">Links</a></li>
+			<li><a href="#">Contact</a></li>
+		</ul>
+	</div>
+	<!-- end #menu -->
+<div id="wrapper">
+<div class="btm">
+	<div id="page">
+		<div id="content">
+			<div class="post">
+				<!--<h1 class="title">SocialSaver saves you money!</h1>
+				<div class="entry">
+					<p>This is <strong>Compromise</strong>, a free, fully standards-compliant CSS template designed by FreeCssTemplates<a href="http://www.nodethirtythree.com/"></a> for <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>. The photo used in this design is from <a href="http://www.pdphoto.org/">PDPhoto.rog</a>. This free template is released under a <a href="http://creativecommons.org/licenses/by/2.5/">Creative Commons Attributions 2.5</a> license, so you’re pretty much free to do whatever you want with it (even use it commercially) provided you keep the links in the footer intact. Aside from that, have fun with it :)</p>
+					<p>Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. In nulla tortor, elementum ipsum. Proin imperdiet est. Phasellus dapibus semper urna. Pellentesque ornare, orci in felis. Donec ut ante. In id eros. Suspendisse lacus turpis, cursus egestas at sem.</p>
+				</div>-->
+				<div id="reciepts_list">
+					<ul>
+                        {% for r in receipts %}
+						<li>
+							<table><tr>
+							<td><a href="{{ r.basic.img.url }}"><img src="http://www.affm.net/newsletters/2007/images/receipts_001.gif" width="50px"></a></td>
+							<td valign="top"><div class="title">{{ r.business.name }}</div>
+							<div class="date">{{ r.basic.purchase_date }}</div>
+							<div class="subtotal">Subtotal: <span>${{ r.basic.amount }}</span></div>
+							<div class="tax">Tax: <span>${{ r.tax }}</span></div>
+							<div class="tip">Tip: <span>${{ r.tip }}</span></div>
+							<div class="total">Total: <span>${{ r.basic.amount }}</span></div>
+							</td></tr></table>
+						</li>
+                        {% endfor %}
+					</ul>
+				</div>
+				<!--<p class="meta">Posted by <a href="#">Someone</a> on March 10, 2008
+					&nbsp;&bull;&nbsp; <a href="#" class="comments">Comments (64)</a> &nbsp;&bull;&nbsp; <a href="#" class="permalink">Full article</a></p>-->
+			</div>
+		</div>
+		<!-- end #content -->
+		<div id="sidebar">
+			<ul>
+				<li>
+					<h2><img src="/media/images/SocialMenu_Logo_50.png"/> <img src="/media/images/SocialMenu_20.png"/><span class="img_replace">SocialMenu</span></h2>
+					<p>
+						TestTestTestTestTestTestTest
+					</p>
+					<h2><img src="/media/images/LunchTime_Logo_50.png"/> <img src="/media/images/LunchTime_20.png"/><span class="img_replace">LunchTime</span></h2>
+					<p>
+						TestTestTestTestTestTestTest
+					</p>
+					<h2>Receipts</h2>
+					<p>
+						Test
+					</p>
+				</li>
+			</ul>
+		</div>
+		<!-- end #sidebar -->
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+	<!-- end #page -->
+</div>
+</div>
+	<div id="footer">
+		<p>Copyright (c) 2008 Sitename.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.</p>
+	</div>
+	<!-- end #footer -->
+</body>
+</html>

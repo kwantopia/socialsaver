@@ -1,0 +1,42 @@
+{% extends "legals/base.html" %}
+
+{% block page_title %}
+Winners!
+{% endblock %}
+
+{% block tabnav %}
+  <li><a href="{% url legals.views.index %}">Home</a></li>
+  <li><a href="{% url survey.views.surveys %}">Surveys</a></li> 
+  <li><a href="{% url legals.views.winners %}">Winners</a></li>
+  <li><a href="{% url legals.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+{% block content %}
+
+    <!--
+    <div class="notice">
+    </div>
+    -->
+    <div class="span-18 last">
+        {% for w in winners %}
+        <div class="prepend-2 span-16 last">
+        {% if forloop.counter|divisibleby:"2" %}
+            <div class="span-16 last">
+        {% else %}
+            <div class="evenrow span-16 last">
+        {% endif %}
+                <div class="prepend-1 span-5">
+                    {{ w.anonymous_name }}
+                </div>
+                <div class="span-6">
+                    {{ w.prize }}
+                </div>
+                <div class="span-4 last">
+                    {{ w.timestamp|date:"D d M Y" }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

@@ -1,0 +1,21 @@
+{% extends "legals/mobile_base.html" %}
+
+{% block content %}
+<form selected="true" title="Login" class="panel" method="POST" action="/mit/m/login/" target="_self">
+    <fieldset>
+        <div class="row">
+            <label>E-mail</label>
+            <input type="text" name="email" value=""/>
+        </div>
+        <div class="row">
+            <label>PIN</label>
+            <input type="password" name="PIN" value=""/>
+        </div>
+        <div class="row">
+            <label>Table Code</label>
+            <input type="text" name="Table Code" value=""/>
+        </div>
+    </fieldset>
+    <a class="whiteButton" type="submit" href="#">Login</a>
+</form>
+{% endblock content %}

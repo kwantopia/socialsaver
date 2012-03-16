@@ -1,0 +1,34 @@
+<ul id="cat{{ category.id }}" title="{{ category.name }}" class="items">
+    <input type="hidden" name="experiment" value="{{exp_id}}">
+    {% if category.description %}
+        <div class="cat_description">{{ category.description }}</div>
+    {% else %}
+        <div class="cat_description">{{ category.name }}</div>
+    {% endif %}
+
+    {% for key,val in menu_data.items %}
+        <li class="menuitem">
+          <a href="/legals/m/item/{{ key }}/{{ order_id }}/" style="clear:both;">{{ val.item.name }}
+            <span class="price">
+                {{ val.item.price }}
+            </span>
+              <div class="nodescription">&nbsp;</div>
+            {% if exp_id in friend_experiment %}
+                {% if val.friend_label %}
+                    <div class="friends">{{ val.friend_label }}</div>
+                {% endif %}
+            {% endif %}
+
+            {% if exp_id == 3 %}
+                {% if val.anonymous %}
+                    <div class="friends">{{ val.anonymous }}</div>
+                {% endif %}
+            {% endif %}
+
+          </a>
+        </li>
+    {% endfor %}
+
+</ul>
+
+

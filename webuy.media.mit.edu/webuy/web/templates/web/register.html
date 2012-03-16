@@ -1,0 +1,38 @@
+    <form class="cmxform" id="setup" action="" method="post" accept-charset="utf-8" class="nice-form">
+        {% csrf_token %}
+        <p>
+        </p>
+        <fieldset>
+            <legend>The following information are required to participate in the trial.</legend>
+
+			<input type="hidden" name="facebook_only" value="false" id="facebook_only">
+			<input type="hidden" name="next" value="{{ next }}" id="next">
+            <p>
+            The information entered will only be used for the research trial and will not be used for any other purposes.
+            </p>
+        </fieldset>
+        <fieldset>
+                <legend>E-mail (i.e. that you use for Facebook) and PIN are required for <i>mobile access</i></legend>
+                <p>
+                <label for="email">Email (used for logging into mobile)</label>
+                <input type="text" id="email" name="email"/>
+                </p>
+                <p>
+                <label for="pin">PIN (4-6 digits)</label>
+                <input type="password" id="pin" name="pin"/>
+                </p>
+        </fieldset>
+        <fieldset id="consentforms">
+            <p>
+            <input type="hidden" name="otnconsent" id="otnconsent" value="1" onclick="consent()"/>
+            <!--
+            <label for="otnconsent">
+	        I consent to the terms of DigitalMenu research experiment (<a href="/web/consent/otn/" target="_blank">Terms</a>)
+            </label>
+            </p>
+            -->
+			<p>
+            <input name="continue" id="continue" type="submit" value="Continue">
+            </p>
+        </fieldset>
+    </form>

@@ -1,0 +1,74 @@
+
+/*
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+body {
+	margin: 0;
+	padding: 0;
+	background: #eff6e9 url(images/headerbar.png) repeat-x;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #566761;
+}
+
+/* Header */
+
+#header-wrapper {
+	height: 40px;
+	background: #3a7f0b;
+}
+
+#header {
+	width: 950px;
+	margin: 0 auto;
+	padding: 0px 0px 0px 30px;
+}
+
+
+
+	color: #FFFFFF;
+	border: none;
+}
+
+#menu a:hover, #menu .current_page_item a {
+}
+
+#menu .current_page_item a {
+}
+
+/* Page */
+
+#page {
+	width: 980px;
+	min-height: 500px;
+	margin: 0 auto;
+	padding: 0px 0px 0px 0px;
+}
+
+
+/* Footer */
+
+#footer {
+	height: 50px;
+	margin: 10px auto 0 auto;
+	padding: 0px 0 15px 0;
+	background: #5e9936;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+#footer p {
+	margin: 0;
+	padding-top: 20px;
+	line-height: normal;
+	font-size: 9px;
+	text-transform: uppercase;
+	text-align: center;
+	color: #767676;
+}
+
+#footer a {
+	color: #767676;
+}

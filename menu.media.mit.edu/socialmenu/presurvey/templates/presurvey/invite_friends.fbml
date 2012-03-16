@@ -1,0 +1,10 @@
+<fb:request-form action="/{{ appname }}/legals/completed/"
+                 method="POST" invite="true" type="Digital Menu"
+                 content="{{ content }}">
+                {% csrf_token %}
+                 <h3>You may also invite by directly e-mailing the link <b style="color:blue;">http://apps.facebook.com/{{appname}}/</b> to your Facebook friends.</h3>
+                 <p>
+     <fb:multi-friend-selector max="30"
+           actiontext="Invite your friends in the world to share their tastes!"
+           showborder="true" rows="5" exclude_ids="{{ exclude_ids }}">
+</fb:request-form>

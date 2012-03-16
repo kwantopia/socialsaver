@@ -1,0 +1,236 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body{
+text-align:center;
+background-image:url('../../../static/media/shoppley/bg_gradient2.jpg');
+background-position:bottom;
+background-repeat:repeat-x;
+}
+
+a{
+text-decoration:none;
+color:#000000;
+}
+
+#container{
+width: 800px;
+margin: auto;
+text-align:left;
+}
+
+#logo{
+width:400px;
+height:50px;
+text-align:left;
+padding:20px;
+margin-top:20px;
+margin-left:0px;
+float:left;
+}
+
+.login{
+width:200px;
+float:right;
+margin-top:20px;
+margin-bottom:20px;
+color:#ffffff;
+}
+
+#user{
+float:right;
+height:10px;
+font-family:Arial, Helvetica, sans-serif;
+font-size:1.0em;
+margin-bottom:5px;
+margin-right:10px;
+}
+
+#logout{
+float:right;
+margin-top:5px;
+font-size:0.65em;
+color:#838182;
+margin-right:10px;
+}
+
+#how{
+font-size:10px;
+}
+
+#pic{
+width:50px;
+padding-right:10px;
+float:right;
+}
+
+#fbconnect{
+width:50px;
+}
+
+#mbar{
+width:800px;
+height:50px;
+float:left;
+}
+
+#menu{
+width:500px;
+height:25px;
+font-size:12px;
+float:right;
+}
+
+#menu li{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+text-align:center;
+width:100px;
+height:32px;
+float:right;
+font-weight:bold;
+margin-left:6px;
+padding-top:7px;
+padding-left: 20px;
+padding-right: 20px;
+background-color:#5380A5;
+display:inline;
+}
+html>body #menu li{
+width:60px;
+height:25px;
+}
+
+#menu li a{color:#ffffff;}
+
+#divider{
+width:800px;
+height:15px;
+background-color:#5380A5;
+}
+html>body #divider{
+height:15px;
+margin-top:30px;
+}
+
+#announcements{
+width:800px;
+margin:auto;
+text-align:center;
+}
+
+.announce{
+width:253px;
+height:50px;
+float:left;
+margin-top:20px;
+}
+
+.announce a:active{background-color:#01a14b;}
+
+#annleft{
+background-color:#838182;
+margin-left:0px;
+margin-right:10px;
+}
+
+#annmid{
+background-color:#838182;
+margin-left:10px;
+margin-right:10px;
+}
+
+#annright{
+background-color:#838182;
+margin-left:10px;
+}
+
+#window{
+width:800px;
+margin:auto;
+}
+
+.main{
+width:526px;
+background-color:#DADDE2;
+margin-top:20px;
+margin-right:10px;
+float:left;
+padding-bottom:40px;
+}
+
+/*h1{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-weight:bolder;
+color:#ffffff;
+font-size:14px;
+background-color:#01a14b;
+float:left;
+padding:8px 0px 3px 10px;
+}*/
+
+h1{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-weight:boldest;
+font-size:1.15em;
+text-align:center;
+color:#336699;
+}
+
+ul{
+padding:0px;
+margin:0px;
+}
+
+.header{
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-weight:bolder;
+color:#ffffff;
+font-size:14px;
+width:526px;
+height:30px;
+background-color:#838182;
+float:left;
+display:inline;
+padding:10px 10px 0px 10px;
+}
+/*CSS Hack: IE above declarations, all others below*/
+html>body .header {
+width:506px;
+}
+
+.content{
+width:526px;
+background-color:#ffffff;
+float:left;
+display:inline;
+padding:10px 5px 10px 15px;
+border-bottom-style:solid;
+border-bottom-color:#838182;
+border-bottom-width:thin;
+}
+html>body .content{
+width:506px;
+}
+
+.friends{
+width:253px;
+margin-top:20px;
+margin-left:10px;
+float:left;
+padding-bottom:50px;
+background-color:#DADDE2;
+}
+
+#footer{
+width:795px;
+margin:50px 0px 10px 0px;
+float:left;
+padding:4px 5px 4px 0px;
+height:15px;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-weight:bolder;
+color:#ffffff;
+font-size:10px;
+text-align:right;
+background-color:#5380A5;
+}

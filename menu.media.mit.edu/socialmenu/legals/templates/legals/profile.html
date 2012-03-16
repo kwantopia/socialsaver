@@ -1,0 +1,207 @@
+{% extends 'legals/base.html' %}
+
+{% load facebook_tags %}
+
+{% block tabnav %}
+        	<li><a href="/legals/">Home</a></li>
+            <li><a href="/legals/winners/">Winners</a></li>
+        	<li><a href="/legals/faq/">FAQ</a></li>
+{% endblock tabnav %}
+
+{% block content %}
+
+<!-- -->
+
+<div class="span-20 last">
+
+<div class="span-3">
+    <!-- empty left column -->
+    Update your PIN and Wesabe account.
+</div>
+
+<div class="box span-12">
+  <form id="user_profile_update" action="{% url legals.views.profile %}" method="POST">
+    <div class="span-3">
+        {% show_facebook_photo fbuser %}
+    </div>
+    <div class="span-9 last">
+        <strong>Name:</strong> {% show_facebook_full_name fbuser %} 
+        <br>
+        <strong>E-mail:</strong> {{ user.otnuser.my_email }}
+        <p>
+    </div>
+    <!--
+    <div class="span-12 last">
+        If you specify user name, you can use it instead of e-mail when logging in from mobile.
+    </div>
+    <div class="span-6">
+        Username:
+    </div>
+    <div class="span-6 last">
+        {{ form.username }}
+    </div>
+    -->
+    <div class="span-12 last">
+    <fieldset>
+      <legend>Update PIN (for mobile)</legend>
+      <div id="pin_error" class="error span-10 last">
+      </div>
+      <div id="pin_success" class="success span-10 last">
+      </div>
+
+      <div class="span-11 last">
+        <div class="profile-label span-3">
+            PIN (4-6 digits):
+        </div>
+        <div class="profile-input span-7 last">
+            <input id="first_pin" class="text" type="password" name="first" size="10">
+        </div>
+      </div>
+      
+      <div class="span-11 last">
+        <div class="profile-label span-3">
+          Re-enter PIN:
+        </div>
+        <div class="profile-input span-7 last">
+          <input id="second_pin" class="text"  type="password" name="second">
+        </div>
+      </div>
+    </fieldset>
+    </div>
+
+    <div class="span-12 last">
+      <fieldset>
+      <legend>Link Wesabe Account</legend>
+      <div id="wesabe_error" class="error span-10 last" style="display:none">
+      </div>
+
+      <div class="profile-label span-3">
+        Username:
+      </div>
+      <div class="profile-input span-7 last">
+        {% if wesabe_id %}
+            <input id="w_user" type="text" class="text" name="wesabe_username" value="{{ wesabe_id }}">
+        {% else %}
+            <input id="w_user" type="text" class="text" name="wesabe_username">
+        {% endif %}
+      </div>
+      <div class="profile-label span-3">
+        Password:
+      </div>
+      <div class="profile-input span-7 last">
+        <input id="w_pass" type="password" class="text" name="wesabe_password">
+      </div>
+      </fieldset>
+    </div>
+    
+    <!--
+
+    <div class="profile-label span-4">
+        Default Transaction Sociability:
+    </div>
+    <div class="span-8 last">
+        <input type="radio" name="sharing" value="0" {% if sharing == 0 %}checked{% endif %}>Private<br> 
+        <input type="radio" name="sharing" value="1" {% if sharing == 1 %}checked{% endif %}>Friends<br> 
+        <input type="radio" name="sharing" value="2" {% if sharing == 2 %}checked{% endif %}>Community<br> 
+        <input type="radio" name="sharing" value="3" {% if sharing == 3 %}checked{% endif %}>Public<br> 
+        <blockquote>
+        Community is composed of those people that have similar taste.
+        </blockquote>
+    </div>
+    -->
+    <div class="span-12 last">
+        <div class="prepend-10 span-2 last">
+            <input id="sharing_pref" type="hidden" name="sharing" value="3">
+            <input class="button" type="submit" name="Submit" value="Update">
+        </div>
+    </div>
+
+  </form>
+</div>
+
+<div class="span-5 last">
+    <!-- empty right column -->
+</div>
+
+</div><!-- end of span-24 -->
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script type="text/javascript">
+    $('document').ready( function() {
+        var success = false;
+        $('#pin_error').hide();
+        $('#pin_success').hide();
+
+        $('#user_profile_update').submit( function() {
+            $("#wesabe_error").hide();
+            //console.log( $('#w_user').val() );
+            //console.log( $('#w_pass').val() );
+            //console.log( $('#w_pass').val().length  );
+
+            if ($('#first_pin').val().length > 0 ) {
+                $("#pin_error").hide()
+                $("#pin_success").hide()
+                $("#wesabe_error").hide();
+                $('input[type=submit]', this).attr('disabled', 'disabled')
+                $.post('{% url legals.views.profile %}', {'first': $('#first_pin').val(),
+                                                          'second': $('#second_pin').val(),
+                                                          'sharing': $('#sharing_pref').val()},
+                    function (data) {
+                        if (data.result == 1) {
+                            $("#pin_success").text(data.prompt);
+                            $("#pin_success").show()
+                            $('input[type=submit]').removeAttr('disabled');
+                        } else if (data.result == -1) {
+                            $("#pin_error").text(data.prompt);
+                            $("#pin_error").show()
+                            $('input[type=submit]').removeAttr('disabled');
+                        }
+                    }, 
+                "json");
+            }
+           
+            if ($('#w_pass').val().length > 0) {
+                $("#pin_error").hide();
+                $("#pin_success").hide();
+                $("#wesabe_error").text("Loading transactions...");
+                $("#wesabe_error").show();
+                $('input[type=submit]', this).attr('disabled', 'disabled');
+                $.post('{% url finance.views.ajax_load %}', {'email':$('#w_user').val(), 'password':$('#w_pass').val()}, 
+                    function(data) {
+                        //console.log(data);
+                        if (data.result == '1') {
+                            // successfully loaded
+                            //console.log("Wesabe data loaded");
+                            // submit form
+                            //console.log($('#sharing_pref').val());
+                            $("#wesabe_error").text("Successfully updated");
+                            $("#wesabe_error").show();
+                            $('input[type=submit]').removeAttr('disabled');
+                            success = true;
+                            return success;
+                        } else if (data.result == '-2') {
+                            // show wesabe username and password was not found
+                            $("#wesabe_error").text(data.error);
+                            $("#wesabe_error").show();
+                            $('input[type=submit]').removeAttr('disabled');
+                            success = false;
+                            return success;
+                        } else {
+                            // show wesabe username and password was not found
+                            $("#wesabe_error").text(data.error.email[0]);
+                            $("#wesabe_error").show();
+                            $('input[type=submit]').removeAttr('disabled');
+                            success = false;
+                            return success;
+                        }
+                    }, "json");
+            }
+            //console.log("successfully submitting form");
+            return success;
+        });
+    });
+    </script>
+{% endblock %}

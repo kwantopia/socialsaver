@@ -1,0 +1,71 @@
+<form class="cmxform" id="setup" action="" method="post" accept-charset="utf-8" class="nice-form">
+    {% csrf_token %}
+    <p>
+    </p>
+    <fieldset>
+        <legend>The following information is required to participate in the trial.</legend>
+
+        <input type="hidden" name="facebook_only" value="false" id="facebook_only">
+        <input type="hidden" name="next" value="{{ next }}" id="next">
+        <p>
+        The information entered will only be used for the research trial and will not be used for any other purposes.
+        </p>
+    </fieldset>
+    
+    <fieldset>
+       	<legend>Username and PIN are required for <i>mobile access</i></legend>
+            
+            <div class="span-20 last">
+                <div class="span-8" style="padding-top:10px; text-align:right">
+                    <p> <label for="username">Username (used for logging into mobile)</label> </p>
+                </div>
+                
+                <div class="span-10 last">
+                    <p> <input type="text" class="text" id="username" name="username"/> </p>
+                </div>
+            </div>
+    
+    		<div class="span-20 last">
+                <div class="span-8" style="padding-top:10px; text-align:right">
+                    <p> <label for="pin">PIN (4-6 digits)</label> </p>
+                </div>
+                
+                <div class="span-10 last">
+                    <p> <input type="password" class="text" id="pin" name="pin"/> </p>
+                </div>
+            </div>
+            
+            <div class="span-20 last">
+                <div class="span-8" style="padding-top:10px; text-align:right">
+                    <p> <label for="email">Email</label> </p>
+                </div>
+                
+                <div class="span-10 last">
+                    <p> <input type="text" class="text" id="email" name="email"/> </p>
+                </div>
+            </div>
+            
+            <div class="span-20 last">
+                <div class="span-8" style="padding-top:10px; text-align:right">
+                    <p> <label for="phone">Phone</label> </p>
+                </div>
+                
+                <div class="span-10 last">
+                    <p> <input type="text" class="text" id="phone" name="phone"/> </p>
+                </div>
+            </div>
+
+    </fieldset>
+    
+    <fieldset id="consentforms">
+        <input type="checkbox" name="otnconsent" id="otnconsent" value="1" onclick="consent()"/>
+        <label for="otnconsent">
+        I consent to the terms of OTN research trial (<a href="/consent/otn/" target="_blank">Terms</a>)
+        </label>
+        </p>
+        <hr class="space" />
+        <p>
+        <input name="continue" id="continue" type="submit" value="Continue">
+        </p>
+    </fieldset>
+</form>

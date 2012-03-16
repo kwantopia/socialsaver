@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+{% load facebook_tags %}
+
+ <head>
+  
+  <title>{% block page_title %}{% endblock %}</title>
+
+  <!-- Styles -->
+  <!-- Blueprint CSS -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}styles/blueprint/screen.css" type="text/css" media="screen, projection">
+  <link rel="stylesheet" href="{{ STATIC_URL }}styles/blueprint/print.css" type="text/css" media="print">    
+  <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+  
+  <!-- Site specific styles -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}styles/default/base.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="{{ STATIC_URL }}styles/default/yellow.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="{{ STATIC_URL }}styles/webuy/base.css" type="text/css" media="screen">
+  
+  <!-- JQuery UI -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}styles/excite-bike/jquery-ui-1.8.custom.css"> 
+
+  <!-- JQuery Tipsy -->
+  <link rel="stylesheet" href="{{ STATIC_URL }}styles/tipsy/tipsy.css">
+
+  <!-- Facebook Scripts -->
+  {% facebook_js %}
+
+  <!-- Page-specific CSS -->
+  {% block extra_styles %}
+  {% endblock %}
+ </head>
+
+<body>
+  <div class="container">
+    <div class="prepend-2 span-20 last">
+      <div id="header">
+        <div class="span-20 last"> 
+          <div id="logo" class="span-12">
+              <h2><a href="/"><img src="{{ STATIC_URL }}media/webuy/WeBuy_wide45.png" style="border:none" /><span class="img_replace">WeBuy</span></a></h2>
+              <p id="sublogo"> from the <a href="http://www.media.mit.edu/">MIT Media Lab</a> and <a href="http://bestbuy.com">Best Buy</a></p>
+          </div><!-- span-14 -->
+
+          {% if user.is_authenticated %}
+              <div class="prepend-2 span-6 last">
+                <div id="user">
+                  <div class="span-4 last">
+                      <div class="span-4 last">
+                          <a href="{% url web.views.profile %}">{% show_facebook_full_name user %}</a>
+                      </div>
+                      <div class="span-4 last">
+                      {% show_logout %}
+                      </div>
+                  </div>
+                  <div class="span-2 last">
+                  {% show_facebook_photo user %}
+                  </div>
+                </div>
+              </div> <!-- span-6 -->
+          {% else %}
+            <div class="span-8 last">
+                <div id="user">
+                  <div class="span-3">
+                    <a href="{% url web.views.faq %}">How is Facebook used?</a>
+                  </div>
+                  <div class="span-5 last">
+                  {% show_connect_button %}
+                  </div>
+                </div> <!-- end #user --> 
+              </div>
+          {% endif %}
+        </div><!-- span-20 last -->
+        <div class="span-20 last">
+          <div id="menu">
+            <ul>
+                <li><a href="{% url web.views.home %}">Home</a></li><!--should be seperate page -->
+                {% block menu %}
+                
+                {% endblock %}
+                <li><a href="{% url web.views.faq %}">FAQ</a></li>
+
+            </ul>
+          </div><!-- end menu -->
+          <div id="header_bar"></div>
+        </div> <!-- span-20 last -->
+	  </div><!-- header -->
+
+      <div id="home-body" class="span-20 last">
+        {% block content %}
+        {% endblock %}
+      </div>
+
+      <div class="span-20 last">
+          <div id="footer">
+            <!-- Footer -->
+            <center>
+            <p class="small">
+              &copy;2010 webuy.mit.edu. All rights reserved. 
+            </p>
+            </center>
+          </div>
+      </div>
+    </div> <!-- prepend-2 span-20 -->
+  </div><!-- container -->
+
+  <!-- Scripts -->
+
+  <!-- JQuery -->
+  <script type="text/javascript" src="http://www.google.com/jsapi?key={{GOOGLE_API_KEY}}"></script>
+  <script type="text/javascript">
+    google.load("jquery", "1.4.2");
+    google.load("jqueryui", "1.8.0");
+  </script>
+  <script type="text/javascript" src="{{ STATIC_URL }}scripts/default/jquery.tipsy.js"></script>
+  
+  <!-- Page-specific scripts -->
+  {% block extra_scripts %}
+  {% endblock %}
+
+ <!-- for using Facebook Connect -->
+ {% initialize_facebook_connect %}
+
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+  try {
+  var pageTracker = _gat._getTracker("UA-15309665-3");
+  pageTracker._setDomainName("none");
+  pageTracker._setAllowLinker(true);
+  pageTracker._trackPageview();
+  } catch(err) {}
+</script>
+
+ </body>
+</html>

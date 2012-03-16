@@ -1,0 +1,133 @@
+body {
+	margin:0px;
+	padding:0px;
+}
+
+#footer_alert {
+	position:fixed;
+	bottom:0px;
+	left:0px;
+	height:100px;
+	width:480px;
+	background:red;
+}
+
+#menu_list input {display:none;}
+
+body > ul > li > a span.price {
+	color:#777;
+}
+
+.items .price {
+	float:right;
+	color:#777;
+	font-size:.7em;
+}
+
+.item .price {
+	float:right;
+	color:#777;
+	margin-top:-2em;
+}
+
+.items .friends {
+	color:#548BC7;
+	background: url(/media/mobile/Man2.png) no-repeat;
+	padding-left:24px;
+	margin-top:3px;
+	font-size:14px;
+}
+
+.item .title {
+	width:260px;
+}
+
+
+.item .friend {
+	color:#548BC7;
+	background: url(/media/mobile/Man2.png) no-repeat;
+	padding-left:24px;
+	margin-top:3px;
+}
+
+.item .ordered_button {
+	background-color:#9BC79E;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	padding: 10px 3px 0px 60px;
+	width:230px;
+	height:35px;
+	margin-top:15px;
+}
+
+.item .ordered_button span {
+	font-size:18px;
+	margin-left:5px
+}
+
+.item .ordered_button input {
+	width:20px;
+	height:20px;
+	float:left;
+}
+
+
+.dialog fieldset #cartlist {
+	position: absolute;
+    margin: 20px 0 0 6px;
+    color: #999999;
+	padding:0;
+	text-align:left;
+	list-style-type:none;
+}
+
+.dialog fieldset #cartlist .name {
+	font-size: 1.4em;
+	margin-top:4px;
+	font-variant:small-caps;
+	font-weight:bold;
+	width:260px;
+}
+
+.dialog fieldset #cartlist .desciption {
+	width:260px;
+}
+
+.dialog fieldset #cartlist .price {
+	float:right;
+	color:#777;
+	margin-top:-1.5em;
+	margin-right:34px;
+	font-size:.9em;
+}
+
+.dialog fieldset #cartlist .delete {
+	float:right;
+	margin-top:-1.5em;
+	width:32px;
+}
+
+.cat_description {
+	font-size:12px;
+	padding:5px;
+	background:#ccc;
+}
+
+
+
+
+.savingsopp {
+	border:1px solid #548BC7;
+	padding:10px 5px;
+	background-color: #B9C0C7;
+	margin-bottom:15px;
+}
+
+/*#friendslink {
+	height:30px;
+	padding-top:15px
+}*/
+
+.friends_suggestions {
+	background-color:#FFDD00;
+}

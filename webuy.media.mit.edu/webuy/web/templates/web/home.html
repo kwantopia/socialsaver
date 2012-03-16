@@ -1,0 +1,98 @@
+{% extends "web/base.html" %}
+
+{% block page_title %}
+WeBuy - Home
+{% endblock %}
+
+{% block menu %}
+    <li><a href="{% url web.views.wishlist %}">Wish List</a></li>
+    <li><a href="{% url web.views.purchases %}">Purchases</a></li>
+    <li><a href="{% url survey.views.surveys %}">Surveys</a></li>
+{% endblock %}
+
+{% block content %}
+
+<!-- show feeds -->
+
+<div class="span-20 last">
+  <div id="dashboard" class="span-20 last">
+    <div class="dashboard">
+      <div class="dashitem">
+          <div class="dashfocus">{{ num_requests }}</div>
+          <div class="dashtext">review requests</div>
+      </div>
+      <div class="dashitem">
+          <div class="dashfocus">{{ num_wishes }}</div>
+          <div class="dashtext">items wished</div>
+      </div>
+      <div class="dashitem">
+          <div class="dashfocus">{{ num_people }}</div>
+          <div class="dashtext">people</div>
+      </div>
+    </div>
+    <!-- <div style="clear:both"></div> --> 
+  </div>
+
+  <div id="home-body" class="span-20 last">
+    <div class="span-14">
+      <h2>Latest Feeds</h2>  
+      <div id="tabs">
+        <ul>
+          <li><a href="#tabs-1">Latest</a></li>
+          <li><a href="#tabs-2">Public</a></li>
+          <li><a href="#tabs-3">Personal</a></li>
+        </ul>
+        <div id="tabs-1">
+          {% for f in feeds %}
+            <div class="feed {% if f.personal %} personal {% else %} public {% endif %}">
+              {% autoescape off %}
+                {{ f.markup }}
+              {% endautoescape %}
+            </div>
+          {% endfor %}
+        </div>
+        <div id="tabs-2">
+          {% for f in public_feeds %}
+            <div class="feed public">
+              {% autoescape off %}
+                {{ f.markup }}
+              {% endautoescape %}
+            </div>
+          {% endfor %}
+        </div>
+        <div id="tabs-3">
+          {% for f in personal_feeds %}
+            <div class="feed personal">
+
+              {% autoescape off %}
+                {{ f.markup }}
+              {% endautoescape %}
+            </div>
+          {% endfor %}
+        </div>
+      </div><!-- tabs -->
+    </div><!-- Feeds -->
+
+    <div class="span-6 last">
+      <h2>Friends in WeBuy</h2>
+      <table>
+        {% for friend in friends_list %}
+          <tr>
+          <td> {{ friend.name }}</td>
+          <td><img src="{{ friend.image }}"></img></td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div><!-- friends -->
+  </div><!-- #home-body -->
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+
+<script type="text/javascript">
+  $(function() {
+    $("#tabs").tabs();
+  });
+</script>
+{% endblock %}

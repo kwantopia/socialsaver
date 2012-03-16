@@ -1,0 +1,124 @@
+@charset "utf-8";
+/* CSS Document */
+/* Margins/Padding: top right bottom left
+					top/bottom  right/left
+					top  left/right  bottom*/
+					
+body{
+background-color:#EDCCA3;
+background-image:url(../../media/mealtime/salmonbg.jpg);
+background-position:top;
+background-repeat:repeat-x;
+}
+
+#container{
+background-color:#ffffd6;
+width:1000px;
+height:800px;
+margin:auto;
+}
+
+.shadow{
+box-shadow: 0px 0px 25px #000;
+-webkit-box-shadow: 0px 0px 25px #000;
+-moz-box-shadow: 0px 0px 25px #000;
+filter: progid:DXImageTransform.Microsoft.dropShadow(color=#000, offX=0, offY=0, positive=true);
+}
+
+#logo{
+width:700px;
+height:70px;
+float:left;
+}
+
+#log{
+width:300px;
+height:70px;
+float:right;
+}
+
+#user{
+width:170px;
+font-family:Verdana, sans serif;
+font-size:10px;
+}
+
+#pic{
+width:50px;
+}
+
+.divider{
+text-align:center;
+}
+
+#menu{
+width:120px;
+height:400px;
+float:left;
+padding:10px;
+text-align:left;
+}
+
+#main{
+width:680px;
+height:400px;
+}
+
+#footer{
+height:25px;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-weight:bolder;
+color:#ffffff;
+font-size:10px;
+}
+
+/*Accordion Menu Styles*/
+.mealmenu{
+width: 190px; /*width of menu*/
+}
+
+.mealmenu .headerbar{
+font: bold 13px Verdana;
+color: #cc401c;
+background: #ffffd6;
+border-color:#CC401C;
+border-style:solid;
+border-width:thick;
+margin: 0 10px 5px 15px;
+text-transform: uppercase;
+padding: 7px 0 7px 15px;
+}
+
+.mealmenu .headerbar a{
+text-decoration: none;
+color:#cc401c;
+display: block;
+}
+
+.mealmenu ul{
+list-style-type: none;
+margin: 0;
+padding: 0;
+margin-bottom: 0; /*bottom spacing between each UL and rest of content*/
+}
+
+.mealmenu ul li{
+padding-bottom: 2px; /*bottom spacing between menu items*/
+border-bottom-color:#cc401c;
+border-bottom-width:thin;
+}
+
+.mealmenu ul li a{
+font: normal 12px Arial;
+color: black;
+background: #ffffd6;
+display: block;
+padding: 5px 0;
+line-height: 17px;
+padding-left: 30px; /*link text is indented 8px*/
+text-decoration: none;
+}
+
+.mealmenu ul li a:hover{ /*hover state CSS*/
+
+}

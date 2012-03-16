@@ -1,0 +1,21 @@
+server {
+    listen 80; 
+    server_name otn-dev.mit.edu;
+    rewrite ^/(.*) http://otn-dev.mit.edu/$1 permanent;
+}
+
+server {
+    listen 80;
+    server_name otn-dev.mit.edu;
+
+    access_log /home/www/otn.mit.edu/nginx/logs/access.log;
+    error_log /home/www/otn.mit.edu/nginx/logs/error.log;
+
+    location / {
+        #root /home/www/otn.mit.edu/htdocs/;
+        #index index.html;
+        proxy_pass http://127.0.0.1:8089/;
+        include /etc/nginx/proxy.conf;
+    }
+
+}

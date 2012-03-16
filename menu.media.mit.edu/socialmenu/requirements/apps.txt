@@ -1,0 +1,5 @@
+Django
+PIL
+sorl-thumbnail==3.2.5
+-e git+https://github.com/sciyoshi/pyfacebook.git#egg=facebook
+httplib2

@@ -1,0 +1,13 @@
+{% extends "web/base.html" %}
+
+{% block content %}
+
+  <h1>Table Codes Valid for Today</h1>
+  <table>
+      {% for c in codes %}
+        <tr>
+          <td>{{ c }}</td>
+        </tr>
+      {% endfor %}
+  </table>
+{% endblock %}

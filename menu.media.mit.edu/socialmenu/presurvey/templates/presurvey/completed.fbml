@@ -1,0 +1,19 @@
+<fb:header>
+  {% comment %}
+    We can use {{ fbuser }} to get at the current user.
+    {{ fbuser.id }} will be the user's UID, and {{ fbuser.language }}
+    is his/her favorite language (Python :-).
+  {% endcomment %}
+  Thank you, <fb:name uid="{{ fbuser.id }}" firstnameonly="true" useyou="false" />!
+</fb:header>
+
+<div class="clearfix" style="float: left; border: 1px #d8dfea solid; padding: 10px 10px 10px 10px; margin-left: 30px; margin-bottom: 30px; width: 500px;">
+    Thank you for completing the survey.  Please register at <a href="http://menu.mit.edu/legals/">Legal's Menu Experiment</a> to participate (be eligible for $10 voucher and raffles).  Please help us design a better digital menu by inviting more of your friends to participate in trial. E-mail them the following URL: 
+    <p>
+    <b>http://apps.facebook.com/{{appname}}/</b>
+
+    <p>
+</div>
+
+
+

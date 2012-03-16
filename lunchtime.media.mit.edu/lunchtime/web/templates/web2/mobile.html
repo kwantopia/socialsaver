@@ -1,0 +1,249 @@
+{% extends 'web2/base.html' %}
+
+{% block page_title %}
+The Mealtime Mobile Application
+{% endblock %}
+
+{% block page_styles %}
+<style type="text/css">
+#mobile{
+width:900px;
+margin:auto;
+}
+
+ul{
+display:inline-block;
+width:900px;
+}
+
+.question{
+width:850px;
+font-family:Helvetica, Verdana, sans-serif;
+font-weight:bolder;
+text-align:left;
+font-size:1.1em;
+float:left;
+display:inline-block;
+}
+
+.answer{
+width:850px;
+font-family:Helvetica, Verdana, sans-serif;
+font-size:1.0em;
+text-align:left;
+float:left;
+display:inline-block;
+padding:10px;
+border-bottom: thin solid #004f09;
+}
+
+#imgcontainer{
+width:900px;
+margin:auto;
+display:inline;
+text-align:center;
+}
+
+.imgset1{
+width:200px;
+height:300px;
+margin:5px 5px 50px 5px;
+float:left;
+display:inline;
+}
+
+.imgset2{
+width:400px;
+height:300px;
+margin:5px 5px 50px 5px;
+float:left;
+display:inline;
+}
+
+.screenshot{
+margin-bottom:5px;
+text-align:center;
+}
+
+.caption{
+font-family:Helvetica, Verdana, sans-serif;
+font-size:0.9em;
+font-weight:normal;
+text-align:center;
+}
+</style>
+{% endblock %}
+
+{% block nav %}
+{% if log %}
+<div class="nav_li"><a href="{% url web.views.transactions "date_desc" 1 %}">TRANSACTIONS</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url survey.views.surveys %}">SURVEYS</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.mobile %}">MOBILE</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.about %}">ABOUT</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.faq %}">FAQ</a></div>
+
+{% else %}
+<div class="nav_li"><a href="{% url web.views.mobile %}">MOBILE</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.about %}">ABOUT</a></div>
+<div class="nav_d"><img src="{{ STATIC_URL }}media/mealtime/navdivider.png" border=0 height="30px" width="3px" /></div>
+<div class="nav_li"><a href="{% url web.views.faq %}">FAQ</a></div>
+{% endif %}
+{% endblock %}
+
+
+{% block small %}
+{% endblock %}
+
+{% block content %}
+<div id="bigwindow">
+<div id="mobile">
+<h1>- How to Use the Mobile App -</h1>
+    <ul>
+        <li class="question">
+            Where can I get the mobile application?
+        </li>
+        <li class="answer">
+            The MealTime mobile application is available through the Apple App Store for the iPhone and iPod Touch, or through the Android Market for Android phones.
+        </li>
+    </ul>
+    
+
+    <ul>
+    	<li class="question">
+        	The Android App:<br /><br />
+        </li>
+        
+        <div id="imgcontainer">
+
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/mealtime/01.png" /></div>
+            
+            <div class="caption">
+                See recent TechCash transactions.
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/mealtime/02.png" /></div>
+            
+            <div class="caption">
+                Click a transaction to review.
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/mealtime/03.png" /></div>
+            
+            <div class="caption">
+                The MealTime Menu
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/mealtime/05.png" /></div>
+            
+            <div class="caption">
+                See a list of TechCash-accepting venues.
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/mealtime/06.png" /></div>
+            
+            <div class="caption">
+                Click a venue to see reviews.
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/mealtime/07.png" /></div>
+            
+            <div class="caption">
+                You may also see friends that have visited the venue.
+            </div>
+        </div>
+        
+        <div class="imgset2">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/mealtime/08.png" /></div>
+            
+            <div class="caption">
+                Click a friend to see transactions, reviews, and contact information.
+            </div>
+        </div>
+        
+        </div>
+    </ul>
+    
+    <!--[if IE 7]><br /><br /><br /><![endif]-->
+    
+    <ul>
+    	<li class="question">
+        	The iPhone App:<br /><br />
+        </li>
+        
+        <div id="imgcontainer">
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/mealtime/i0.png" /></div>
+            
+            <div class="caption">
+                View your recent purchases.
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/mealtime/i1.png" /></div>
+            
+            <div class="caption">
+                Check statistics of your purchase histories.
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/mealtime/i2.png" /></div>
+            
+            <div class="caption">
+                Click a transaction to review.
+            </div>
+        </div>
+        
+        <div class="imgset1">
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/mealtime/i3.png" /></div>
+            
+            <div class="caption">
+                View friends who have visited the same location.
+            </div>
+        </div>
+        
+        <div class="imgset1">
+            <div class="screenshot"><img src="{{ STATIC_URL }}media/mealtime/i4.png" /></div>
+            
+            <div class="caption">
+                Click a friend to see transaction histories.
+            </div>
+        </div>
+        
+        </div>
+    </ul>
+<!--[if IE 7]><br /><br /><br /><![endif]-->
+</div>
+
+{% endblock content %}
+
+
+{% block extra_scripts %}
+<script type="text/javascript">
+$(document).ready(function(){
+     
+   });
+   
+</script>
+{% endblock %}

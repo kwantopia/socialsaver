@@ -1,0 +1,154 @@
+{% extends 'legals/base.html' %}
+
+{% load facebook_tags %}
+<!-- This page is shown only when user logs in -->
+
+{% block page_title %}
+Gift Certificate Administration
+{% endblock %}
+
+{% block tabnav %}
+  <li><a href="{% url legals.views.orders 0 %}">Orders</a></li>
+  <li><a href="{% url survey.views.surveys %}">Surveys</a></li> 
+  <li><a href="{% url legals.views.winners %}">Winners</a></li>
+  <li><a href="{% url legals.views.faq %}">FAQ</a></li>
+{% endblock tabnav %}
+
+{% block warnings %}
+{% endblock %}
+
+{% block content %}
+
+{% if authorized %}
+  <div class="span-21 last">
+  <h3>
+    Participants
+  </h3>
+  </div>
+  <div class="span-21 last">
+    <!-- headers -->
+    <div id="admin-header-title" class="span-21 last">
+      <div class="span-2">
+        E-mail
+      </div>
+      <div class="span-4">
+        Address 
+      </div>
+      <div class="span-2">
+        Surveys 
+      </div>
+      <div class="span-2">
+        Receipts
+      </div>
+      <div class="span-1">
+        CC 
+      </div>
+      <div class="span-3">
+        Spending
+      </div>
+      <div class="span-2">
+        Amount
+      </div>
+      <div class="span-4 last">
+        Claim codes
+      </div>
+    </div>
+    <!-- info of users -->
+    <div class="span-21 last">
+      {% for key, r in reimburse.items %}
+        <div class="span-21 last">
+          <div class="span-2">
+            <a href="mailto:{{ r.email }}">{{ r.first_name }}</a> 
+          </div>
+          <div class="span-4">
+            {{ r.comp.address }}, {{ r.comp.city }}, {{ r.comp.state }}, {{ r.comp.zipcode }}
+          </div>
+          <div class="span-2">
+            {{ r.surveys }}
+            <!--
+            {% if r.comp.verified %}
+              {{ r.comp.verified }}
+            {% else %}
+              <input id="chk{{r.user_id}}" type="checkbox" name="verify" value="1">
+            {% endif %}
+            -->
+          </div>
+          <div class="span-2">
+            {% if r.receipts|length == 0 %}
+              &nbsp;
+            {% else %}
+              {% for j in r.receipts %}
+                <a href="{{j}}">{{forloop.counter}}</a>
+              {% endfor %}
+            {% endif %}
+          </div>
+          <div class="span-1">
+            {{ r.num_txns }}
+          </div>
+          <div class="span-3">
+            {% if r.estimate|length == 0 %}
+              &nbsp;
+            {% else %}
+              {% for e in r.estimate %}
+                {{ e }}<br>
+              {% endfor %}
+            {% endif %}
+          </div>
+          <div class="span-2">
+            ${{ r.amount }} 
+          </div>
+          <div rel="#certificate-detail" class="certificate-entry span-4 last">
+            <div id="cert{{r.user_id}}" class="span-4 last">
+              {% if r.comp.certificates %}
+                {{ r.comp.certificates }} 
+              {% else %}
+                Click to enter certificates
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% else %}
+  <div class="prepend-1 span-18 append-1 last">
+  <p>
+    <h3>There is nothing to administer</h3>
+  </p>
+  </div>
+{% endif %}
+
+<div id="certificate-detail" class="modal">
+  <div class="content-wrap">
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  $(document).ready( function() {
+
+    var user_id = 0;
+
+    $(".certificate-entry").click( function() {
+      var obj_id = $(this).children(":first").attr("id");
+      user_id = obj_id.substr(4);
+      //console.log(user_id);
+    });
+
+    $(".certificate-entry[rel]").overlay( {
+      mask: {
+        color: '#ebecff',
+        loadSpeed: 200,
+        opacity: 0.9
+      },
+      onBeforeLoad: function () {
+        var wrap = this.getOverlay().find(".content-wrap");
+        wrap.load("/legals/gift/certificate/"+user_id+"/");
+      }
+    });
+  });
+</script>
+
+{% endblock %}

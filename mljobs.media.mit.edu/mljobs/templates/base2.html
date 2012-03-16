@@ -1,0 +1,180 @@
+<html>
+<head>
+  <!-- Blueprint CSS -->
+  <link rel="stylesheet" href="styles/blueprint/screen.css" type="text/css" media="screen, projection">
+  <link rel="stylesheet" href="styles/blueprint/print.css" type="text/css" media="print">    
+  <!--[if IE]><link rel="stylesheet" href="styles/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+  <!--[if IE]><link rel="stylesheet" type="text/css" href="styles/blueprint/ie7.css" ><![endif]--> 
+  <link rel="stylesheet" href="styles/jquery-ui-1.8.2.custom.css" type="text/css" >
+
+<style type="text/css">
+body {
+	margin: 0;
+	padding: 0;
+	background: #E3FFC2 url(images/headerbar.png) repeat-x;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #c;
+}
+
+#header {
+	height: 40px;
+	background: #3a7f0b;
+	margin: 0 auto;
+	padding: 0 0 0 0;
+}
+
+#logo_bar {
+	min-height: 180;
+	max-height: 180;
+}
+
+#logo_icon {
+	margin-top: 40;
+}
+
+#welcome_user {
+	text-align: right;
+	color: white;
+	margin-top: 120;
+	font-size: 14;
+}
+
+#content_body {
+	background: #3a7f0b;
+}	
+
+#side_bar {
+	background: #E3FFC2;
+	min-height: 800;
+}
+
+#main_content {
+	background: #E3FFC2;
+	min-height: 800;
+}
+
+#footer {
+	min-height: 160;
+	background: #619b3a;
+	margin: 0 auto;
+}
+
+#foot_notes {
+	margin-top: 40px;
+	color: white;
+	text-align: center;
+}
+
+username {
+	color: #619b3a;
+	font-weight: bold;
+}
+
+</style>
+</head>
+<body>
+
+  <div id="header">
+  </div>
+  <div class="container">
+    <div class="span-24">
+      <div id="logo_bar" class="span-14">
+	    <img id="logo_icon" src="images/mljobs_logo.png" />
+	  </div>
+	  <div id="welcome_user" class="span-10 last"> 
+	    <p> Welcome, <username>Username Here<username> </p>
+	  </div>
+	</div>
+	<div id="menu_bar" class="span-24 last">
+	  <a href="#"><img id="home_sel" src="images/home_select.png"/></a>
+	  <a href="#"><img id="listings" src="images/listings_unselect.png"/></a>
+	  <a href="#"><img id="people" src="images/people_unselect.png"/></a>
+	  <a href="#"><img id="portfolio" src="images/portfolio_unselect.png"/></a>
+	  <a href="#"><img id="profile" src="images/my_profile_unselect.png"/></a>
+	</div>
+	<hr class="space"/><hr class="space"/>
+	<div id="content_body" class="span-24">
+	  <div id="side_bar" class="span-8 border">
+        <p>some random text to get started </p>
+      </div>
+	  <div id="main_content" class="span-16 last">
+	    <div id="intweight_slider" class="prepend-3 span-10 append-3 last">
+		<p>
+		    <label for="interest_weight">Interest Weight (0-lo, 10-hi):</label>
+		    <input type="text" id="interest_weight" style="border:0; color:#f6931f; font-weight:bold;" />
+		  </p>
+		  <div id="slider"></div>
+		</div>
+	  </div>
+	</div>
+  </div>
+  <hr class="space"><hr class="space">
+  <div id="footer">
+    <hr class="space">
+    <div id="foot_notes">design by engiarta ... product for Viral Comm at the MIT Media Lab</div>
+  </div>
+</body>
+
+<!-- Scripts -->	
+  <!-- JQuery -->
+  <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAtw1JH2yMfNAUgmPaNN9VkBRUEMZMIuZf5fuNeBreL_7YhGIybBRmLT0l-embkJewmVyBlS7XXbZJ0Q"></script>
+  <script type="text/javascript">
+    google.load("jquery", "1.4.2"); 
+    google.load("jqueryui", "1.8.1");
+  </script>
+  <script src="http://cdn.jquerytools.org/1.2.2/all/jquery.tools.min.js"></script>
+  
+  <!--[if lt IE 9]> 
+  <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js">IE7_PNG_SUFFIX=".png";</script> 
+  <![endif]-->
+  
+<script type="text/javascript">
+	$(document).ready( function() {
+		alert('boo');
+		
+  	  $("#slider").slider({
+		range: "min",
+		value: 5,
+		min: 0,
+		max: 10,
+		step: 1,
+		slide: function(event, ui) {
+	  $("#interest_weight").val(ui.value);
+			}
+	  });
+	  $("#interest_weight").val($("#slider").slider("value"));
+
+	
+  	  $('#home').hover( function() {
+	    $(this).attr('src', 'images/home_select.png');
+		}, function() {
+		$(this).attr('src', 'images/home_unselect.png');
+	  });
+	  
+	  $('#listings').hover( function() {
+	    $(this).attr('src', 'images/listings_select.png');
+		}, function() {
+		$(this).attr('src', 'images/listings_unselect.png');
+	  });
+	  
+  	  $('#people').hover( function() {
+	    $(this).attr('src', 'images/people_select.png');
+		}, function() {
+		$(this).attr('src', 'images/people_unselect.png');
+	  });
+
+  	  $('#portfolio').hover( function() {
+	    $(this).attr('src', 'images/portfolio_select.png');
+		}, function() {
+		$(this).attr('src', 'images/portfolio_unselect.png');
+	  });
+	  
+  	  $('#profile').hover( function() {
+	    $(this).attr('src', 'images/my_profile_select.png');
+		}, function() {
+		$(this).attr('src', 'images/my_profile_unselect.png');
+	  });
+    });
+</script>
+</html>
